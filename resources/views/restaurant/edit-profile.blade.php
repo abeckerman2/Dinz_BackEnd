@@ -1,12 +1,37 @@
 @extends('restaurant.layout.layout')
-@section('title','Edit Restaurant Profile')
+@section('title','Edit Restaurant Details')
 @section('content')
 	
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.4/css/intlTelInput.css" integrity="sha256-rTKxJIIHupH7lFo30458ner8uoSSRYciA0gttCkw1JE=" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/css/intlTelInput.css" rel="stylesheet" />
+
+
 <style type="text/css">
+
+	/*country code*/
+	li.country {
+	    color: #080808;
+	}
+	.selected-dial-code {
+	    color: #080808;
+	} 
+	.intl-tel-input .country-list .country .dial-code {
+	    color: #080808!important;
+	}
+
+
+	.intl-tel-input {
+      position: relative;
+      display: inline-block;
+      width: 100%;
+    }
+
 	label.error {
 	    color: #f00!important;
 	    font-size: 95%!important;
 	    margin-top: .5rem;
+	    margin-bottom: 0px;
 	}
 	body[data-background-color=dark] .main-panel label.error {
 	    color: #ff0a0a!important;
@@ -20,6 +45,7 @@
 	    margin-right: 12px;
 	    margin-bottom: 12px;
 	    cursor: pointer;
+		/*margin-top: -15px;*/
 	}
 	input[type="file"] {
 	    display: none;
@@ -36,7 +62,7 @@
 	     position: absolute;
 	     right: 5px;
 	     top: -10px;
-	     /*background-image: url('{{url('public/restaurant/assets/img/cross.png')}}');*/
+	     background-image: url('{{url('public/restaurant/assets/img/cross.png')}}');
 	     background-size: cover;
 	     cursor: pointer;
 	     z-index: 1;
@@ -44,14 +70,10 @@
     .media_preview .upload_images {
    		padding-left: 0;
     }
-    .media_preview .upload_images {
-      /*width: 143px;*/
-      /*height: 136px;*/
+    .media_preview .upload_images { 
       float: left;
       position: relative;
-      word-break: break-all;
-      /*border: 1px solid lightgray;*/
-      /*margin: 0 15px 15px 0;*/
+      word-break: break-all; 
       margin: 0 0px 8px 0;
       padding: 2px;
       display: flex;
@@ -59,28 +81,35 @@
       justify-content: center;
       top: 10px;
     }
-    #image_error , #image_error2{
-     margin-top: 7px !important;
+    #image_error , #image_error2{ 
      color: red !important;
-     margin-bottom: 20px; 
+     margin-bottom: 18px; 
    }
-
-
-   .rest_logo .cross_icon , .cross_icon {
-	    top: -11px;
-	    right: 7px;
-	    font-size: 19px;
-	    background: #fff;
-    	border-radius: 100%;
-	     cursor: pointer;
-	     color: #575962;
-
-	} 
+ 
+	.rest_logo .cross_icon, .cross_icon {
+	    top: -10px;
+	    right: 4px;
+	    font-size: 19px; 
+	    border-radius: 100%;
+	    cursor: pointer;
+	    color: #ffffff;
+	    height: 18px;
+	    width: 18px;
+	}
+	.upload_images  .cross_icon{
+		top: -8px;
+    	right: 6px;
+	}
 	
 
-
-
-
+	.rest_logoo img { 
+	    margin-top: -10px;
+	}
+/*
+.rest_images img { 
+    margin-top: -15px;
+}
+*/
 /*Modal*/
 #alertModel h4.modal-title {
     text-align: center;
@@ -151,23 +180,53 @@ p#alert_txt {
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
 								<li class="breadcrumb-item active"><a href="#">Settings</a></li>
 								<li class="breadcrumb-item active"><a href="{{route('restaurant.profile')}}">Restaurant Profile</a></li>
-								<li class="breadcrumb-item remove_hover">Edit Restaurant Profile</li>
+								<li class="breadcrumb-item remove_hover">Edit Restaurant Details</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
-					<h1>Edit Restaurant Profile</h1>
+					<h1>Edit Restaurant Details</h1>
 					<div class="card">
 						<div class="card-body add_imgae_box">
+
 							<div class="add_content">
+									<label for="" class="pb-1">
+										First Name
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control block-start-space" name="first_name" maxlength="50" placeholder="Enter First Name" value="{{$data->first_name ?? 'N/A'}}" required />
+									</div>
+							</div>
+
+
+							<div class="add_content">
+									<label for="" class="pb-1">
+										Last Name
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control block-start-space" name="last_name" maxlength="50" placeholder="Enter Last Name" value="{{$data->last_name ?? 'N/A'}}" required />
+									</div>
+							</div>
+
+
+							<div class="add_content">
+								<label for="" class="pb-1">
+									Restaurant Name
+								</label>
+								<div class="form-group pb-3">
+									<input type="text" class="form-control block-start-space" name="restaurant_name" maxlength="50" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required />
+								</div>
+							</div>
+
+							<!-- <div class="add_content">
 									<label for="" class="pb-1">
 										Owner Name
 									</label>
 									<div class="form-group pb-3">
 										<input type="text" class="form-control" name="owner_name" maxlength="50" placeholder="Enter Owner Name" value="{{$data->owner_name ?? 'N/A'}}" required />
 									</div>
-							</div>
+							</div> -->
 
 
 
@@ -175,7 +234,7 @@ p#alert_txt {
 									<label for="" class="pb-1">
 										Restaurant Logo
 									</label>
-									  <div class="pb-1 rest_logo">
+									  <div class="pb-1 rest_logo rest_logoo">
 				                      	<img src="{{$data->restaurant_logo}}" onclick="$('#imgInp').click()" title="Change Restaurant Logo" id="blah"/>
 				                      	<input style="display:none;" type="file" id="imgInp" name="restaurant_logo" data-role="magic-overlay" data-target="#pictureBtn" value="{{$data->restaurant_logo}}" accept="Image/*">
 				                      	<!-- <div class="plus_icon">
@@ -184,8 +243,7 @@ p#alert_txt {
 				                      		</div>
 				                      	</div> -->
 				                      </div>
-				                     <span style="display:none; font-weight: 400; margin-bottom: 20px;
- 										; color: #f90303!important;" class="text-danger" id="invalid_file">Please select jpg, jpeg or png image format only. 
+				                     <span style="display:none; font-weight: 400; margin-bottom: 15px; margin-top: -8px; color: #f90303!important;" class="text-danger" id="invalid_file">Please select jpg, jpeg or png image format only. 
  									</span>
 							</div>
 
@@ -218,8 +276,8 @@ p#alert_txt {
 							<div class="add_content">
 		                     <label>Restaurant Other Images</label>
 		                      <div class="restru_images" style="margin-top: 11px;">
-		                        <div class="images_container">
-		                          <div class="img_count">
+		                        <div class="images_container" style="    margin-bottom: -5px;">
+		                          <div class="img_count" style="    margin-top: -12px;">
 
 		                          	<?php $img_counts = count($data->restaurantImages); ?>
 
@@ -227,7 +285,7 @@ p#alert_txt {
 		                              <div class="img_upload upload_images">
 		                                  <input type="hidden" name="non_acceptable_files" class="non_acceptable_files">
 		                                  <input type="hidden" class="ext_media_record" images="0" total-media ="{{$img_counts}}" />
-		                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold" title="Select image" data-recursion="-1" / style="margin-top: 12px;">
+		                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold" title="Click to upload images" data-recursion="-1" / style="margin-top: 12px;">
 		                              </div>
 		                            </div>
 
@@ -236,9 +294,9 @@ p#alert_txt {
 		                              <?php $count = 0; ?>
 		                                @foreach($data->restaurantImages as $photo)
 		                                @php ($urls = $photo->restaurant_image ? url($photo->restaurant_image) : url('public/restaurant/production/images/add_image.png'))
-		                                  <div class="rest_logo"  >
+		                                  <div class="rest_logo rest_images"  >
 		                                    <img src='{{$urls}}' id="{{$photo->id}}" /> 
-		                                    <i class="remove-img far fa-times-circle cross_icon" id="{{$photo->id}}" data-parent="0_0" title="Remove image" type="total-media"></i>
+		                                    <i class="remove-img  cross_icon" id="{{$photo->id}}" data-parent="0_0" title="Remove image" type="total-media"></i>
 		                                  </div>
 		                                <?php $count++ ?>
 		                                @endforeach
@@ -255,49 +313,79 @@ p#alert_txt {
 
 
 
-							<div class="add_content">
-									<label for="" class="pb-1">
-										Restaurant Name
-									</label>
-									<div class="form-group pb-3">
-										<input type="text" class="form-control" name="restaurant_name" maxlength="50" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required />
-									</div>
-							</div>
-							<div class="add_content">
+						
+							<!-- <div class="add_content country_code">
 									<label for="" class="pb-1">
 										Mobile Number
 									</label>
 									<div class="form-group pb-3">
 										<input type="text" class="form-control" name="phone_number" maxlength="15" placeholder="Enter Mobile Number" value="{{$data->phone_number ?? 'N/A'}}" required />
+               							<input type="hiden" name="country_code" id="country_code">
 									</div>
-							</div>
-							<div class="add_content">
-									<label for="" class="pb-1">
-										Email Address
-									</label>
-									<div class="form-group pb-3">
-										<input type="text" class="form-control" name="email_address" placeholder="Enter Email Address" value="{{$data->email ?? 'N/A'}}" onkeypress="return AvoidSpace(event)" required />
-									</div>
-							</div>
+							</div> -->
+
+
 							<div class="add_content">
 									<label for="" class="pb-1">
 										Restaurant Address
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" name="restaurant_address" id="restaurant_address" maxlength="100" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required />
+										<input type="text" class="form-control block-start-space-special" name="restaurant_address" id="restaurant_address" maxlength="100" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required />
 										<input type="hidden" name="lat" value="{{$data->lat}}" id="lat">
-                  						<input type="hidden" name="lon" value="{{$data->lon}}" id="lon">
+                  						<input type="hidden" name="lon" value="{{$data->lon}}" id="lon"> 
+									</div>
 
+									<div class="form-group" id="map" style="width:100%;height:200px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
+							</div>
+
+
+							<div class="add_content">
+									<label for="" class="pb-1" style="margin-top: 15px">
+										City
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control block-start-space-special" name="city" id="city" maxlength="50" placeholder="Enter City" value="{{$data->city ?? 'N/A'}}" required />  
+									</div>
+							</div>
+
+
+
+
+						
+							<div class="add_content">
+									<label for="" class="pb-1">
+										Email Address
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control block-start-space" name="email_address" placeholder="Enter Email Address" id="email" value="{{$data->email ?? 'N/A'}}" onkeypress="return AvoidSpace(event)" required />
+
+										<!-- <label id="email-error-dot" class="error" style="display: none">Please enter valid email address.</label> -->
 
 									</div>
 							</div>
+
+
+
+							<div class="add_content country_code">
+				                <label for="" class="pb-1">
+				                	Mobile Number
+				                </label>
+				                <div class="form-group pb-3">
+				                	<input style="" type="text" class="form-control block-start-space" minlength="8" maxlength="15" placeholder="Enter Mobile Number" value="+{{$data->country_code ?? ''}} {{$data->phone_number ?? 'N/A'}}"  name="phone_number" id="phone_number" required />
+				                	<label id="phone_number-error" class="error" for="phone_number" style="display: none;">{{$errors->first('phone_number')}}</label>
+				               		<input type="hidden" name="country_code" id="country_code" value="{{$data->country_code ?? ''}}">
+				               	</div>
+				            </div>
+
+
+
 							<div class="add_content">
 									<label for="" class="pb-1">
 										Description
 									</label>
 									<div class="form-group pb-3">
 										<!-- <input type="email" class="form-control" placeholder="Email Address" value="" required /> -->
-										<textarea class="form-control" name="description" id="description" rows="4" maxlength="1000" placeholder="Enter Description">{{$data->description ?? 'N/A'}}</textarea>
+										<textarea class="form-control" name="description block-start-space-special" id="description" rows="4" maxlength="1000" placeholder="Enter Description">{{$data->description ?? 'N/A'}}</textarea>
 									</div>
 							</div>
 							<div class="text-center mt-2">
@@ -349,6 +437,12 @@ p#alert_txt {
 
 <script src="https://cdn.jsdelivr.net/jquery.validation/1.16.0/jquery.validate.min.js"></script>
 
+
+<!-- Country Code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/intlTelInput.js"></script>
+<script src="{{url('public/restaurant/assets/js/common.js')}}"></script>
+
 <script type="text/javascript">
 	
 	$(document).ready(function(){
@@ -367,18 +461,39 @@ p#alert_txt {
 	        }
 	    }, "Please enter valid email address.");
 
+		$.validator.addMethod("valid_email2", function(value, element) {
+	        return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+		}, "Please enter valid email address.");
+
+
+        $.validator.addMethod("alphabatic", function(value, element) {
+            return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
+    	});
+
 
 		$('#validate-form').validate({
 
 			rules:{
+				first_name:{
+		            required:true,
+		            minlength:2,
+		            alphabatic: true,
+		          },
+		          last_name:{
+		            required:true,
+		            minlength:2,
+		            alphabatic: true,
+		          },
 				  restaurant_name:{
 		            required:true,
 		            minlength:2,
+		            // alphabatic: true,
 		          },
-		          owner_name:{
-		            required:true,
-		            minlength:2,
-		          },
+		          // owner_name:{
+		          //   required:true,
+		          //   minlength:2,
+		          //   alphabatic: true,
+		          // },
 		          restaurant_address:{
 		            required:true,
 		            //minlength:2,
@@ -387,7 +502,14 @@ p#alert_txt {
 		            required:true,
 		            email:true,
 		            valid_email: true,
+		            valid_email2: true,
 		            remote:"{{url('restaurant/check-exist-email-user-edit')}}",
+		          },
+		          city:{
+		          	required:true,
+		          	minlength:2,
+		          	maxlength:50,
+		          	// alphabatic: true,
 		          },
 		          phone_number:{
 		            required:true,
@@ -402,18 +524,35 @@ p#alert_txt {
 		          },
 			},
 			messages:{
+				first_name:{
+		            required: 'Please enter first name.',
+		            minlength: 'First name should be at least 2 characters long.',
+		            alphabatic: "First name should be alphanumeric only.",
+		          },
+		          last_name:{
+		            required: 'Please enter last name.',
+		            minlength: 'Last name should be at least 2 characters long.',
+		            alphabatic: "Last name should be alphanumeric only.",
+		          },
 				  restaurant_name:{
 		            required: 'Please enter restaurant name.',
-		            minlength: 'Restaurant name should be atleast 2 characters long.'
+		            minlength: 'Restaurant name should be at least 2 characters long.',
+		            alphabatic: "Restaurant name should be alphanumeric only.",
 		          },
 		          owner_name:{
 		            required: 'Please enter owner name.',
-		            minlength: 'Owner name should be atleast 2 characters long.'
+		            minlength: 'Owner name should be at least 2 characters long.',
+		            alphabatic: "Owner name should be alphanumeric only.",
 		          },
 		          restaurant_address:{
 		            required: 'Please enter restaurant address.',
-		            minlength: 'Restaurant address should be atleast 2 characters long.'
+		            minlength: 'Restaurant address should be at least 2 characters long.'
 		          }, 
+		          city:{
+		          	required:'Please enter city.',
+		          	minlength: 'City should be at least 2 charcters long.',
+		          	alphabatic: "City name should be alphanumeric only.",
+		          },
 		          email_address:{
 		            required: 'Please enter email address.',
 		            email: 'Please enter valid email address.'
@@ -421,18 +560,32 @@ p#alert_txt {
 		          phone_number:{
 		            required: 'Please enter mobile number.',
 		            digits: 'Please enter digits only.',
-		            minlength: 'Mobile number should be in between 8 to 15 digits.',
-		            maxlength: 'Mobile number should be in between 8 to 15 digits.'
+		            minlength: 'Mobile number should be between 8 to 15 digits.',
+		            maxlength: 'Mobile number should be between 8 to 15 digits.'
 		          },
 		          description:{
 		          	required:'Please enter description.',
-		          	minlength: 'Description should be atleast 2 charcters long.'
+		          	minlength: 'Description should be at least 2 charcters long.',
 		          }
 			},
 		})
 
 
 		$("#validate-form").on("submit",function(){
+
+
+			// let email_dot = 'false';
+
+	          // var email_value = $('#email').val();
+	          // var check_exist = email_value.includes(".@");
+	          // if(check_exist){
+	          // 	$('#email-error-dot').text('Please enter valid email address.');
+	          //   $('#email-error-dot').css('display' , 'block');
+	          //   return false;
+	          // }else{
+	          //   $('#email-error-dot').css('display' , 'none');
+	          // }
+
 
           max_images_check = $(".img_count").find('img').length - 1;
             if(max_images_check==0){
@@ -447,6 +600,15 @@ p#alert_txt {
 	})
 
 </script>
+
+<!-- when type in email dot validation removes -->
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		$('#email').on('keyup' , function(){
+			$('#email-error-dot').css('display' , 'none');
+		})
+	})
+</script> -->
 
 
 <script type="text/javascript">
@@ -483,31 +645,36 @@ p#alert_txt {
         
               var file = event.target.files[0];
 
-            /*  console.log(file);*/
+              var size = event.target.files[0].size;
+
+              // console.log(size);
               if (file) {
-                console.log(file.type);
+                // console.log(file.type);
 
-               if(file.type == "image/jpeg" || file.type == "image/jpg" || file.type == "image/png"){
+                if(file.type == "image/jpeg" || file.type == "image/jpg" || file.type == "image/png"){
 
-                var reader = new FileReader();
-                
-                reader.onload = function(e) {
-                  $('#blah').attr('src', e.target.result);
-                  $("#imgInp").attr("img","true");
-                  $('#invalid_file').css({'display': 'none'});
-                  //attr set
-                  document.getElementById("imgInp").setAttribute("img", "true");
-                }
-        
-               reader.readAsDataURL(file);
-
-              }else {
-
-                $('#invalid_file').css({'display': 'block'});
-                $("#invalid_file").text("Please select jpg, jpeg or png image format only.");
-                $("#imgInp").val("");
-                $("#blah").attr("src", user_img);
-             }
+	               	if(size > 20971520){
+	               		$('#invalid_file').css({'display': 'block'});
+		                $("#invalid_file").text("Image size should not be greater than 20 MB.");
+		                $("#imgInp").val("");
+		                $("#blah").attr("src", user_img);
+	               	}else{
+		                var reader = new FileReader();
+		                reader.onload = function(e) {
+		                  $('#blah').attr('src', e.target.result);
+		                  $("#imgInp").attr("img","true");
+		                  $('#invalid_file').css({'display': 'none'});
+		                  //attr set
+		                  document.getElementById("imgInp").setAttribute("img", "true");
+		                }
+		               reader.readAsDataURL(file);
+               		}
+                }else {
+	                $('#invalid_file').css({'display': 'block'});
+	                $("#invalid_file").text("Please select jpg, jpeg or png image format only.");
+	                $("#imgInp").val("");
+	                $("#blah").attr("src", user_img);
+	            }
             }
             })
 
@@ -531,11 +698,147 @@ function initialize() {
         
         $("#lat").val(lat);
         $("#lon").val(long);
+        setLocation(lat,long);
 
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
+
+
+
+
+<script type="text/javascript">
+
+  function setLocation(lat_val, lon_val){
+
+    if(lat_val == "" || lon_val == ""){
+      lat_val = $("#lat").val(lat);
+      lon_val = $("#lon").val(long);
+    }
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(lat_val, lon_val),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat_val, lon_val),
+        map: map,
+        draggable:true,
+        // icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        //icon: 'http://labs.google.com/ridefinder/images/mm_20_gray.png',
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+      });
+
+
+      marker.setMap(map);
+      map.setZoom(16);
+      map.setCenter(marker.getPosition());
+
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+
+              $("#restaurant_address-error").css("display","none");
+              $('#lat').val(marker.getPosition().lat());
+              $('#lon').val(marker.getPosition().lng());
+              $("#restaurant_address").val(results[0].formatted_address);
+            }else{
+              $('#lat').val("");
+              $('#lon').val("");
+              $("#restaurant_address").val("");
+              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+            }
+          }
+        });
+      });
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+
+        //stop to click view popup;
+        return false;
+        let html_restaurant = "<p>abc</>";
+        infowindow.setContent(html_restaurant);
+        infowindow.open(map, marker);
+      }
+
+    })(marker, i));
+  }
+
+
+
+    let __lat_val = "{{$data->lat}}";
+    let __lon_val = "{{$data->lon}}";
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(__lat_val, __lon_val),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(__lat_val, __lon_val),
+        map: map,
+        draggable:true,
+        // icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        //icon: 'http://labs.google.com/ridefinder/images/mm_20_gray.png',
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+      });
+
+      marker.setMap(map);
+      map.setZoom(16);
+      map.setCenter(marker.getPosition());
+
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+
+              $("#restaurant_address-error").css("display","none");
+              $('#lat').val(marker.getPosition().lat());
+              $('#lon').val(marker.getPosition().lng());
+              $("#restaurant_address").val(results[0].formatted_address);
+            }else{
+              $('#lat').val("");
+              $('#lon').val("");
+              $("#restaurant_address").val("");
+              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+            }
+          }
+        });
+      });
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+
+        //stop to click view popup;
+        return false;
+        let html_restaurant = "<p>abc</>";
+        infowindow.setContent(html_restaurant);
+        infowindow.open(map, marker);
+      }
+
+    })(marker, i));
+  
+</script>
+
+
+
 <script type="text/javascript">
     $(document).ready(function(){
 
@@ -571,6 +874,27 @@ function initialize() {
         var k = event ? event.which : window.event.keyCode;
         if (k == 32) return false;
     }
+</script>
+
+
+<!-- Block space at beninning of field -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.block-start-space').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+ 
+    $('.block-start-space-special').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
+
 </script>
 
 @endsection()

@@ -30,6 +30,7 @@ class CreateRestaurants extends Migration
             $table->string('phone_number');
             $table->string('password');
             $table->integer('is_approved')->default(0);
+            $table->integer('is_block')->default(0);
             $table->string('qr_code')->nullable();
             $table->longText('description')->nullable();
             $table->rememberToken();

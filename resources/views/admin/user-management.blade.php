@@ -2,6 +2,9 @@
 @section('title','User Management')
 @section('content')
 <style>
+  .error{
+    color: #ff0101;
+  }
 #text_message-error{
   color: #ff0000;
 }
@@ -16,25 +19,29 @@
 }
 
 
-#deleteModel button.close
+#deleteModel .modal-header img.close
 
  {
-    font-size: 24px;
+    /*font-size: 24px;*/
     position: absolute;
     opacity: 1;
-    background-color: #000;
-    color: #fff;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    top: -18px;
-    padding: 0px 5px 0 6px;
+    /*background-color: #ed1f24;*/
+    /*color: #fff;*/
+    /*border-radius: 50%;*/
+        height: 30px;
+    width: 30px;
+    top: -13px;
+    /*padding: 0px 5px 0 6px;*/
     /* padding-right: 0px; */
     right: -12px;
-    display: inline-block;
+    /*display: inline-block;*/
+    /*border: 2px solid #fff;*/
+    /*text-shadow: 0 1px 0 #ed1f24;*/
 
 }
-
+#myModal .modal-header img.close:hover {
+  opacity: 1;
+}
 #deleteModel input#update_file_name {
     margin: 0;
     padding: 0;
@@ -42,7 +49,11 @@
 
 
 #deleteModel .modal-header{
-    background-color: #ed2227 !important;
+  background-color: #ed1f24 !important;
+		    border: 1px solid #ed1f24 !important;
+		    background: linear-gradient( 
+		167deg
+		 , rgb(237 31 36) 0%, rgb(90 0 3) 100%) !important;
 }
 #editModel  h4.h4_course.file_upload {
     margin-bottom: 13px;
@@ -54,13 +65,13 @@
 
 }
 #deleteModel button.btn.btn-secondary.btn-lg.login_btn{
-    width: 37%;
-    font-size: 24px;
+    width: 25%;
+    font-size: 18px;
     padding: 6px 0;
 }
 div#deleteModel p {
     text-align: center;
-    margin-top: 52px;
+    margin-top: 25px;
 }
 #deleteModel .modal-footer {
     border-top: 0px solid #e9ecef;
@@ -70,9 +81,9 @@ div#deleteModel p {
 }
 .modal-dialog {
     width: 465px;
-    margin: 30px auto;
+    margin: 174px auto 0;
 }
-.login_btn:hover, .signup:hover, .logout:hover, .header_logout a:hover {
+/*.login_btn:hover, .signup:hover, .logout:hover, .header_logout a:hover {
     background-color: #3e3a3bbd !important;
     border: 1px solid #3e3a3bbd !important;
     color: #fff;
@@ -89,22 +100,37 @@ div#deleteModel p {
     -webkit-box-shadow: 0px 8px 10px 0px rgb(0 0 0 / 30%);
     -moz-box-shadow: 0px 8px 10px 0px rgba(0, 0, 0, 0.3);
     box-shadow: 0px 8px 10px 0px rgb(0 0 0 / 30%);
-}
-.modal_style .close_btn {
-    font-size: 24px;
+}*/
+.modal_style .modal-header img.close {
+    /*font-size: 24px;*/
     position: absolute;
     opacity: 1;
-    background-color: #ed2227;
-    color: #fff;
-    border-radius: 50%;
-    height: 35px;
-    width: 35px;
-    top: -3px;
-    padding: 0px 5px 0 6px;
+    /*background-color: #ed1f24;*/
+    /*color: #000;*/
+    /*border-radius: 50%;*/
+    height: 30px;
+    width: 30px;
+    top: -13px;
+    /*padding: 0px 5px 0 6px;*/
     /* padding-right: 0px; */
-    right: -2px;
-    display: inline-block;
+    right: -11px;
+    margin: 0 !important;
+    padding: 0 !important;
+    /*display: inline-block;*/
+    /*border: 2px solid #fff;*/
+    /*text-shadow: 0 1px 0 #ed1f24;*/
 }
+img.close:hover {
+  opacity: 1
+}
+.modal-header {
+        background-color: #ed1f24 !important;
+		    border: 1px solid #ed1f24 !important;
+        color:#fff;
+		    background: linear-gradient( 
+		167deg
+		 , rgb(237 31 36) 0%, rgb(90 0 3) 100%) !important;
+		}
 :focus-visible {
     outline: -webkit-focus-ring-color auto 0px !important;
 }
@@ -117,6 +143,41 @@ button:focus {
     display: inline-block;
     margin-left: 7px;
 }
+#send_btn {
+  padding: 6px 11px!important;
+}
+.dlt_btn,
+#send_btn{
+      padding: 3px 11px!important;
+    /*padding: 5px;*/
+    border-radius: 3px;
+    font-size: 15px;
+    font-weight: 400;
+    color: #fff;
+    box-shadow: 0 8px 16px 0 rgb(0 0 0 / 6%), 0 6px 20px 0 rgb(0 0 0 / 6%);
+    background-image: linear-gradient( 
+180deg
+ ,#ed2227 10%,#5e0202 100%);
+    border: 0;
+    width: 80px!important;
+}
+
+
+
+
+
+
+table.table-bordered.dataTable td:nth-child(2) {
+    min-width: 210px!important;
+    word-break: break-all;
+    white-space: break-spaces;
+}
+table.table-bordered.dataTable td:nth-child(3) {
+    min-width: 210px!important;
+    word-break: break-all;
+    white-space: break-spaces;
+}
+
 </style>
     
 
@@ -158,7 +219,7 @@ button:focus {
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -198,7 +259,7 @@ button:focus {
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Sr. No</th>
+                      <th>Sr. No.</th>
                       <th>Username</th>
                       <th>Email Address</th>
                       <th>Action</th>
@@ -233,35 +294,34 @@ button:focus {
     </div>
     <!-- End of Content Wrapper -->
 
-    <!-- Delete Model -->
+<!-- Delete Model -->
 
-    <div id="deleteModel" class="modal fade" role="dialog">
-      <form method="POST" enctype="multipart/form-data" id="delete_validate_form" action="{{route('admin.deleteUser')}}">
-        {{@csrf_field()}}
-        <input type="hidden" name="class_id" class="class_id">
-        <div class="modal-dialog">
+<div id="deleteModel" class="modal fade" role="dialog">
+  <form method="POST" enctype="multipart/form-data" id="delete_validate_form" action="{{route('admin.deleteUser')}}">
+    {{@csrf_field()}}
+    <input type="hidden" name="class_id" class="class_id">
+    <div class="modal-dialog">
 
-              <!-- Modal content-->
-              <div class="modal-content">
-                <div class="modal-header">
-                  <button type="button" class="close" data-dismiss="modal">&times;</button>
-                  <h4 class="modal-title">Alert</h4>
-                </div>
-                <div class="modal-body">
-                      <!-- <div class="user_img">
-                          <label for="">Date Of Birth</label>
-                      </div> -->
-                      <p>Are you sure you want to delete this user?</p>
+          <!-- Modal content-->
+          <div class="modal-content">
+            <div class="modal-header">
+              <!-- <button type="button" class="close" data-dismiss="modal">&times;</button> -->
+              <img src="{{url('public/admin/img/crosss.png')}}" class="close" style="cursor: pointer;" />
+              <h4 class="modal-title">Alert</h4>
+            </div>
+            <div class="modal-body pb-0">
+                   
+                  <p>Are you sure, you want to delete this user?</p>
 
-                </div>
-                <div class="modal-footer">
-                <button class="btn btn-secondary btn-lg login_btn dlt_btn" ui="yes" style="margin-bottom: 20px;  margin-top: 20px;     margin-right: 25px;">Yes</button>
-                <button class="btn btn-secondary btn-lg login_btn dlt_btn" ui="no" style="margin-bottom: 20px;  margin-top: 20px;">No</button>
-               </div>
-             </div>
-        </div>
-      </form>
+            </div>
+            <div class="modal-footer" style="margin-bottom: 25px;">
+            <button class="btn btn-secondary btn-lg login_btn dlt_btn" ui="yes" style="margin-right: 25px;">Yes</button>
+            <button class="btn btn-secondary btn-lg login_btn dlt_btn" ui="no">No</button>
+           </div>
+         </div>
     </div>
+  </form>
+</div>
 
 
     <!-- Modal -->
@@ -274,17 +334,18 @@ button:focus {
     <!-- Modal content-->
     <div class="modal-content">
       <div class="modal-header">
-        <button type="button" class="close close_btn" data-dismiss="modal">&times;</button>
+        <!-- <button type="button" class="close close_btn" data-dismiss="modal">&times;</button> -->
+        <img src="{{url('public/admin/img/crosss.png')}}" class="close" style="cursor: pointer;" />
         <h4 class="modal-title text-left">Block Reason</h4>
       </div>
-      <div class="modal-body">
+      <div class="modal-body" style="padding-top: 34px;">
         <p>
           <!-- <label for="" style="font-weight: bold;">Description</label> -->
-          <textarea class="form-control" name="text_message" placeholder="Block Reason" style="height: 150px; width: 100% !important; resize: none;"></textarea>
+          <textarea class="form-control" name="text_message" maxlength="200" id="block_reason" placeholder="Block Reason" style="height: 150px; width: 100% !important; resize: none;"></textarea>
         </p>
       </div>
-      <div class="modal-footer text-center" style="text-align: center !important; padding-bottom: 12px; display: flex; justify-content: center; ">
-        <button class="btn btn-success submit" id="send_btn" style="margin-top: 0; font-weight: 400; font-size: 17px; background-color:#ed2227; border: 0px;">Send</button>
+      <div class="modal-footer text-center" style="text-align: center !important; padding-bottom: 12px; display: flex; justify-content: center; border: 0; padding-top: 0">
+        <button class="btn btn-success submit" id="send_btn" style="margin-top: 0; font-weight: 400; font-size: 17px; background-color:#ed2227; border: 0px;margin-bottom: 15px; ">Send</button>
       </div>
     </div>
 
@@ -359,7 +420,10 @@ $(document).ready(function(){
 
 
   $(".close").on("click",function(){
+      $('#block_reason').val('');
       $("#deleteModel").modal("hide");
+      $("#myModal").modal("hide");
+
   });
 
   $(".dlt_btn").on("click",function(){
@@ -422,6 +486,43 @@ $(document).ready(function(){
             }
     })
   })
+</script>
+
+
+<!-- trim space -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-control").on("keyup",function(){
+        var length = $.trim($(this).val()).length;
+        if(length == 0){
+           $(this).val("");
+        }
+      })
+    });
+</script>
+<!-- Block space at beninning of field -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+    // $('textarea').keypress(function( e ) {    
+    //   if($(this).val() == ''){
+    //       if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+    //         return false;
+    //   }
+    // })
+    $('textarea').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
+
 </script>
 
 

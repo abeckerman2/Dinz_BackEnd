@@ -7,6 +7,7 @@ use App\Category;
 class Menu extends Model
 {
     protected $fillable = [
+        'parent_menu_id',
     	'restaurant_id',
     	'category_id',
     	'category_name',
@@ -30,7 +31,7 @@ class Menu extends Model
                 return url('/') . '/' . env('MENU_IMAGES_VIEW') . '/' . $value;
             }else{
 
-                return public_path(). "/restaurant/assets/img/foodImage.jpg";
+                return url("/"). "/public/restaurant/assets/img/foodImage.jpg";
             } 
         }else{
             return $value;

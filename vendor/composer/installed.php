@@ -133,6 +133,15 @@
       ),
       'reference' => 'cb17b6477dfff935958ba01325f2e8a2bfa6dab3',
     ),
+    'ezyang/htmlpurifier' => 
+    array (
+      'pretty_version' => 'v4.13.0',
+      'version' => '4.13.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '08e27c97e4c6ed02f37c5b2b20488046c8d90d75',
+    ),
     'fideloper/proxy' => 
     array (
       'pretty_version' => '4.4.1',
@@ -548,6 +557,42 @@
         0 => '*',
       ),
     ),
+    'maatwebsite/excel' => 
+    array (
+      'pretty_version' => '3.1.25',
+      'version' => '3.1.25.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'a3e56f1a60e49f21798fd242a3b3d2f4051eeda7',
+    ),
+    'maennchen/zipstream-php' => 
+    array (
+      'pretty_version' => '2.1.0',
+      'version' => '2.1.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'c4c5803cc1f93df3d2448478ef79394a5981cc58',
+    ),
+    'markbaker/complex' => 
+    array (
+      'pretty_version' => '2.0.3',
+      'version' => '2.0.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '6f724d7e04606fd8adaa4e3bb381c3e9db09c946',
+    ),
+    'markbaker/matrix' => 
+    array (
+      'pretty_version' => '2.1.3',
+      'version' => '2.1.3.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '174395a901b5ba0925f1d790fa91bab531074b61',
+    ),
     'mockery/mockery' => 
     array (
       'pretty_version' => '1.3.4',
@@ -578,6 +623,15 @@
       array (
         0 => '1.10.2',
       ),
+    ),
+    'myclabs/php-enum' => 
+    array (
+      'pretty_version' => '1.7.7',
+      'version' => '1.7.7.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => 'd178027d1e679832db9f38248fcc7200647dc2b7',
     ),
     'nesbot/carbon' => 
     array (
@@ -746,6 +800,15 @@
       ),
       'reference' => '6a467b8989322d92aa1c8bf2bebcc6e5c2ba55c0',
     ),
+    'phpoffice/phpspreadsheet' => 
+    array (
+      'pretty_version' => '1.18.0',
+      'version' => '1.18.0.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '418cd304e8e6b417ea79c3b29126a25dc4b1170c',
+    ),
     'phpseclib/phpseclib' => 
     array (
       'pretty_version' => '2.0.32',
@@ -833,6 +896,15 @@
       array (
         0 => '1.0',
       ),
+    ),
+    'psr/http-client' => 
+    array (
+      'pretty_version' => '1.0.1',
+      'version' => '1.0.1.0',
+      'aliases' => 
+      array (
+      ),
+      'reference' => '2dfb5f6c5eff0e91e20e913f8c5452ed95b86621',
     ),
     'psr/http-factory' => 
     array (

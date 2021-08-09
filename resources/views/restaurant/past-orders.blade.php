@@ -89,7 +89,7 @@
 											<td>30-05-2021</td>
 											<td>8:00 AM</td>
 											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;">
+											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
 												<a href="{{route('restaurant.pastOrderDetails')}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>
@@ -111,7 +111,7 @@
 											<td>30-05-2021</td>
 											<td>8:00 AM</td>
 											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;">
+											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
 												<a href="{{route('restaurant.pastOrderDetails')}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>
@@ -133,7 +133,7 @@
 											<td>30-05-2021</td>
 											<td>8:00 AM</td>
 											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;">
+											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
 												<a href="{{route('restaurant.pastOrderDetails')}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>
@@ -155,7 +155,7 @@
 											<td>30-05-2021</td>
 											<td>8:00 AM</td>
 											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;">
+											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
 												<a href="{{route('restaurant.pastOrderDetails')}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>
@@ -177,7 +177,7 @@
 											<td>30-05-2021</td>
 											<td>8:00 AM</td>
 											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;">
+											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
 												<a href="{{route('restaurant.pastOrderDetails')}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>

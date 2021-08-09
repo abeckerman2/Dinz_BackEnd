@@ -3,7 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
-
+use App\Order;
 class Table extends Model
 {
     protected $fillable = [
@@ -11,7 +11,9 @@ class Table extends Model
     	'table_id',
     	'table_name',
     	'qr_code',
-    	'is_occupied'
+    	'is_occupied',
+        'assign_menu_id',
+        'assign_document_id',
     ];
 
 
@@ -31,4 +33,25 @@ class Table extends Model
             return $value;
         }
     }
+
+    public function activeOrders(){
+        return $this->hasMany(Order::class)->where('order_status','!=','completed')->whereOrderType('placed_order')->whereDeletedAt(null);
+    }
+
+    public function serverWaiters(){
+        return $this->hasMany(Order::class)->where('order_status','!=','completed')->whereOrderType('server_waiter')->whereDeletedAt(null);
+    }
+
+    public function activeOrdersWithOrderItem(){
+        return $this->hasMany(Order::class)->where('order_status','!=','completed')->where('order_type' , 'placed_order')->orderBy('id','desc')->whereDeletedAt(null)->with('orderItemsWithMenu');
+    }
+
+
+
+    public function requestWaiter(){
+        return $this->hasMany(Order::class)->where('order_status','!=','completed')->where('order_type' , 'server_waiter')->orderBy('id','desc')->whereDeletedAt(null)->with('orderItemsWithMenu' , 'user');
+    }
+
+
+
 }

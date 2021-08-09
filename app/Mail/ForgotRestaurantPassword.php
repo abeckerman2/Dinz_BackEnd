@@ -37,7 +37,7 @@ class ForgotRestaurantPassword extends Mailable
         ->with([
             'is_email_exist' => $this->is_email_exist,
             'link' => $this->link,
-            'logo' => url('public/restaurant/assets/img/andrewlogo.png')
+            // 'logo' => url('public/restaurant/assets/img/andrewlogo.png')
         ]);
     }
 }

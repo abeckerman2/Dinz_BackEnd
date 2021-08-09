@@ -24,14 +24,14 @@
 </div>
 
 <!-- Nav Item - Charts -->
-<li class="nav-item <?php if(Request::is("admin/user-management") || Request::is("admin/user-details")|| Request::is("admin/edit-user")|| Request::is("admin/orders")|| Request::is("admin/user-order-details")) {echo 'active';}?>">
+<li class="nav-item <?php if(Request::is("admin/user-management") || Request::is("admin/user-details/*")|| Request::is("admin/edit-user/*")|| Request::is("admin/orders")|| Request::is("admin/user-order-details")) {echo 'active';}?>">
   <a class="nav-link " href="{{route('admin.userManagement')}}">
     <i class="fas fa-user"></i>
     <span>User Management</span></a>
 </li>
 
 <!-- Nav Item - Tables -->
-<li class="nav-item <?php if(Request::is("admin/restaurant-management") || Request::is("admin/restaurant-approved")|| Request::is("admin/restaurant-rejected")|| Request::is("admin/restaurant-details")|| Request::is("admin/edit-restaurant")|| Request::is("admin/restaurant-rejected-details")) {echo 'active';}?> ">
+<li class="nav-item <?php if(Request::is("admin/restaurant-management") || Request::is("admin/restaurant-approved")|| Request::is("admin/restaurant-rejected")|| Request::is("admin/restaurant-details/*")|| Request::is("admin/edit-restaurant")|| Request::is("admin/restaurant-rejected-details/*")  || Request::is("admin/approved-restaurant-details/*")  || Request::is("admin/edit-restaurant/*") ) {echo 'active';}?> ">
   <a class="nav-link" href="{{route('admin.restaurantManagement')}}">
     <i class="fas fa-utensils"></i>
     <span>Restaurant Management </span></a>

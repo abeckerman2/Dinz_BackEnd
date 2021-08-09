@@ -213,15 +213,19 @@ class RestaurantBusinessModel extends Model
 
         $img_store = storage_path() . '/'. env('TABLE_QR_CODE') . '/' . $file_name;
 
-        $scanner_id = base64_encode($restaurant->id).'/'.$data['table_id'];
-        $qr_code = \QrCode::format('png')
-                         ->size(500)->errorCorrection('H')
-                         ->backgroundColor(204,0,0)
-                         ->generate($scanner_id, $img_store);
+        //$scanner_id = base64_encode($restaurant->id).'/'.$data['table_id'];
 
         $table = new Table();
         $table->fill($data);
         $table->save();
+
+        $scanner_id = $restaurant->id .'/'.$table->id;
+        $qr_code = \QrCode::format('png')
+                         ->size(500)->errorCorrection('H')
+                         // ->backgroundColor(0xff, 0xff, 0xcc)
+                         // ->backgroundColor(204,0,0)
+                         ->generate($scanner_id, $img_store);
+        
         return "success";
 
     }

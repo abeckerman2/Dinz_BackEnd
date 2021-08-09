@@ -15,6 +15,8 @@ class CreateMenusTable extends Migration
     {
         Schema::create('menus', function (Blueprint $table) {
             $table->increments('id');
+            $table->integer('parent_menu_id')->unsigned();
+            $table->foreign('parent_menu_id')->references('id')->on('parent_menu_names')->onDelete('cascade');
             $table->integer('restaurant_id')->unsigned();
             $table->foreign('restaurant_id')->references('id')->on('restaurants')->onDelete('cascade');
             $table->integer('category_id')->unsigned();

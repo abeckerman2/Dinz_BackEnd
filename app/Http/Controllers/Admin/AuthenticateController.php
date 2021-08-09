@@ -180,9 +180,9 @@ class AuthenticateController extends ResponseController
 
 
 
-        public function myEarnings(){
-            return view('admin.my-earnings');
-        }
+    public function myEarnings(){
+        return view('admin.my-earnings');
+    }
 
 
 }

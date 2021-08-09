@@ -28,9 +28,9 @@
     <td align="left" valign="top" style="background:#efefef; padding:30px 20px;"><table width="100%" border="0" cellspacing="0" cellpadding="0">
       <tr>
         <td align="left" valign="top"><table width="100%" border="0" cellspacing="0" cellpadding="0">
-          <tr>
+          <!-- <tr>
             <td align="center" valign="top" style="font-family:arial, sans-serif; font-size:25px; color:#474747; font-weight: 600;">User Block</b></td>
-          </tr>
+          </tr> -->
           <tr>
             <td align="left" valign="top">&nbsp;</td>
           </tr>
@@ -93,7 +93,7 @@
         </td>
       </tr>
       <tr>
-        <td align="center" valign="top" style="font-family:arial, sans-serif; font-size:13px; color:#727272; padding-top:10px;">©  Dinz {{date('Y')}}</td>
+        <td align="center" valign="top" style="font-family:arial, sans-serif; font-size:13px; color:#727272; padding-top:0px;padding-bottom: 10px;">©  Dinz {{date('Y')}}</td>
       </tr>
     </table></td>
   </tr>

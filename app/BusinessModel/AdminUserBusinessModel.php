@@ -5,6 +5,8 @@ namespace App\BusinessModel;
 use Illuminate\Database\Eloquent\Model;
 use App\Models\Admin;
 use App\User;
+use App\Order;
+use App\OrderItem;
 use Hash;
 use DB;
 use Mail;
@@ -180,9 +182,23 @@ class AdminUserBusinessModel extends Model
         if(!empty($userUnblock)){
             return ['status' => "1", 'success' => "User has been unblocked successfully."];          
         }else{
-            return ['status' => "2", 'error' => "Something went wrong."];   
+            return ['status' => "2", 'error' => "Unable to unblock user."];   
         }
 
+    }
+
+
+    public function orders($user_id){
+        
+        $orders = Order::whereUserId($user_id)->with('user','restaurant','orderItemsWithMenu')->get();
+        return $orders;
+    }
+
+
+    public function userOrderDetails($request,$order_id){
+        $order_id = base64_decode($order_id);
+        $user_order_detail = Order::whereId($order_id)->with('user','restaurant')->first();
+        return $user_order_detail;
     }
 
 }

@@ -81,6 +81,10 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
     Route::get('check-exist-phone-number-user-edit','SettingController@checkPhoneNumberExistEdit')->name('checkPhoneNumberExistEdit');
 
 
+    Route::get('check-email','ProfileController@checkEmail')->name('checkEmail');
+    Route::get('check-phone','ProfileController@checkPhone')->name('checkPhone');
+
+
     Route::match(['GET','POST'],'create-restaurant','ProfileController@createRestaurant')->name('createRestaurant')->middleware('LoginCheckForReturnDashboard');
     Route::match(['GET','POST'],'login','ProfileController@login')->name('login')->middleware('LoginCheckForReturnDashboard');
     Route::match(['GET','POST'],'forgot-password','ProfileController@forgotPassword')->name('forgotPassword')->middleware('LoginCheckForReturnDashboard');
@@ -88,20 +92,24 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
     Route::match(["GET","POST"],"feedbackReset","ProfileController@feedbackReset");
     Route::match(["GET","POST"],"link-expired","ProfileController@linkExpired");
 
-    Route::group(['middleware' => 'check_user'] , function(){
+    Route::group(['middleware' => ['check_user','CheckRestaurantBlockDelete']] , function(){
 
         Route::match(['GET' , 'POST'] , 'change-password' , 'SettingController@changePassword')->name('changePassword');
 
         Route::post('avail-unavail','MenuManagementController@availUnavail')->name('availUnavail');
         Route::post('occupied-unoccupied','TableManagementController@occupiedunoccupied')->name('occupiedunoccupied');
         Route::post('delete-item','MenuManagementController@deleteItem')->name('deleteItem');
+        Route::post('delete-table','TableManagementController@deleteTable')->name('deleteTable');
+
 
         Route::match(['GET', 'POST'] , 'logout' , 'ProfileController@logout')->name('logout');
         Route::get('dashboard','DashboardController@dashboard')->name('dashboard');
         Route::match(['GET','POST'],'table-management','TableManagementController@tableManagement')->name('tableManagement');
         Route::match(['GET','POST'],'create-table','TableManagementController@createTable')->name('createTable');
+        Route::match(['GET','POST'],'edit-table/{id}','TableManagementController@editTable')->name('editTable');
+
         Route::match(['GET','POST'],'table-details/{table_id}','TableManagementController@tableDetails')->name('tableDetails');
-        Route::match(['GET','POST'],'menu-management','MenuManagementController@menuManagement')->name('menuManagement');
+        Route::match(['GET','POST'],'menu-management/{id}','MenuManagementController@menuManagement')->name('menuManagement');
         Route::match(['GET','POST'],'add-item','MenuManagementController@addItem')->name('addItem');
         Route::match(['GET','POST'],'edit-item/{menu_id}','MenuManagementController@editItem')->name('editItem');
         Route::match(['GET','POST'],'order-management','OrderManagementController@orderManagement')->name('orderManagement');
@@ -122,9 +130,50 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
         Route::match(['GET','POST'],'add-restro-time','SettingController@addRestroTime')->name('addRestroTime');
         Route::match(['GET','POST'],'edit-restro-time','SettingController@editRestroTime')->name('editRestroTime');
 
+        Route::get('check-book-table','TableManagementController@checkBookTable');
+
+        Route::match(['GET' , 'POST'] , 'table-order-details/{id}' , 'TableManagementController@tableOrderDetails')->name('tableOrderDetails');
+
+
+        Route::post('change-status-to-preparing','TableManagementController@changeStatusToPreparing')->name('changeStatusToPreparing');
+        Route::post('change-status-to-garnishing','TableManagementController@changeStatusToGarnishing')->name('changeStatusToGarnishing');
+        Route::post('change-status-to-completed','TableManagementController@changeStatusToCompleted')->name('changeStatusToCompleted');
+
+        Route::match(['GET' , 'POST'] , 'menu-images' , 'MenuManagementController@menuImages')->name('menuImages');
+        
+
+        Route::match(['GET' , 'POST'] , 'delete-menu-image/{id}' , 'MenuManagementController@deleteMenuImages')->name('deleteMenuImages');
+
+        Route::match(["GET","POST"],'import-menu', 'MenuManagementController@importMenu')->name('importMenu');
+        Route::get('export-menu', 'MenuManagementController@exportMenu')->name('exportMenu');
+
+
+        Route::match(['GET' , 'POST'] , 'document-management' , 'ProfileController@documentManagement')->name('documentManagement');
+
+        Route::match(['GET' , 'POST'] , 'add-document' , 'ProfileController@addDocument')->name('addDocument');
+
+        Route::match(['GET' , 'POST'] , 'view-document/{id}' , 'ProfileController@viewDocument')->name('viewDocument');
+
+        Route::match(['GET' , 'POST'] , 'edit-document/{id}' , 'ProfileController@editDocument')->name('editDocument');
+
+        Route::match(['GET' , 'POST'] , 'delete-document' , 'ProfileController@deleteDocument')->name('deleteDocument');
+
+
+
+        Route::match(['GET' , 'POST'] , 'parent-menu-management' , 'MenuManagementController@parentMenuManagement')->name('parentMenuManagement');
+
+        Route::match(['GET' , 'POST'] , 'add-parent-menu-name' , 'MenuManagementController@addParentMenuName')->name('addParentMenuName');
+
+        Route::match(['GET' , 'POST'] , 'edit-parent-menu-name/{id}' , 'MenuManagementController@editParentMenuName')->name('editParentMenuName');
+
+        Route::match(['GET' , 'POST'] , 'delete-parent-menu' , 'MenuManagementController@deleteParentMenu')->name('deleteParentMenu');
+
+
+
     });
 
 });
+
 
 
 /*ADMIN ROUTE*/
@@ -150,17 +199,36 @@ Route::group(['namespace' => 'Admin','prefix'=>'/admin', 'as' => 'admin.'],funct
         Route::post('block-user','UserManagementController@blockUser')->name('blockUser');
         Route::match(['GET' , 'POST'] ,'user-unblock/{user_id}','UserManagementController@userUnblock')->name('userUnblock');
         Route::get('restaurant-management','RestaurantManagementController@restaurantManagement')->name('restaurantManagement');
-        Route::get('restaurant-details','RestaurantManagementController@restaurantDetails')->name('restaurantDetails');
+        Route::match(['GET' , 'POST'] ,'restaurant-details/{restaurant_id}','RestaurantManagementController@restaurantDetails')->name('restaurantDetails');
         Route::get('restaurant-approved','RestaurantManagementController@approvedRestaurant')->name('approvedRestaurant');
-        Route::get('edit-restaurant','RestaurantManagementController@editRestaurant')->name('editRestaurant');
+        Route::match(['GET' , 'POST'] ,'edit-restaurant/{restaurant_id}','RestaurantManagementController@editRestaurant')->name('editRestaurant');
+        Route::post('block-restaurant','RestaurantManagementController@blockRestaurant')->name('blockRestaurant');
+        Route::match(['GET' , 'POST'] ,'restaurant-unblock/{restaurant_id}','RestaurantManagementController@restaurantUnblock')->name('restaurantUnblock');
+        Route::match(['GET' , 'POST'] ,'delete-approved-restaurant','RestaurantManagementController@deleteApprovedRestaurant')->name('deleteApprovedRestaurant');
         Route::get('restaurant-rejected','RestaurantManagementController@rejectedRestaurant')->name('rejectedRestaurant');
-        Route::get('restaurant-rejected-details','RestaurantManagementController@rejectedRestaurantDetails')->name('rejectedRestaurantDetails');
+        Route::get('restaurant-rejected-details/{restaurant_id}','RestaurantManagementController@rejectedRestaurantDetails')->name('rejectedRestaurantDetails');
         Route::get('order-management','OrderManagementController@orderManagement')->name('orderManagement');
         Route::get('order-details','OrderManagementController@orderDetails')->name('orderDetails');
         Route::get('edit-order','OrderManagementController@editOrder')->name('editOrder');
         Route::match(['GET','POST'],'my-earnings', 'AuthenticateController@myEarnings')->name('myEarnings');
         Route::match(['GET','POST'],'change-password', 'AuthenticateController@changePassword')->name('changePassword');
         Route::match(['GET' , 'POST'] , 'logout' , 'AuthenticateController@logout')->name('logout');
+
+        Route::get('check-exist-email-restaurant-edit/{rest_id}','RestaurantManagementController@checkEmailExistEdit')->name('checkEmailExistEdit');
+        Route::get('check-exist-phone-number-restaurant-edit/{rest_id}','RestaurantManagementController@checkPhoneNumberExistEdit')->name('checkPhoneNumberExistEdit');
+
+        Route::post('accept-approved','RestaurantManagementController@acceptApproved')->name('acceptApproved');
+        Route::post('reject','RestaurantManagementController@reject')->name('reject');
+
+
+        Route::match(['GET','POST'],'accept-restaurant/{id}','RestaurantManagementController@acceptRestaurant');
+
+        Route::match(['GET','POST'],'reject-restaurant/{id}','RestaurantManagementController@rejectRestaurant');
+
+        Route::match(['GET','POST'],'approved-restaurant-details/{id}','RestaurantManagementController@approvedRestaurantDetails')->name('approvedRestaurantDetails');
+
+        Route::match(['GET' , 'POST'] , 'delete-rejected-restauarnt' , 'RestaurantManagementController@deleterejectedRestaurant')->name('deleterejectedRestaurant');
+
         
         
     }); 
@@ -168,4 +236,3 @@ Route::group(['namespace' => 'Admin','prefix'=>'/admin', 'as' => 'admin.'],funct
 });
 
 /*END OF ADMIN ROUTE*/
-

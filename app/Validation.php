@@ -137,6 +137,67 @@ class Validation extends Model
     }
 
 
+    public static function userOrderBook($validation = null, $message = null){
+
+
+      $validation = [
+            'time_zone' => "required",
+            'restaurant_id' => 'required|exists:restaurants,id',
+            'table_id'      => 'required|exists:tables,id',
+            //'date_time'     => 'required|date_format:Y-m-d h:m:s',
+            //'menu_ids.*.menu_id' => 'required',
+            //'menu_id.*'     => 'required',
+            //'quantity'      => 'required|numeric|max:20',
+            'discount_percentage' => 'sometimes|nullable|numeric|max:100',
+            'tax_percentage'=> 'sometimes|nullable|numeric|max:100',
+            'tip_amount'    => 'sometimes|nullable|numeric|max:10000',
+            'total_amount'  => 'required|numeric',
+            'transaction_id' => 'required'
+      ];
+
+      $message = [
+              'restaurant_id.required'      =>  "Please enter restaurant id.",
+              'restaurant_id.exists'        =>  "Please enter valid restaurant id.",
+              'table_id.required'           =>  "Please enter table id.",
+              'table_id.exists'             =>  "Please enter valid table id.",
+              'date_time.required'          =>  "Please enter date & time.",
+              'date_time.date_format'       =>  "Date format should be Y-m-d h:m:s",
+              'discount_percentage.numeric' =>  "Discount percentage should be numeric only.",
+              'discount_percentage.max'     => "Discount percentage should be less than 100.",
+              'tax_percentage.numeric'      => "Tax percentage should be number only.",
+              'tax_percentage.max'          => "Tax percentage should be less than 100.",
+              'tip_amount.numeric'          => "Please enter tip amount.",
+              'tip_amount.max'              => "Tip amount should be less than 100.",
+              'total_amount.required'       => "Please enter total_amount.",
+              'total_amount.numeric'        => "Total amount should be number only.",
+              // 'total_amount.max'            => "Total amount should be less than 10000"
+      ];
+
+      return $data = ['validation' => $validation, 'message' => $message];
+
+    }
+
+    public static function serverWaiterOrder($validation = null, $message = null){
+      $validation = [
+            'time_stamp' => "required",
+            'restaurant_id' => 'required|exists:restaurants,id',
+            'date_time'     => 'required|date_format:Y-m-d h:m:s',
+            'order_text_customization' => 'required|max:500'
+      ];
+
+      $message = [
+              'restaurant_id.required'      =>  "Please enter restaurant id.",
+              'restaurant_id.exists'        =>  "Please enter valid restaurant id.",
+              'date_time.required'          =>  "Please enter date & time.",
+              'date_time.date_format'       =>  "Date format should be Y-m-d h:m:s",
+              'order_text_customization.required' => "Please enter text.",
+              'order_text_customization.max'  => "Text should be less than 500 characters."
+      ];
+
+      return $data = ['validation' => $validation, 'message' => $message];
+    }
+
+
     //###########################----------Admin Validations--------------------------####################//
 
     public static function adminValidationForForgotPassword($validation = null, $message = null){
@@ -197,7 +258,7 @@ class Validation extends Model
         $validation = [ 
           'first_name'  =>  'required|max:50', 
           'last_name'  =>  'required|max:50',
-          'email'  =>  'required', 
+          // 'email'  =>  'required', 
         ];
         $message = [ 
           'first_name.required'  => '* Please enter first name.',

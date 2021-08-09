@@ -4,9 +4,25 @@
 
 
 <style type="text/css">
-	.alert-success , .alert-danger {
+	/*.alert-success , .alert-danger {
 	    border-left: 0px;
+	}*/
+	.alert-danger {
+	    border-left: 0px;
+	    color: #302d2d;
+	    background-color: #ed2227;
+	    color: #fff;
 	}
+	.alert-success {
+	    border-left: 0px;
+	    color: #302d2d;
+	    background-color: #008000;
+	    color: white;
+	}	
+	.rest_logo img { 
+	    margin-top: -10px;
+	}
+
 </style>
 
 		<div class="main-panel dashboard_panel">
@@ -42,6 +58,41 @@
 		              @endif
 					<div class="card">
 						<div class="card-body add_imgae_box">
+
+							<div class="add_content">
+								<form action="" class=" pt-2">
+									<label for="" class="pb-1">
+										First Name
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control" placeholder="Enter First Name" value="{{$data->first_name ?? 'N/A'}}" required readonly/>
+									</div>
+								</form>
+							</div>
+
+							<div class="add_content">
+								<form action="" class=" pt-2">
+									<label for="" class="pb-1">
+										Last Name
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control" placeholder="Enter Last Name" value="{{$data->last_name ?? 'N/A'}}" required readonly/>
+									</div>
+								</form>
+							</div>
+
+							<div class="add_content">
+								<form action="">
+									<label for="" class="pb-1">
+										Restaurant Name
+									</label>
+									<div class="form-group pb-3">
+										<input type="text" class="form-control" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required readonly/>
+									</div>
+								</form>
+							</div>
+
+<!-- 
 							<div class="add_content">
 								<form action="" class=" pt-2">
 									<label for="" class="pb-1">
@@ -51,7 +102,7 @@
 										<input type="text" class="form-control" placeholder="Enter Owner Name" value="{{$data->owner_name ?? 'N/A'}}" required readonly/>
 									</div>
 								</form>
-							</div>
+							</div> -->
 							<div class="add_content">
 								<form>
 									<label for="" class="pb-1">
@@ -76,23 +127,25 @@
 									</div>
 								</form>
 							</div>
+							
+							
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">
-										Restaurant Name
+										Restaurant Address
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required readonly/>
+										<input type="text" class="form-control" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required readonly/>
 									</div>
 								</form>
 							</div>
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">
-										Mobile Number
+										City
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" placeholder="Enter Mobile Number" value="+91 {{$data->phone_number ?? 'N/A'}}" required readonly/>
+										<input type="text" class="form-control" placeholder="Enter city" value="{{$data->city ?? 'N/A'}}" required readonly/>
 									</div>
 								</form>
 							</div>
@@ -106,16 +159,18 @@
 									</div>
 								</form>
 							</div>
+							
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">
-										Restaurant Address
+										Mobile Number
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required readonly/>
+										<input type="text" class="form-control" placeholder="Enter Mobile Number" value="+{{$data->country_code}} {{$data->phone_number ?? 'N/A'}}" required readonly/>
 									</div>
 								</form>
 							</div>
+
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">

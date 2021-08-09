@@ -31,14 +31,19 @@
 		label.error {
 		    color: #ff000d!important;
 		    font-size: 13px!important;
+		    margin-bottom: 0px;
 		}
 		.alert-danger {
-		    border-left: 0px; 
+		    border-left: 0px;
 		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
 		}
 		.alert-success {
-		    border-left: 0px; 
+		    border-left: 0px;
 		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
 		}
 
 		div#loaderImg2 {
@@ -117,7 +122,7 @@
 			              @endif
 
                   		<a href="{{route('restaurant.login')}}" class="back"><img src="{{url('public/restaurant/assets/img/back1.png')}}" alt=""></a>
-                  		<img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/>
+                  		<a href="{{url('restaurant/login')}}"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/></a>
                   	</div>
                     <h1 class="h4 text-gray-900 mb-4">Forgot Password</h1>
                   </div>
@@ -232,12 +237,29 @@
 	
 	$(document).ready(function(){
 
+
+	jQuery.validator.addMethod("valid_email", function(value, element) {
+      console.log(value.indexOf("."))
+        if(value.indexOf(".") >= 0 ){
+          return true;
+        }else {
+          return false;
+        }
+    }, "Please enter valid email address.");
+
+	$.validator.addMethod("valid_email2", function(value, element) {
+        return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+	}, "Please enter valid email address.");
+
+
 		$('#validate-form').validate({
 
 			rules:{
 				email:{
 					required:true,
 					email:true,
+					valid_email: true,
+					valid_email2:true,
 				},
 			},
 			messages:{

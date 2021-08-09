@@ -73,7 +73,7 @@
                   <form method="POST" id="validate_form">
                   {{@csrf_field()}}
                     <div class="form-group">
-                      <input type="password" class="form-control form-control-user" id="new_password" name="new_password" aria-describedby="emailHelp" onkeypress="return AvoidSpace(event)" placeholder="New Password">
+                      <input type="password" class="form-control form-control-user" id="new_password" name="new_password" aria-describedby="emailHelp" onkeypress="return AvoidSpace(event)" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" placeholder="New Password">
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="confirm_password" name="confirm_password" onkeypress="return AvoidSpace(event)" placeholder="Confirm Password">
@@ -115,7 +115,7 @@
         new_password: {
             required: true,
             minlength: 6,
-            maxlength : 15
+            maxlength : 100
         },
         confirm_password:{
           required:true,
@@ -126,7 +126,7 @@
         new_password:{
           required : "Please enter new password.",
           minlength: 'New password must be at least 6 characters long.',
-          maxlength : "New password should be less than 15 characters."
+          maxlength : "New password should be less than 100 characters."
         },
         confirm_password:{
           required: 'Please enter confirm password.',

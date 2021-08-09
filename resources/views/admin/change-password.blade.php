@@ -72,7 +72,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -129,7 +129,7 @@
                     </div>
                      <div class="form-group">
                       <label>New Password</label>
-                      <input type="password" class="form-control form-control-user" id="new_password" name="new_password"  onkeypress="return AvoidSpace(event)" placeholder="New Password">
+                      <input type="password" class="form-control form-control-user" id="new_password" name="new_password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off"  onkeypress="return AvoidSpace(event)" placeholder="New Password">
                     </div>
                     <div class="form-group">
                       <label>Confirm Password</label>
@@ -182,7 +182,7 @@
                     new_password: {
                       required: true,
                       minlength: 6,
-                      maxlength : 15
+                      maxlength : 100
                     },
                     confirm_password: {
                       required: true,
@@ -197,7 +197,7 @@
                     new_password: {
                       required : "Please enter new password.",
                       minlength: 'New password must be at least 6 characters long.',
-                      maxlength : "New password should be less than 15 characters."
+                      maxlength : "New password should be less than 100 characters."
                     },
                     confirm_password: {
                       required : "Please enter confirm password.",

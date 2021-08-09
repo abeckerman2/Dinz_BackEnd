@@ -46,7 +46,7 @@
 							</div> -->
 						</li>
 						
-						<li class="nav-item @if(Request::is('restaurant/table-management') || Request::is('restaurant/create-table') || Request::is('restaurant/table-details')) active @endif">
+						<li class="nav-item @if(Request::is('restaurant/table-management') || Request::is('restaurant/create-table') || Request::is('restaurant/table-details/*')  || Request::is('restaurant/edit-table/*') || Request::is('restaurant/table-order-details/*') ) active @endif">
 							<a href="{{route('restaurant.tableManagement')}}">
 								<i class="fas fa-table"></i>
 								<p>Table Management</p>
@@ -82,43 +82,39 @@
 								</ul>
 							</div> -->
 						</li>
-						<li class="nav-item @if(Request::is('restaurant/menu-management') || Request::is('restaurant/add-item') || Request::is('restaurant/edit-item/*')) active @endif">
-							<a href="{{route('restaurant.menuManagement')}}">
+
+						<li class="nav-item @if(Request::is('restaurant/parent-menu-management') || Request::is('restaurant/add-parent-menu-name') || Request::is('restaurant/edit-parent-menu-name/*')  || Request::is('restaurant/menu-management/*') || Request::is('restaurant/add-item') || Request::is('restaurant/edit-item/*') || Request::is('restaurant/menu-images') ) active @endif">
+							<a href="{{route('restaurant.parentMenuManagement')}}">
 								<i class="fas fa-bars"></i>
-								<p>Menu Management</p>
-								<!-- <span class="caret"></span> -->
-							</a>
-							<!-- <div class="collapse" id="forms">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="forms/forms.html">
-											<span class="sub-item">Basic Form</span>
-										</a>
-									</li>
-								</ul>
-							</div> -->
+								<p>Menu Management</p> 
+							</a> 
 						</li>
+
+
+
+
 						<li class="nav-item @if(  Request::is('restaurant/create-order') || Request::is('restaurant/order-management')  || Request::is('restaurant/present-order-details') || Request::is('restaurant/present-order-edit')  || Request::is('restaurant/past-orders') || Request::is('restaurant/past-order-details')  ||  Request::is('restaurant/today-orders')  ||  Request::is('restaurant/today-order-details')  ) active @endif">
 							<a href="{{route('restaurant.orderManagement')}}">
 								<i class="fas fa-book"></i>
 								<p>Order Management</p>
 								<!-- <span class="caret"></span> -->
 							</a>
-							<!-- <div class="collapse" id="tables">
-								<ul class="nav nav-collapse">
-									<li>
-										<a href="tables/tables.html">
-											<span class="sub-item">Basic Table</span>
-										</a>
-									</li>
-									<li>
-										<a href="tables/datatables.html">
-											<span class="sub-item">Datatables</span>
-										</a>
-									</li>
-								</ul>
-							</div> -->
+					
 						</li>
+
+
+
+						<li class="nav-item @if(Request::is('restaurant/document-management') || Request::is('restaurant/add-document') || Request::is('restaurant/view-document/*') || Request::is('restaurant/edit-document/*')) active @endif">
+							<a href="{{route('restaurant.documentManagement')}}">
+								<i class="far fa-file"></i>
+								<p>Document Management</p>
+								<!-- <span class="caret"></span> -->
+							</a>
+					
+						</li>
+
+
+
 						<li class="nav-item">
 							<a href="#base" data-toggle="collapse" class="collapsed" aria-expanded="false">
 								<i class="fas fa-sliders-h"></i>

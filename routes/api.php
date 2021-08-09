@@ -27,18 +27,34 @@ Route::group(['namespace' => 'Api\v1','prefix'=>'v1'], function() {
     
     Route::group(['middleware' => 'auth:api'], function(){
 
-        Route::get('logout', 'AuthenticationController@logout');
+        Route::group(['middleware' => 'CheckDeleteUser'] , function(){
 
-        Route::get('profile/{id?}', 'AuthenticationController@getProfile');
+            Route::group([ 'middleware' => 'CheckUserBlock'] , function(){
 
-        Route::post('update-user', 'AuthenticationController@updateUser');
 
-        //Route::post('reset-password','AuthenticationController@resetPassword');
+                Route::get('logout', 'AuthenticationController@logout');
+                Route::get('profile/{id?}', 'AuthenticationController@getProfile');
+                Route::post('update-user', 'AuthenticationController@updateUser');
+         
+                Route::post('restaurant-list', 'RestaurantController@restaurantList');
+                Route::get('restaurant-details/{id}','RestaurantController@restaurantDetails');
+                Route::get('menu-listing/{restaurant_id}/{table_id}','RestaurantController@menuListing');
+                Route::post('order-book','RestaurantController@orderBook');
+                Route::post('server-waiter-order','RestaurantController@serverWaiterOrder');
 
-        Route::post('restaurant-list', 'RestaurantController@restaurantList');
-        Route::get('restaurant-details/{id}','RestaurantController@restaurantDetails');
-        Route::get('menu-listing/{restaurant_id}/{table_id}','RestaurantController@menuListing');
+                Route::match(['GET' , 'POST'] , 'add-cart' , 'RestaurantController@addCart');
+                Route::match(['GET' , 'POST'] , 'cart-listing' , 'RestaurantController@cartListing');
+                Route::match(['GET' , 'POST'] , 'restaurant-table-list' , 'RestaurantController@restaurantTableList');
+                Route::match(['GET' , 'POST'] , 'menu-list-without-qr' , 'RestaurantController@menuListWithoutQr');
+                Route::match(['GET' , 'POST'] , 'check-table-status' , 'RestaurantController@checkTableStatus');
+                Route::match(['GET' , 'POST'] , 'request-waiter/{restaurant_id}/{table_id}' , 'RestaurantController@requestWaiter');
 
+                Route::match(['GET' , 'POST'] , 'order-list' , 'RestaurantController@orderList');
+                Route::match(['GET' , 'POST'] , 'order-list-details' , 'RestaurantController@orderListDetails');
+            });
 
         });
+
+    });
+
 });

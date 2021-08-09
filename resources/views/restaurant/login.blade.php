@@ -31,14 +31,27 @@
 		label.error{
 			color: #ff000d!important;
 			font-size: 13px!important;
+		    margin-bottom: 0px;
 		}
-		.alert-danger {
+		/*.alert-danger {
 		    border-left: 0px; 
 		    color: #302d2d;
 		}
 		.alert-success {
 		    border-left: 0px; 
 		    color: #302d2d;
+		}*/
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		}
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
 		}
 	</style>
 </head>
@@ -78,6 +91,15 @@
 		              </div>
 		              @endif
 
+
+		              	<!-- @if(Session::has('message'))
+						  <div style="padding:11px;font-weight: 400;margin-top:30px" class="alert alert-success alert-dismissible  alertz">{{ Session::get('message') }}</div>
+						@endif
+						@if(Session::has('danger'))
+						  <div style="padding:11px;font-weight: 400;margin-top:30px" class="alert alert-danger alert-dismissible  alertz">{{ Session::get('danger') }}</div>
+						@endif -->
+
+
                   	<div class="logo-wrapper"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/></div>
                     <h1 class="h4 text-gray-900 mb-4">Restaurant Login</h1>
                   </div>
@@ -86,9 +108,9 @@
                       <input type="email" class="form-control form-control-user" name="email" id="exampleInputEmail" onkeypress="return AvoidSpace(event)" aria-describedby="emailHelp" placeholder="Enter Email Address">
                     </div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" maxlength="15" placeholder="Enter Password" onkeypress="return AvoidSpace(event)" >
+                      <input type="password" class="form-control form-control-user" name="password" id="exampleInputPassword" maxlength="70" placeholder="Enter Password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" onkeypress="return AvoidSpace(event)" >
                     </div>
-                     <div class="text-center mb-3">
+                     <div class="text-center mb-3" style="    float: right;">
                     	<a class="small" href="{{route('restaurant.forgotPassword')}}">Forgot Password?</a>
                   	</div>
                     <!-- <a href="{{route('restaurant.dashboard')}}" class="btn btn-primary btn-user btn-block common_btn">
@@ -187,16 +209,31 @@
 	
 	$(document).ready(function(){
 
+	jQuery.validator.addMethod("valid_email", function(value, element) {
+      console.log(value.indexOf("."))
+        if(value.indexOf(".") >= 0 ){
+          return true;
+        }else {
+          return false;
+        }
+    }, "Please enter valid email address.");
+
+	$.validator.addMethod("valid_email2", function(value, element) {
+        return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+	}, "Please enter valid email address.");
+
 		$("#validate-form").validate({
 
 			rules:{
 				email:{
 					required:true,
 					email:true,
+ 	                valid_email: true,
+					valid_email2:true,
 				},
 				password:{
 					required:true,
-					minlength:6,
+					// minlength:6,
 				},
 			},
 			messages:{
@@ -209,6 +246,11 @@
 					minlength:'Password should be atleast 6 characters only.'
 				},
 			},
+
+			submitHandler:function(form){
+				$('#submit').attr('disabled' , 'true');
+				form.submit();
+			}
 
 		})
 

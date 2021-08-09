@@ -24,6 +24,11 @@
 
 	<!-- CSS Just for demo purpose, don't include it in your project -->
 	<link rel="stylesheet" href="{{url('public/restaurant/assets/css/custom.css')}}">
+
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/16.0.4/css/intlTelInput.css" integrity="sha256-rTKxJIIHupH7lFo30458ner8uoSSRYciA0gttCkw1JE=" crossorigin="anonymous" />
+<link href="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/css/intlTelInput.css" rel="stylesheet" />
+
 	<style>
 		body {
 			background: linear-gradient(
@@ -33,6 +38,28 @@
 		/*
  *  STYLE 1
  */
+.intl-tel-input {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.intl-tel-input .country-list { 
+    width: 327px; 
+}
+
+
+/*country code*/
+  li.country {
+      color: #080808;
+  }
+  .selected-dial-code {
+      color: #080808;
+  } 
+  .intl-tel-input .country-list .country .dial-code {
+      color: #080808!important;
+  }
+  
 
 #style-1::-webkit-scrollbar-track
 {
@@ -56,8 +83,7 @@
 
 
 /*Multiple images*/
-.remove-img {
-  /*background-color: #007bff !important;*/
+/*.remove-img { 
    width: 18px;
    height: 18px;
    padding: 4px;
@@ -86,6 +112,9 @@
 input[type="file"] {
     display: none;
 }
+*/
+
+
 label#image_error {
   position: relative;
   top: -13px;
@@ -98,6 +127,7 @@ label.error {
     color: #ff000d!important;
     font-size: 95%!important;
     margin-top: .5rem;
+    margin-bottom: 0px;
 }
 
 
@@ -171,18 +201,22 @@ p#alert_txt {
     object-fit: cover;
     border: 2px solid #8e8888 !important;
     border-radius: 5px;
-    margin-right: 12px;
-
-    margin-bottom : 10px;
+    margin-right: 12px; 
+    margin-bottom : 19px;
 }
 
-i.far.fa-times-circle.cross_icon {
+ 
+.dynamic_image_show .img_div img.cross_icon {
+    width: 18px!important;
+    height: 18px!important;
+    background-color: transparent;
     position: absolute;
-    top: -6px;
+    top: -9px;
     z-index: 999;
-    right: 6px;
-    background: #fff;
-    border-radius: 100%;
+    right: -7px; 
+    color: white;
+    font-size: 20px;
+    border: 0 !important;
 }
 
 .img_div {
@@ -204,6 +238,16 @@ textarea.form-control {
 textarea.form-control::placeholder {
     color: #82868b!important;
 }
+span#logo_invalid_file {
+    position: relative;
+    top: -6px;
+}
+.restaurant_div.form-group.label {
+    padding-top: 0px;
+}
+label#restaurant_address-error {
+    margin-bottom: 7px;
+}
 	</style>
 </head>
 <body>
@@ -222,7 +266,8 @@ textarea.form-control::placeholder {
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
-                    <div class="logo-wrapper"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/></div>
+                    <a href="{{route('restaurant.login')}}" class="back"><img src="{{url('public/restaurant/assets/img/back1.png')}}" alt=""></a>
+                    <div class="logo-wrapper"><a href="{{url('restaurant/login')}}"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/></a></div>
                     <h1 class="h4 text-gray-900 mb-4">Register For Restaurant</h1>
                   </div>
                   <form method="POST" enctype="multipart/form-data" class="user scrollbar" style="max-height: 330px; overflow-y: scroll; padding-right: 10px"  id="style-1">
@@ -248,26 +293,26 @@ textarea.form-control::placeholder {
 
                   	<div class="force-overflow"></div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="first_name" maxlength="50" class="form-control form-control-user" aria-describedby="emailHelp" placeholder="Enter First Name">
+                      <input type="text" name="first_name" maxlength="50" class="form-control form-control-user block-start-space" aria-describedby="emailHelp" placeholder="Enter First Name">
                     </div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="last_name" maxlength="50" class="form-control form-control-user" placeholder="Enter Last Name">
+                      <input type="text" name="last_name" maxlength="50" class="form-control form-control-user block-start-space" placeholder="Enter Last Name">
                     </div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="restaurant_name" maxlength="50" class="form-control form-control-user" placeholder="Enter Restaurant Name">
+                      <input type="text" name="restaurant_name" maxlength="50" class="form-control form-control-user block-start-space" placeholder="Enter Restaurant Name">
                     </div> 
 
 
-                    <div class="form-group" style="padding-right: 0; padding-left: 0">
+                   <!--  <div class="form-group" style="padding-right: 0; padding-left: 0">
                       <input type="text" name="owner_name" maxlength="50" class="form-control form-control-user" placeholder="Enter Owner Name">
-                    </div> 
+                    </div>  -->
 
 
 
                     <div class="form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;">
                     	<label>Restaurant Logo/Image</label>
-                      <div class="rest_logo">
-                      	<img src="{{url('public/restaurant/assets/img/add-mul.png')}}" title="Click to upload logo" id="logo_upload" alt="kitchen" data-toggle="tooltip" data-placement="right"/>
+                      <div class="rest_logo" style="margin-top: 0px">
+                      	<img src="{{url('public/restaurant/assets/img/add-mul.png')}}" title="Click to upload logo" id="logo_upload" />
                       	<input style="display:none; " type="file" id="logo_file" name="restaurant_logo" data-role="magic-overlay" img="false";  data-target="#pictureBtn" value="" class="user_img" accept="image/*">
                       </div>
                       <span style="display:block; font-weight: 600; color: #ff000d!important;" class="text-danger" id="logo_invalid_file"></span>
@@ -297,7 +342,7 @@ textarea.form-control::placeholder {
 
 
 
-                      <div class=" restaurant_div form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;">
+                      <div class=" restaurant_div form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;    padding-bottom: 0px;">
                         <label>Restaurant Other Images</label>
                           <div class="restru_images d-flex flex-wrap" style="">
 
@@ -340,14 +385,15 @@ textarea.form-control::placeholder {
                               </div> -->
 
                               <div class="rest_logo plus_icon" style="margin:0;">
-                                      <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold plus_icon_click_for_multiple_img_upload" title="Upload images" data-recursion="-1" />
+                                      <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold plus_icon_click_for_multiple_img_upload" title="Click to upload images" data-recursion="-1" />
                               </div>
                             </div>
 
 
 
                           </div>
-                              <span style="display:none; font-weight: 600; color: #ff000d!important;" class="text-danger" id="other_images_invalid"></span>
+                              <span style="display:none; font-weight: 600; color: #ff000d!important; top: -6px;
+    position: relative;" class="text-danger" id="other_images_invalid"></span>
                       </div>
 
 
@@ -357,32 +403,44 @@ textarea.form-control::placeholder {
 
                     
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="restaurant_address" id="restaurant_address" maxlength="100" class="form-control form-control-user" placeholder="Enter Restaurant Address">
+                      <input type="text" name="restaurant_address" id="restaurant_address" maxlength="100" class="form-control form-control-user block-start-space-special" placeholder="Enter Restaurant Address">
                     </div>
 
-                    <div class="form-group" style="padding-right: 0; padding-left: 0">
+                    <div class="form-group" id="map" style="width:100%;height:200px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
+
+                    <div class="form-group" style="padding-right: 0; padding-left: 0; margin-top: 10px;">
                       <input type="text" name="city" maxlength="50" class="form-control form-control-user" placeholder="Enter City">
                     </div>
 
 
 
+
+
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <textarea class="form-control" name="description" id="description" rows="3" maxlength="1000" placeholder="Enter Description"></textarea>
+                      <input type="text" name="email" id="email" maxlength="100" class="form-control form-control-user block-start-space" placeholder="Enter Email Address">
+                    </div>
+
+                    <div class="form-group country_code" style="padding-right: 0; padding-left: 0">
+                      <input type="text" name="phone_number" id="phone_number" maxlength="15" class="form-control form-control-user block-start-space" placeholder="Enter Mobile Number">
+                      <label id="phone_number-error" class="error" for="phone_number" style="display: none;">
+                        {{$errors->first('phone_number')}}</label>
+                       <input type="hidden" name="country_code" id="country_code">
+                    </div>
+
+
+
+
+                    <div class="form-group" style="padding-right: 0; padding-left: 0">
+                      <textarea class="form-control block-start-space-special" name="description" id="description" rows="3" maxlength="1000" placeholder="Enter Description"></textarea>
                     </div>
 
 
 
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="email" id="email" maxlength="100" class="form-control form-control-user" placeholder="Enter Email Address">
+                      <input type="password" name="password" id="password" maxlength="70" class="form-control form-control-user" placeholder="Enter Password"  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off"   onkeypress="return AvoidSpace(event)">
                     </div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="phone_number" id="phone_number" maxlength="15" class="form-control form-control-user" placeholder="Enter Mobile Number">
-                    </div>
-                    <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="password" name="password" id="password" maxlength="15" class="form-control form-control-user" placeholder="Enter Password" onkeypress="return AvoidSpace(event)">
-                    </div>
-                    <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="password" name="confirm_password" maxlength="15" class="form-control form-control-user" placeholder="Enter Confirm Password" onkeypress="return AvoidSpace(event)">
+                      <input type="password" name="confirm_password" maxlength="70" class="form-control form-control-user" placeholder="Enter Confirm Password"  onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off"   onkeypress="return AvoidSpace(event)">
                     </div>
                     <!-- <a href="{{route('restaurant.login')}}" class="btn btn-primary btn-user btn-block common_btn mt-3">
                       Sign Up
@@ -490,6 +548,12 @@ textarea.form-control::placeholder {
 
 <script src="{{url('public/restaurant/assets/js/addMultipleImages.js')}}"></script>
 
+
+<!-- Country Code -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/utils.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/11.0.14/js/intlTelInput.js"></script>
+<script src="{{url('public/restaurant/assets/js/common.js')}}"></script>
+
 <script>
 	$('#lineChart').sparkline([102,109,120,99,110,105,115], {
 		type: 'line',
@@ -541,7 +605,7 @@ textarea.form-control::placeholder {
                 var size = event.target.files[0].size;
 
                 if(size > 20971520){
-                    $("#logo_invalid_file").text("Image should not be greater than 20 MB.").show();
+                    $("#logo_invalid_file").text("Image size should not be greater than 20 MB.").show();
 
                     $("#logo_file").val("");
                     $('#logo_upload').attr('src',"{{url('public/restaurant/assets/img/add-mul.png')}}");
@@ -632,7 +696,7 @@ textarea.form-control::placeholder {
                                 
                                 $("#alertModel").modal("show");
                                 $("#alertModel").unbind("click");
-                                $("#alert_txt").text("Image should not be greater than 20 MB.");
+                                $("#alert_txt").text("Image size should not be greater than 20 MB.");
 
                                 $("#files_"+__count).remove();  
                                 error = "true";
@@ -646,7 +710,7 @@ textarea.form-control::placeholder {
 
                             $("#alertModel").modal("show");
                             $("#alertModel").unbind("click");
-                            $("#alert_txt").text("Only .jpeg, .jpg, .png type file is allowed.");
+                            $("#alert_txt").text("Only .jpeg, .jpg, .png type file are allowed.");
 
                             $("#files_"+__count).remove();  
                             error =  "true";
@@ -730,7 +794,7 @@ textarea.form-control::placeholder {
                                 let image_html = `<div class="img_div">
                                   <img id="accept_`+acceptable_file_arr+`" src="`+e.target.result+`" data-recursion="-1" />
                                   <span>
-                                        <i class="far fa-times-circle cross_icon" id="cross_`+acceptable_file_arr+`" style="cursor:pointer;" ui="image"></i>
+                                        <img class="cross_icon" src="{{url('public/restaurant/assets/img/cross.png')}}" id="cross_`+acceptable_file_arr+`" style="cursor:pointer;" ui="image">
                                   </span>
                                   </div>`;
 
@@ -845,10 +909,144 @@ function initialize() {
         $("#lat").val(lat);
         $("#lon").val(long);
 
+        setLocation(lat,long);
+
     });
   }
   google.maps.event.addDomListener(window, 'load', initialize);
 </script>
+
+
+
+<script type="text/javascript">
+
+  function setLocation(lat_val, lon_val){
+
+    if(lat_val == "" || lon_val == ""){
+      lat_val = "36.7783";
+      lon_val = "119.4179";
+    }
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(lat_val, lon_val),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(lat_val, lon_val),
+        map: map,
+        draggable:true,
+        // icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        //icon: 'http://labs.google.com/ridefinder/images/mm_20_gray.png',
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+      });
+
+
+      marker.setMap(map);
+      map.setZoom(16);
+      map.setCenter(marker.getPosition());
+
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+
+              $("#restaurant_address-error").css("display","none");
+              $('#lat').val(marker.getPosition().lat());
+              $('#lon').val(marker.getPosition().lng());
+              $("#restaurant_address").val(results[0].formatted_address);
+            }else{
+              $('#lat').val("");
+              $('#lon').val("");
+              $("#restaurant_address").val("");
+              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+            }
+          }
+        });
+      });
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+
+        //stop to click view popup;
+        return false;
+        let html_restaurant = "<p>abc</>";
+        infowindow.setContent(html_restaurant);
+        infowindow.open(map, marker);
+      }
+
+    })(marker, i));
+  }
+
+
+
+    let __lat_val = "36.7783";
+    let __lon_val = "119.4179";
+    var geocoder = new google.maps.Geocoder();
+    var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 10,
+          center: new google.maps.LatLng(__lat_val, __lon_val),
+          mapTypeId: google.maps.MapTypeId.ROADMAP
+        });
+    var infowindow = new google.maps.InfoWindow();
+    var marker, i;
+
+    
+      marker = new google.maps.Marker({
+        position: new google.maps.LatLng(__lat_val, __lon_val),
+        map: map,
+        draggable:true,
+        // icon: 'http://maps.google.com/mapfiles/ms/icons/green-dot.png',
+        //icon: 'http://labs.google.com/ridefinder/images/mm_20_gray.png',
+        icon: 'http://labs.google.com/ridefinder/images/mm_20_red.png',
+      });
+
+      marker.setMap(map);
+      map.setZoom(16);
+      map.setCenter(marker.getPosition());
+
+
+      google.maps.event.addListener(marker, 'dragend', function() {
+        geocoder.geocode({'latLng': marker.getPosition()}, function(results, status) {
+          if (status == google.maps.GeocoderStatus.OK) {
+            if (results[0]) {
+
+              $("#restaurant_address-error").css("display","none");
+              $('#lat').val(marker.getPosition().lat());
+              $('#lon').val(marker.getPosition().lng());
+              $("#restaurant_address").val(results[0].formatted_address);
+            }else{
+              $('#lat').val("");
+              $('#lon').val("");
+              $("#restaurant_address").val("");
+              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+            }
+          }
+        });
+      });
+
+
+      google.maps.event.addListener(marker, 'click', (function(marker, i) {
+      return function() {
+
+        //stop to click view popup;
+        return false;
+        let html_restaurant = "<p>abc</>";
+        infowindow.setContent(html_restaurant);
+        infowindow.open(map, marker);
+      }
+
+    })(marker, i));
+  
+</script>
+
+
 
 <script type="text/javascript">
     $(document).ready(function(){
@@ -906,67 +1104,67 @@ function initialize() {
     });
 
 
-    $("#email").on("focusout",function(){
-            let val = $(this).val();
+    // $("#email").on("focusout",function(){
+    //         let val = $(this).val();
 
-            var data = {
-            '_token': "{{csrf_token()}}",
-            'email': val,
-            };
+    //         var data = {
+    //         '_token': "{{csrf_token()}}",
+    //         'email': val,
+    //         };
 
-          $.ajax({
-              url:"{{url('restaurant/check-exist-email-user')}}",
-              type:'POST',
-              data:data,
-              success: function(res){
-                if(res == 1){
-                  $("#email-error").text("Email address already exists.").show();
-                }else{
-                 // $("#email-error").text("").hide();
-                }
-              },
-              error: function(data, textStatus, xhr) {
-                if(data.status == 422){
-                  var result = data.responseJSON;
-                  alert('Something went worng.');
-                  window.location.href = "";
-                  return false;
-                } 
-              }
-            });
-        });
+    //       $.ajax({
+    //           url:"{{url('restaurant/check-exist-email-user')}}",
+    //           type:'POST',
+    //           data:data,
+    //           success: function(res){
+    //             if(res == 1){
+    //               $("#email-error").text("Email address already exists.").show();
+    //             }else{
+    //              // $("#email-error").text("").hide();
+    //             }
+    //           },
+    //           error: function(data, textStatus, xhr) {
+    //             if(data.status == 422){
+    //               var result = data.responseJSON;
+    //               alert('Something went worng.');
+    //               window.location.href = "";
+    //               return false;
+    //             } 
+    //           }
+    //         });
+    //     });
 
 
 
-        $("#phone_number").on("focusout",function(){
-            let val = $(this).val();
+        // $("#phone_number").on("focusout",function(){
+        //     let val = $(this).val();
 
-            var data = {
-            '_token': "{{csrf_token()}}",
-            'phone_number': val,
-            };
+        //     var data = {
+        //     '_token': "{{csrf_token()}}",
+        //     'phone_number': val,
+        //     };
 
-          $.ajax({
-              url:"{{url('restaurant/check-exist-phone-number-user')}}",
-              type:'POST',
-              data:data,
-              success: function(res){
-                if(res == 1){
-                  $("#phone_number-error").text("Phone number already exists.").show();
-                }else{
-                 // $("#phone_number-error").text("").hide();
-                }
-              },
-              error: function(data, textStatus, xhr) {
-                if(data.status == 422){
-                  var result = data.responseJSON;
-                  alert('Something went worng.');
-                  window.location.href = "";
-                  return false;
-                } 
-              }
-            });
-        });
+        //   $.ajax({
+        //       url:"{{url('restaurant/check-exist-phone-number-user')}}",
+        //       type:'POST',
+        //       data:data,
+        //       success: function(res){
+        //         if(res == 1){
+        //           $("#phone_number-error").text("Phone number already exists.").show();
+        //         }else{
+        //          // $("#phone_number-error").text("").hide();
+        //         }
+        //       },
+        //       error: function(data, textStatus, xhr) {
+        //         if(data.status == 422){
+        //           var result = data.responseJSON;
+        //           alert('Something went worng.');
+        //           window.location.href = "";
+        //           return false;
+        //         } 
+        //       }
+        //     });
+        // });
 
 
     jQuery.validator.addMethod("valid_email", function(value, element) {
@@ -978,43 +1176,64 @@ function initialize() {
         }
     }, "Please enter valid email address.");
 
+
+
+    $.validator.addMethod("valid_email2", function(value, element) {
+            return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+    }, "Please enter valid email address.");
+
+
+    $.validator.addMethod("alphabatic", function(value, element) {
+            return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
+    });
+
+
     $('#style-1').validate({
 
         rules: {
           first_name:{
             required:true,
             minlength:2,
+            alphabatic: true,
           },
           last_name:{
             required:true,
             minlength:2,
+            alphabatic: true,
           },
           restaurant_name:{
             required:true,
             minlength:2,
+            // alphabatic: true,
           },
-          owner_name:{
-            required:true,
-            minlength:2,
-          },
+          // owner_name:{
+          //   required:true,
+          //   minlength:2,
+          //   alphabatic: true,
+          // },
           restaurant_address:{
             required:true,
+            // alphabatic: true,
             //minlength:2,
           },
           city:{
             required:true,
             minlength:2,
+            // alphabatic: true,
           },
           email:{
             required:true,
             email:true,
-            valid_email: true
+            valid_email: true,
+            valid_email2: true, 
+            remote:"{{url('restaurant/check-email')}}",
           },
           phone_number:{
             required:true,
             digits:true,
             minlength:8,
             maxlength:15,
+            remote:"{{url('restaurant/check-phone')}}",
           },
           password:{
             required:true,
@@ -1033,27 +1252,33 @@ function initialize() {
         messages: {
           first_name:{
             required: 'Please enter first name.',
-            minlength: 'First name should be atleast 2 characters long.'
+            minlength: 'First name should be at least 2 characters long.',
+            alphabatic: "First name should be alphanumeric only.",
           },
           last_name:{
             required: 'Please enter last name.',
-            minlength: 'Last name should be atleast 2 characters long.'
+            minlength: 'Last name should be at least 2 characters long.',
+            alphabatic: "Last name should be alphanumeric only.",
           },
           restaurant_name:{
             required: 'Please enter restaurant name.',
-            minlength: 'Restaurant name should be atleast 2 characters long.'
+            minlength: 'Restaurant name should be at least 2 characters long.',
+            alphabatic: "Restaurant name should be alphanumeric only.",
           },
           owner_name:{
             required: 'Please enter owner name.',
-            minlength: 'Owner name should be atleast 2 characters long.'
+            minlength: 'Owner name should be at least 2 characters long.',
+            alphabatic: "Owner name should be alphanumeric only.",
           },
           restaurant_address:{
             required: 'Please enter restaurant address.',
-            minlength: 'Restaurant address should be atleast 2 characters long.'
+            minlength: 'Restaurant address should be at least 2 characters long.',
+            // alphabatic: "Restaurant should be alphanumeric only.",
           },
           city:{
             required: 'Please enter city.',
-            minlength: 'City should be atleast 2 characters long.'
+            minlength: 'City should be at least 2 characters long.',
+            alphabatic: "City name should be alphanumeric only.",
           },
           email:{
             required: 'Please enter email address.',
@@ -1062,12 +1287,12 @@ function initialize() {
           phone_number:{
             required: 'Please enter mobile number.',
             digits: 'Please enter digits only.',
-            minlength: 'Mobile number should be in between 8 to 15 digits.',
-            maxlength: 'Mobile number should be in between 8 to 15 digits.'
+            minlength: 'Mobile number should be between 8 to 15 digits.',
+            maxlength: 'Mobile number should be between 8 to 15 digits.'
           },
           password:{
             required: 'Please enter password.',
-            minlength: 'Password should be atleast 6 charcters long.'
+            minlength: 'Password should be at least 6 charcters long.'
           },
           confirm_password:{
             required: 'Please enter confirm password.',
@@ -1075,7 +1300,7 @@ function initialize() {
           },
           description:{
             required:'Please enter description.',
-            minlength: 'Description should be atleast 2 charcters long.'
+            minlength: 'Description should be at least 2 charcters long.',
           }
         },
         submitHandler:function(form){
@@ -1193,15 +1418,7 @@ function initialize() {
   });
 </script>
 
-
-<script type="text/javascript">
-    function AvoidSpace(event) {
-        var k = event ? event.which : window.event.keyCode;
-        if (k == 32) return false;
-    }
-</script>
-
-
+<!-- trim space -->
 <script type="text/javascript">
     $(document).ready(function(){
       $(".form-control").on("keyup",function(){
@@ -1211,6 +1428,56 @@ function initialize() {
         }
       })
     });
+</script>
+
+<!-- Block space in password -->
+<script type="text/javascript">
+    function AvoidSpace(event) {
+        var k = event ? event.which : window.event.keyCode;
+        if (k == 32) return false;
+    }
+</script>
+
+ 
+<!-- Block space at beninning of field -->
+<!-- <script type="text/javascript">
+  $(document).ready(function(){
+    $('input').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+   
+    $('textarea').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
+
+</script> -->
+
+
+<!-- Block space at beninning of field -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.block-start-space').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+ 
+    $('.block-start-space-special').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
+
 </script>
 
 

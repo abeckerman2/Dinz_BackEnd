@@ -14,7 +14,7 @@
       <tr style="background-color: #ed2227;">
         <td width="20" align="left" valign="top">&nbsp;</td>
         <td align="center" valign="top" style="padding:20px 0;">
-          <div style="border:0; outline:0; width: 30%;"><img src="{{$message->embed($logo)}}" style="background-color: #fff; border-radius: 2px; width: 130px;" alt="" width="115px"/></div>
+          <div style="border:0; outline:0; width: 30%;"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" style="background-color: #fff; border-radius: 2px; width: 130px;" alt="" width="115px"/></div>
         </td>
         <td width="20" align="left" valign="top">&nbsp;</td>
       </tr>

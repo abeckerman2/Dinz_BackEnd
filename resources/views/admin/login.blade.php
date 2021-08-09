@@ -74,7 +74,7 @@
                   <form method="POST" id="validate_form">
                   {{@csrf_field()}}
                     <div class="form-group">
-                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="email" aria-describedby="emailHelp" placeholder="Email Address">
+                      <input type="text" class="form-control form-control-user" id="exampleInputEmail" name="email" aria-describedby="emailHelp" onkeypress="return AvoidSpace(event)" placeholder="Email Address">
                     </div>
                     <div class="form-group">
                       <input type="password" class="form-control form-control-user" id="exampleInputPassword" name="password" onkeypress="return AvoidSpace(event)" placeholder="Password">
@@ -133,12 +133,18 @@ jQuery.validator.addMethod("valid_email", function(value, element) {
 }, "Please enter valid email address.");
 
 
+$.validator.addMethod("valid_email2", function(value, element) {
+            return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+    }, "Please enter valid email address.");
+
+
 $("#validate_form").validate({
   rules : {
       email : {
           email : true,
           required : true,
-          valid_email: true
+          valid_email: true,
+          valid_email2:true,
       },
       password : {
         required: true
@@ -182,5 +188,36 @@ $(document).ready(function(){
 
 
 </body>
+
+
+
+<!-- trim space -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-control").on("keyup",function(){
+        var length = $.trim($(this).val()).length;
+        if(length == 0){
+           $(this).val("");
+        }
+      })
+    });
+</script>
+
+
+
+ 
+<!-- Block space at beninning of field -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
+
+</script>
+
 
 </html>

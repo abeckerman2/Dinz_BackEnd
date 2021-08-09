@@ -27,6 +27,8 @@ use GuzzleHttp\Client;
 use Redirect;
 use Illuminate\Support\Facades\Input;
 use Mail;
+use App\RestaurantDocs;
+use App\Table;
 
 class ProfileController extends Controller
 {
@@ -49,10 +51,18 @@ class ProfileController extends Controller
             $data = $request->all();
             $data['password'] = Hash::make($request->password);
 
+
+            $country_code = str_replace('+' , '' ,$request->country_code);
+
+            if($country_code == ''){
+                $data['country_code'] = 1;
+            }else{
+                $data['country_code'] = $country_code;
+            }
+
             $is_created = $this->RestaurantBusinessModel()->createRestaurant($data);
 
-            return redirect('restaurant/login')->with('success' , 'Restaurant has been created successfully.');
-
+            return redirect('restaurant/login')->with('success' , 'Your registration request is under process, please wait for admin confirmation.');
         }
     }
 
@@ -95,6 +105,30 @@ class ProfileController extends Controller
             $email = $request->email;
             $password = $request->password;
             if(Auth::guard('restaurant')->attempt(array('email' => $email , 'password' => $password))){ 
+
+                $check_approved_no_not = Restaurant::whereEmail($email)->first();
+                if($check_approved_no_not->is_approved == 0){
+                        Auth::guard('restaurant')->logout();
+                        $request->session()->flush();
+                        $request->session()->regenerate();
+                    return back()->with('error' , 'Your restaurant account is not approved by admin.');
+                }
+
+                if($check_approved_no_not->is_approved == 2){
+                        Auth::guard('restaurant')->logout();
+                        $request->session()->flush();
+                        $request->session()->regenerate();
+                    return back()->with('error' , 'Your restaurant account has been rejected by admin.');
+                }
+
+                if($check_approved_no_not->is_block == 1){
+                        Auth::guard('restaurant')->logout();
+                        $request->session()->flush();
+                        $request->session()->regenerate();
+                    return back()->with('error' , 'Your restaurant account has been blocked by admin.');
+                }
+
+
                 $rememberToken = str_random(64);
                 Restaurant::whereEmail($email)->update(['remember_token' => $rememberToken]);
                 return redirect('restaurant/dashboard')->with('success' , 'Login successfully.'); 
@@ -111,6 +145,11 @@ class ProfileController extends Controller
         }
         if($request->isMethod('POST')){
             $email = $request->email;
+ 
+            /*if (strpos($email, '.@') !== false) {
+                return back()->with('error' , 'Please enter valid email address.');
+            }*/
+
 
             $is_email_exist = Restaurant::where('email', $email)->first();
             $token = Str::Random();
@@ -193,7 +232,157 @@ class ProfileController extends Controller
         Auth::guard('restaurant')->logout();
         $request->session()->flush();
         $request->session()->regenerate();
-        return redirect('restaurant/login')->with('success' , 'Logout successfully.');
+        return redirect('restaurant/login')->with('success' , 'Logged out successfully.');
     }
-			
-}
+
+
+    public function checkEmail(Request $request) {
+        $email_address = $request->email;
+        if($email_address){
+                $where = [['email',$email_address]];
+                // $checkUser = $this->RestaurantProfileModel()->checkParkCeoEmail($where);
+                $checkUser = Restaurant::where($where)->first();
+                if($checkUser) {
+                    echo(json_encode("Email address already exist.")); 
+                } else {
+                    echo(json_encode(true)); 
+                }
+        }
+    }
+
+
+    public function checkPhone(Request $request) {
+        $phone_number = $request->phone_number;
+        if($phone_number){
+                $where = [['phone_number',$phone_number]];
+                // $checkUser = $this->RestaurantProfileModel()->checkParkCeoEmail($where);
+                $checkUser = Restaurant::where($where)->first();
+                if($checkUser) {
+                    echo(json_encode("Phone number already exist.")); 
+                } else {
+                    echo(json_encode(true)); 
+                }
+        }
+    }
+
+
+
+
+
+    public function documentManagement(Request $request){
+        $restaurant_id = Auth::guard('restaurant')->user()->id;
+        $data = RestaurantDocs::where('restaurant_id' , $restaurant_id)->where('deleted_at' , null)->orderBy('id' , 'desc')->get();
+        return view('restaurant/document-management' , compact('data'));
+    }
+
+
+
+
+    public function addDocument(Request $request){
+
+        if($request->isMethod('GET')){
+
+            return view('restaurant/document-add');
+        }
+        if($request->isMethod("POST")){
+
+            $restaurant_id= Auth::guard('restaurant')->user()->id;
+            $data = [
+                'document_name' => $request->document_name,
+                'file_type' => $request->file_type,
+                'restaurant_id' => $restaurant_id,
+            ];
+
+            if($request->hasFile('image')) {
+               $file = $request->file('image');
+               $filename = time() . '.' . $file->getClientOriginalExtension();
+               // $file->move(storage_path()."/".env('CATEGORY_PATH'), $filename);
+               $file->move(storage_path(). DIRECTORY_SEPARATOR . "app/public/restaurant/restaurant_docs" , $filename);
+               $data["file"] = $filename;
+            } 
+
+            $qr_code_name = date('mdYHis') . uniqid() . '.png';
+            $data['qr_code_name'] = $qr_code_name;
+
+
+            $scan_document_open = url('public/storage/restaurant/restaurant_docs').'/'.$filename;
+
+            $img_store = storage_path() . '/'. env('RESTAURANT_DOC_QR_CODE') . '/' . $qr_code_name;
+            $qr_code = \QrCode::format('png')
+                         ->size(500)->errorCorrection('H')
+                         ->generate($scan_document_open, $img_store);  
+
+            $is_created = RestaurantDocs::create($data);
+
+            if($is_created){
+                return redirect('restaurant/document-management')->with('success' , 'Document has been uploaded successfully.');
+            }else{
+                return back()->with('error' , 'Unable to upload document.');
+            }
+        }
+    }
+
+
+    public function viewDocument(Request $request , $id){ 
+        $data = RestaurantDocs::where('id' , $id)->first();
+        return view('restaurant/document-view' ,compact('data'));
+    }
+
+    public function editDocument(Request $request , $id){
+        if($request->isMethod('GET')){
+            $data = RestaurantDocs::where('id' , $id)->first();
+            return view('restaurant/document-edit' , compact('data'));
+        }
+        if($request->isMethod("POST")){
+            $data = [
+                'document_name' => $request->document_name,
+                'file_type' => $request->file_type,
+            ];
+
+
+            if($request->hasFile('image')) {
+               $file = $request->file('image');
+               $filename = time() . '.' . $file->getClientOriginalExtension();
+               // $file->move(storage_path()."/".env('CATEGORY_PATH'), $filename);
+               $file->move(storage_path(). DIRECTORY_SEPARATOR . "app/public/restaurant/restaurant_docs" , $filename);
+               $data["file"] = $filename;
+
+
+                $qr_code_name = date('mdYHis') . uniqid() . '.png';
+                $data['qr_code_name'] = $qr_code_name;
+                // $is_created = RestaurantDocs::create($data);
+
+
+                $scan_document_open = url('public/storage/restaurant/restaurant_docs').'/'.$filename;
+
+                $img_store = storage_path() . '/'. env('RESTAURANT_DOC_QR_CODE') . '/' . $qr_code_name;
+                $qr_code = \QrCode::format('png')
+                             ->size(500)->errorCorrection('H')
+                             ->generate($scan_document_open, $img_store);  
+            } 
+
+
+
+            $is_updated = RestaurantDocs::where('id' , $id)->update($data);
+
+            if($is_updated){
+                return redirect('restaurant/document-management')->with('success' , 'Document has been updated successfully.');
+            }else{
+                return back()->with('error' , 'Unable to edit document.');
+            }
+ 
+
+        }
+    }
+
+
+    public function deleteDocument(Request $request){
+        $document_id = $request->delete_item_id;
+        RestaurantDocs::whereId($document_id)->update(['deleted_at' => Carbon::now()]);
+        Table::where('assign_document_id' , $document_id)->update(['assign_document_id' => null]);
+        return redirect(route('restaurant.documentManagement'))->with('success' , 'Document has been deleted successfully.'); 
+    }
+
+    
+			 
+}   

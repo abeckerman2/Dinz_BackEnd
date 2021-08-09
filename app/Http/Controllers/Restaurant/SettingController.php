@@ -4,6 +4,10 @@ namespace App\Http\Controllers\Restaurant;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+
+header('Cache-Control: no-store, private, no-cache, must-revalidate');
+header('Cache-Control: pre-check=0, post-check=0, max-age=0, max-stale = 0', false);
+
 use App\Restaurant;
 use App\RestaurantImage;
 use Auth;
@@ -88,18 +92,25 @@ class SettingController extends Controller
         if($request->isMethod('GET')){
             $restaurant_id =  Auth::guard('restaurant')->user()->id;
             $data = Restaurant::where('id' , $restaurant_id)->with('restaurantImages')->first();
-            return view('restaurant.edit-profile' , compact('data'));
+
+            return view('restaurant.edit-profile' , compact('data' ));
         }
         if($request->isMethod('POST')){
             
             $restaurant_id =  Auth::guard('restaurant')->user()->id;
 
+            $country_code = str_replace("+", "", $request->country_code);
+
             $data = [
+                'first_name'         => $request->first_name,
+                'last_name'         => $request->last_name,
                 'owner_name'         => $request->owner_name,
                 'restaurant_name'    => $request->restaurant_name,
+                'country_code'       => $country_code,
                 'phone_number'       => $request->phone_number,
                 'email'              => $request->email_address,
                 'restaurant_address' => $request->restaurant_address,
+                'city'               => $request->city,
                 'lat'                => $request->lat,
                 'lon'                => $request->lon,
                 'description'        => $request->description,
@@ -149,7 +160,7 @@ class SettingController extends Controller
 
 
             if($is_updated){
-                return redirect('restaurant/profile')->with('success','Profile has been updated successfully.');
+                return redirect('restaurant/profile')->with('success','Restaurant Profile details updated successfully.');
             }else{
                 return back()->with('error' , 'Unable to update profile.');
             }

@@ -3,6 +3,12 @@
 @section('title','Restaurant Details')
 @section('content')  
     
+    <style type="text/css">
+      .view-image img {
+          object-fit: contain !important;
+          border: 1px solid #000;
+      }
+    </style>
     <!-- Content Wrapper -->
     <div id="content-wrapper" class="d-flex flex-column">
 
@@ -56,7 +62,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -79,60 +85,83 @@
 
           <!-- Page Heading -->
             <div class="wrapper_breadcrumbs">
-          <h1 class="h3 mb-2 text-gray-800">Restaurant Details</h1>
-          <ul class="breadcrumb">
-  <li><a href="{{route('admin.dashboard')}}">Home</a></li>
-  <li><a href="{{route('admin.restaurantManagement')}}">Restaurant Management</a></li>
-  <li><a href="{{route('admin.rejectedRestaurant')}}">Rejected Restaurants</a>
-  <li>Restaurant Details</li>
-</ul>
-</div>
+                    <h1 class="h3 mb-2 text-gray-800">Restaurant Details</h1>
+                    <ul class="breadcrumb">
+                      <li><a href="{{route('admin.dashboard')}}">Home</a></li>
+                      <li><a href="{{route('admin.restaurantManagement')}}">Restaurant Management</a></li>
+                      <li><a href="{{route('admin.rejectedRestaurant')}}">Rejected Restaurants</a>
+                      <li>Restaurant Details</li>
+                    </ul>
+          </div>
 
           <div class="card shadow mb-4" style="padding: 25px 25px;
 
 ">
 
             <form class="user">
-                 <label>Restaurant Image</label>
-              <div class="text-center liner">
-              <img src="{{url('public/admin/img/dummy1.jpg')}}" width="200px" style="" >
-              <img src="{{url('public/admin/img/dummy1.jpg')}}" width="200px" style="" >
-              <img src="{{url('public/admin/img/dummy1.jpg')}}" width="200px" style="" >
-              <img src="{{url('public/admin/img/dummy1.jpg')}}" width="200px" style="" >
-              <img src="{{url('public/admin/img/dummy1.jpg')}}" width="200px" style="" >
-              <div class="img_line"></div>
-              <div class="img_line"></div>
-              <div class="img_line"></div>
-              <div class="img_line"></div>
-            </div>
-            <label style="margin-top: 16px;">Restaurant Logo</label>
-            <div>
-              <img src="{{url('public/admin/img/andrewlogo.png')}}" width="200px" style="">
-            </div>  
-                    <div class="form-group">
-                      <label>Restaurant Name</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="ABC123" disabled="">
+                   
+
+
+                    <label>Restaurant Logo</label>
+                    <div class="view-image">
+                      <img src="{{$reject_restaurant_detail->restaurant_logo}}" width="100px" height="100px" style="">
                     </div>
-                    <div class="form-group">
+
+
+                 <label style="margin-top: 20px;">Restaurant Image</label>
+                  <div class="text-center liner view-image">
+                  @foreach($reject_restaurant_detail->restaurantImages as $rows)
+                   <img src="{{$rows->restaurant_image}}" width="100px" height="100px" style="">
+    			        @endforeach
+                  <div class="img_line"></div>
+                  <div class="img_line"></div>
+                  <div class="img_line"></div>
+                  <div class="img_line"></div>
+                </div>
+
+
+                        
+
+                         <div class="form-group" style="margin-top: 20px;">
+                          <label>Restaurant Name</label>
+                          <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->restaurant_name}}" disabled="">
+                        </div>
+
+
+                    <div class="form-group" style="margin-top: 20px;">
                       <label>Owner Name</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="Shivam" disabled="">
+
+                       <?php
+                        $first_name = $reject_restaurant_detail->first_name;
+                        $last_name = $reject_restaurant_detail->last_name;
+
+                        $full_name = $first_name.' '.$last_name;
+                      ?>
+
+                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$full_name}}" disabled="">
                     </div>
                      <div class="form-group">
                       <label>Email Address</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="shivam@yopmail.com" disabled="">
+                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->email}}" disabled="">
                     </div>
                     <div class="form-group">
                       <label>Restaurant Address</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="Mohali" disabled="">
+                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->restaurant_address}}" disabled="">
                     </div>
                     <div class="form-group">
                       <label>City</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="Chandigarh" disabled="">
+                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->city}}" disabled="">
                     </div>
                      <div class="form-group">
                       <label>Phone Number</label>
-                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="+9112334448" disabled="">
+                      <input type="text" class="form-control form-control-user" id="exampleInputtext" value="+{{$reject_restaurant_detail->country_code}}{{$reject_restaurant_detail->phone_number}}" disabled="">
                     </div>
+
+                    <div class="form-group">
+                      <label>Description</label>
+                      <textarea class="form-control form-control-user" rows="3" disabled maxlength="1000" name="description">{{$reject_restaurant_detail->description}}</textarea>
+                    </div>
+                    
                      <div class="form-group">
                       <label>Rating</label>
                       <div>

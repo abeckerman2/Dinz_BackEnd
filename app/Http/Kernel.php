@@ -39,7 +39,7 @@ class Kernel extends HttpKernel
         ],
 
         'api' => [
-            'throttle:60,1',
+            // 'throttle:60,1',
             'bindings',
         ],
     ];
@@ -64,6 +64,11 @@ class Kernel extends HttpKernel
         'check_user' => \App\Http\Middleware\CheckUser::class,
         'LoginCheckForReturnDashboard' => \App\Http\Middleware\LoginCheckForReturnDashboard::class,
         'CheckAdmin' => \App\Http\Middleware\CheckAdmin::class,
+        'CheckRestaurantBlockDelete' => \App\Http\Middleware\CheckRestaurantBlockDelete::class,
+        'CheckUserBlock' => \App\Http\Middleware\BlockUser::class,
+        'CheckDeleteUser' => \App\Http\Middleware\CheckDeleteUser::class,
+
+
     ];
 
     /**

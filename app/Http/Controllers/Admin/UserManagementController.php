@@ -115,12 +115,20 @@ class UserManagementController extends ResponseController
 
     
     public function orders(Request $request,$id){
-        $user_id=base64_decode($id);
-        return view('admin.orders',compact('user_id'));
+        $user_id = base64_decode($id);
+
+        Session::put('order_user_id' , $user_id);
+
+        $orders_find = $this->AdminUserBusinessModel()->orders($user_id);
+
+        return view('admin.orders',compact('user_id','orders_find'));
     }
 
-    public function userOrderDetails(Request $request,$id){
-        $user_id=base64_decode($id);
+    public function userOrderDetails(Request $request,$order_id){
+        $user_order_detail = $this->AdminUserBusinessModel()->userOrderDetails($request,$order_id);
+
+        $user_id = Session::get('order_user_id');
+
         return view('admin.user-order-details',compact('user_id'));
     }
 }

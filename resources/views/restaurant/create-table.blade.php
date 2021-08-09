@@ -91,6 +91,20 @@ label#exampleFormControlSelect1-error {
 }
 
 
+.alert-danger {
+    border-left: 0px;
+    color: #302d2d;
+    background-color: #ed2227;
+    color: #fff;
+}
+.alert-success {
+    border-left: 0px;
+    color: #302d2d;
+    background-color: #008000;
+    color: white;
+}
+		
+
 </style>
 
 		<div class="main-panel dashboard_panel">
@@ -108,6 +122,22 @@ label#exampleFormControlSelect1-error {
 						</nav>
 					</div>
 					<h1>Create Table</h1>
+
+					@if(Session::has("error"))
+		              <div class="alert alert-danger">{{Session::get("error")}}</div>
+		              @endif
+		              @if(Session::has("success"))
+		              <div class="alert alert-success">{{Session::get("success")}}</div>
+		              @endif
+		              @if ($errors->any())
+		              <div class="alert alert-danger">
+		                    @foreach ($errors->all() as $error)
+		                    {{$error}}
+		                    @endforeach
+		              </div>
+		              @endif
+
+
 					<div class="card">
 						<div class="card-body add_imgae_box">
 							<form method="POST" id="validate-form">
@@ -125,7 +155,7 @@ label#exampleFormControlSelect1-error {
 										Table Name
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" name="table_name" class="form-control" placeholder="Enter Table Name" maxlength="50" />
+										<input type="text" name="table_name" class="form-control" placeholder="Enter Table Name" maxlength="30" />
 									</div>
 							</div>
 							<div class="text-center mt-2">
@@ -159,18 +189,24 @@ label#exampleFormControlSelect1-error {
 
 <script type="text/javascript">
 	$(document).ready(function(){
-	
+		
+		$.validator.addMethod("alphabatic", function(value, element) {
+	            return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
+	    });
+	    
 		$('#validate-form').validate({
 	        rules: {
 	          table_name:{
 	            required:true,
 	            minlength:2,
+            	alphabatic: true,
 	          }
 	        },
 	        messages: {
 	          table_name:{
 	            required: 'Please enter table name.',
-	            minlength: 'Table name should be atleast 2 characters long.'
+	            minlength: 'Table name should be at least 2 characters long.',
+            	alphabatic: "Table name should be alphanumeric only.",
 	          }
 	        },
 	        submitHandler:function(form){
@@ -197,5 +233,29 @@ label#exampleFormControlSelect1-error {
 
 	});
 </script>
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$('input').keypress(function( e ) {    
+			if($(this).val() == ''){
+		    	if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+		        return false;
+			}
+		})
+	});
 
+</script>
+
+<script type="text/javascript">
+	$(function(){
+		setTimeout(function(){
+			$('.alert-danger').hide();
+		},5000);
+	});
+	$(function(){
+		setTimeout(function(){
+			$('.alert-success').hide();
+		},5000);
+	});
+</script>
 @endsection()

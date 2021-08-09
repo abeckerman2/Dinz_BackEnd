@@ -18,10 +18,8 @@ body[data-background-color=dark] .main-panel label.error {
 label.error {
     font-size: 95%!important;
     margin-top: .5rem;
+    margin-bottom: 0px;
 }
-
-
-
 
 
 #alertModel h4.modal-title {
@@ -100,7 +98,14 @@ label#exampleFormControlSelect1-error {
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.menuManagement')}}">Menu Management</a></li>
+
+								<li class="breadcrumb-item active">
+									<a href="{{url('restaurant/parent-menu-management')}}">Menu Management</a>
+								</li>
+								
+								<li class="breadcrumb-item active">
+									<a href="{{url('restaurant/menu-management').'/'.$parent_menu_id}}">Sub Menu Management</a>
+								</li>
 								<li class="breadcrumb-item remove_hover">Add Item</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
@@ -115,12 +120,11 @@ label#exampleFormControlSelect1-error {
 
 							<input type="hidden" name="item_type" id="item_type" value="Veg">
 							<div class="user_img" style="width: 12%;
-							margin: auto; position: relative;" data-toggle="tooltip" data-placement="right" title="Add Image" data-original-title="Change Image">
+							margin: auto; position: relative;" data-toggle="tooltip" data-placement="right" title="Click to upload image" data-original-title="Change Image">
 								<img id="item_image" src="{{url('public/restaurant/assets/img/foodImage.jpg')}}" alt="woman" style="margin: 12px 0 12px;">
 								<div class="add_img">
-									<img src="{{url('public/restaurant/assets/img/plus1.png')}}" alt="plus1">
+									<img src="{{url('public/restaurant/assets/img/plus1.png')}}" id="plus_icon" alt="plus1">
 								</div>
-
 								<input style="display:none; " type="file" id="item_file" name="image" data-role="magic-overlay" img="false";  data-target="#pictureBtn" value="" class="user_img" >
 
 
@@ -140,7 +144,7 @@ label#exampleFormControlSelect1-error {
 									</label>
 									<div class="selectdiv mb-3">
 										<select class="form-control form-group" style="padding: .6rem 1rem; position: relative;" name="category_id" id="exampleFormControlSelect1">
-											<option value="">Select An Option</option>
+											<option value="">Select Category</option>
 											@foreach($categories as $category)
 											<option value="{{$category->id}}">{{$category->category_name}}</option>
 											@endforeach()
@@ -170,7 +174,7 @@ label#exampleFormControlSelect1-error {
 										Price($)
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" name="price" placeholder="Enter Price" />
+										<input type="text" class="form-control" maxlength="5" name="price" id="price" placeholder="Enter Price" />
 									</div>
 								
 							</div>
@@ -215,6 +219,9 @@ label#exampleFormControlSelect1-error {
         $("#item_image").click(function(){
             $("#item_file").click();
         });
+        $("#plus_icon").click(function(){
+            $("#item_file").click();
+        });
 
 
         $("#item_file").change(function(event){
@@ -228,7 +235,7 @@ label#exampleFormControlSelect1-error {
                 var size = event.target.files[0].size;
 
                 if(size > 20971520){
-                    $("#item_file_invalid").text("Image should not be greater than 20 MB.").show();
+                    $("#item_file_invalid").text("Image size should not be greater than 20 MB.").show();
 
                     $("#item_file").val("");
                     $('#item_image').attr('src',"{{url('public/restaurant/assets/img/foodImage.jpg')}}");
@@ -251,7 +258,7 @@ label#exampleFormControlSelect1-error {
                $(".add_img").hide();
                $("#item_file_invalid").text("").hide();
               }else {
-                $("#item_file_invalid").text("Please select jpg, jpeg or png image format only.").show();
+                $("#item_file_invalid").text("Please select .jpg, .jpeg or .png image format only.").show();
                 $("#item_file").val("");
                 $('#item_image').attr('src',"{{url('public/restaurant/assets/img/foodImage.jpg')}}");
                 $(".add_img").show();
@@ -301,7 +308,8 @@ label#exampleFormControlSelect1-error {
 	          price:{
 	            required:true,
 	            number:true,
-	            max:10000
+	            max:10000,
+	            min:0.1,
 	          },
 	          description:{
 	            required:true
@@ -310,14 +318,15 @@ label#exampleFormControlSelect1-error {
 	        messages: {
 	          item_name:{
 	            required: 'Please enter item name.',
-	            minlength: 'Item name should be atleast 2 characters long.'
+	            minlength: 'Item name should be at least 2 characters long.'
 	          },
 	          category_id:{
 	            required: 'Please select category.'
 	          },
 	          price:{
 	            required: 'Please enter price.',
-	            max: 'Price should be less than $10000.'
+	            max: 'Price should be less than or equal to $10000.',
+	            min:'Price should be greater than 0.',
 	          },
 	          description:{
 	            required: 'Please enter description.'
@@ -356,5 +365,60 @@ label#exampleFormControlSelect1-error {
 	});
 </script>
 
+
+
+<script type="text/javascript">
+	
+	$(document).ready(function(){
+		$('input').keypress(function( e ) {    
+			if($(this).val() == ''){
+		    	if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+		        return false;
+			}
+		})
+		// $('textarea').keypress(function( e ) {    
+		// 	if($(this).val() == ''){
+		//     	if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+		//         return false;
+		// 	}
+		// })
+		$('textarea').keypress(function( e ) {    
+			if($(this).val() == ''){
+		    	if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+		        return false;
+			}
+		})
+	});
+
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('#price').keypress(function (event) {
+	        return isNumber(event, this)
+		});
+
+		// THE SCRIPT THAT CHECKS IF THE KEY PRESSED IS A NUMERIC OR DECIMAL VALUE.
+		function isNumber(evt, element) {
+		    var charCode = (evt.which) ? evt.which : event.keyCode
+				if($(element).val().indexOf('.') != -1){
+					$("#price").attr("maxlength","6");	
+				}else{
+					$("#price").attr("maxlength","5");
+				}
+		    if (            
+		        (charCode != 46 || $(element).val().indexOf('.') != -1) &&      // “.” CHECK DOT, AND ONLY ONE.
+		        (charCode < 48 || charCode > 57)){
+
+		        return false;
+			}else{
+
+			        return true;
+			}
+
+		}
+	});
+</script>
 
 @endsection()

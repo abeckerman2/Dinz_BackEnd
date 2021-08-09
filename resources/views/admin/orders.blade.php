@@ -2,6 +2,10 @@
 @extends('admin.layout.layout')
 @section('title','Orders')
 @section('content')
+<style>
+
+
+</style>
     
 
     <!-- Content Wrapper -->
@@ -57,7 +61,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -101,7 +105,7 @@
                 <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                   <thead>
                     <tr>
-                      <th>Sr. No</th>
+                      <th>Sr. No.</th>
                       <th>Order ID</th>
                       <th>Restaurant Name</th>
                       <th>Item Name</th>
@@ -111,57 +115,61 @@
                     </tr>
                   </thead>
                   <tbody>
+                  <?php
+                  $i = 1;
+                  ?>
+                  @foreach($orders_find as $order_find)
+
+                  <?php
+                  $date = $order_find->date_time;
+                  $converted_date = date('Y-m-d', strtotime($date));
+                  $converted_time = date('h:i A', strtotime($date));
+                ?>
                     <tr>
-                      <td>1</td>
-                      <td>545454</td>
-                      <td>ABC123</td>
-                      <td>Bread</td>
-                      <td>22-05-2021</td>
-                      <td>8:00AM</td>
-                      <td><a href="{{route('admin.userOrderDetails',base64_encode($user_id))}}" class="view">View</a>
+                      <td>{{$i++}}</td>
+                      <td>{{$order_find->id}}</td>
+                      <td>{{$order_find->restaurant->restaurant_name}}</td>
+
+
+                      <?php 
+                        $count_items = count($order_find->orderItemsWithMenu);
+                      ?> 
+                      <td>
+                        @if($count_items > 0) 
+                          <?php 
+                            $menu_pluck = Illuminate\Support\Arr::pluck($order_find->orderItemsWithMenu, 'menu');
+                            $item_pluck = Illuminate\Support\Arr::pluck($menu_pluck, 'item_name');
+                            echo $implode_items = implode(", ", $item_pluck);  
+                          ?> 
+                        @else 
+                          <?php echo "N/A"; ?> 
+                        @endif() 
+                      </td>
+
+
+
+                        
+                      <td>{{$converted_date}}</td>
+                      <td>{{$converted_time}}</td>
+                      <td><a href="{{route('admin.userOrderDetails',base64_encode($order_find->id))}}" class="view">View</a>
                       </td>
                     </tr>
-                     <tr>
-                      <td>2</td>
-                      <td>545454</td>
-                      <td>ABC123</td>
-                      <td>Bread</td>
-                      <td>22-05-2021</td>
-                      <td>8:00AM</td>
-                      <td><a href="{{route('admin.userOrderDetails',base64_encode($user_id))}}" class="view">View</a>
-                     </td>
-                    </tr>
-                      <tr>
-                      <td>3</td>
-                      <td>545454</td>
-                      <td>ABC123</td>
-                      <td>Bread</td>
-                      <td>22-05-2021</td>
-                      <td>8:00AM</td>
-                      <td><a href="{{route('admin.userOrderDetails',base64_encode($user_id))}}" class="view">View</a>
-                     </td>
-                    </tr>
-                        <tr>
-                      <td>4</td>
-                      <td>545454</td>
-                      <td>ABC123</td>
-                      <td>Bread</td>
-                      <td>22-05-2021</td>
-                      <td>8:00AM</td>
-                      <td><a href="{{route('admin.userOrderDetails',base64_encode($user_id))}}" class="view">View</a></td>
-                    </tr>
-                      <tr>
-                      <td>5</td>
-                      <td>545454</td>
-                      <td>ABC123</td>
-                      <td>Bread</td>
-                      <td>22-05-2021</td>
-                      <td>8:00AM</td>
-                      <td><a href="{{route('admin.userOrderDetails',base64_encode($user_id))}}" class="view">View</a>
-                          </td>
-                    </tr>
-                  </tbody>
+                    @endforeach()
                 </table>
+                <?php
+                    $count = 0;
+                      foreach($orders_find as $rows){
+                        $count++;
+                      }
+
+
+                    ?>
+                    @if($count == 0)
+                    <div class="" style="text-align: center;">
+                    <h2 style="font-size: 15px;">No Order Available.</h2>
+                    </div>
+                    @endif
+                  </tbody>
               </div>
             </div>
           </div>

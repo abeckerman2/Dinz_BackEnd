@@ -6,20 +6,38 @@
 	label.error {
 	    color: #f00!important;
 	    font-size: 95%!important;
-	    margin-top: .5rem;
+	    /*margin-top: .5rem;*/
+	    margin-bottom: 0px;
 	}
 	body[data-background-color=dark] .main-panel label.error {
 	    color: #ff0a0a!important;
 	}
 	 
- 	.alert-danger {
+ 	/*.alert-danger {
 	    border-left: 0px; 
 	    color: #302d2d;
 	}
 	.alert-success {
 	    border-left: 0px; 
 	    color: #302d2d;
-	} 
+	} */
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		}
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
+		}
+
+		.dashboard_panel .add_content {
+		    width: 62%;
+		}
+
 </style>
 
 	<form method="POST" enctype="multipart/form-data" id="validate-form">
@@ -62,10 +80,10 @@
 
 							<div class="add_content">
 									<label for="" class="pb-1">
-										Password
+										Old Password
 									</label>
 									<div class="form-group pb-3">
-										<input type="password" class="form-control" name="password" maxlength="15" placeholder="Enter Password" onkeypress="return AvoidSpace(event)"  required />
+										<input type="password" class="form-control" name="password" maxlength="70" placeholder="Enter Old Password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" onkeypress="return AvoidSpace(event)"  required />
 									</div>
 							</div>
 
@@ -75,7 +93,7 @@
 										New Password
 									</label>
 									<div class="form-group pb-3">
-										<input type="password" class="form-control" name="new_password" id="new_password" placeholder="Enter New Password" maxlength="15"   onkeypress="return AvoidSpace(event)" required />
+										<input type="password" class="form-control" name="new_password" id="new_password" placeholder="Enter New Password" maxlength="70" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off"   onkeypress="return AvoidSpace(event)" required />
 									</div>
 							</div> 
 
@@ -85,7 +103,7 @@
 										Confirm Password
 									</label>
 									<div class="form-group pb-3">
-										<input type="password" class="form-control" name="confirm_password" maxlength="15" placeholder="Enter Confirm Password" onkeypress="return AvoidSpace(event)"  required />
+										<input type="password" class="form-control" name="confirm_password" maxlength="70" placeholder="Enter Confirm Password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" onkeypress="return AvoidSpace(event)"  required />
 									</div>
 							</div>
 
@@ -129,7 +147,7 @@
 			rules:{
 				  password:{
 		            required:true,
-		            minlength:6,
+		            // minlength:6,
 		          },
 		          new_password:{
 		            required:true,
@@ -142,12 +160,12 @@
 			},
 			messages:{
 				  password:{
-		            required: 'Please enter password.',
-		            minlength: 'Password should be atleast 6 charcters long.'
+		            required: 'Please enter old password.',
+		            minlength: 'Password should be at least 6 characters long.'
 		          },
 		          new_password:{
 		            required: 'Please enter new password.',
-		            minlength: 'New Password should be atleast 6 charcters long.'
+		            minlength: 'New Password should be at least 6 characters long.'
 		          },
 		          confirm_password:{
 		            required: 'Please enter confirm password.',

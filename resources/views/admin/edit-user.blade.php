@@ -67,7 +67,7 @@
             <!-- Nav Item - User Information -->
             <li class="nav-item dropdown no-arrow">
               <a class="nav-link dropdown-toggle" href="#" id="userDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Valerie Luna</span>
+                <span class="mr-2 d-none d-lg-inline text-gray-600 small">Admin</span>
                 <img class="img-profile rounded-circle" src="https://source.unsplash.com/QAB-WJcbgJk/60x60">
               </a>
               <!-- Dropdown - User Information -->
@@ -120,15 +120,15 @@
 
                     <div class="form-group">
                       <label>First Name</label>
-                      <input type="text" class="form-control form-control-user" id="first_name" name="first_name" aria-describedby="emailHelp" value="{{$user_find->first_name}}">
+                      <input type="text" class="form-control form-control-user" id="first_name" name="first_name" aria-describedby="emailHelp" maxlength="20" value="{{$user_find->first_name}}">
                     </div>
                     <div class="form-group">
                       <label>Last Name</label>
-                      <input type="text" class="form-control form-control-user" id="last_name" name="last_name" value="{{$user_find->last_name}}">
+                      <input type="text" class="form-control form-control-user" maxlength="20" id="last_name" name="last_name" value="{{$user_find->last_name}}">
                     </div>
                     <div class="form-group">
                       <label>Email Address</label>
-                      <input type="text" class="form-control form-control-user" id="email" name="email" value="{{$user_find->email}}">
+                      <input type="text" class="form-control form-control-user"  maxlength="100" id="email" name="email" value="{{$user_find->email}}" disabled>
                     </div>
                     <!-- <div class="form-group">
                       <label>Address</label>
@@ -164,6 +164,8 @@
     </div>
     <!-- End of Content Wrapper -->
 
+    
+
   
 @endsection()
 @section('js')
@@ -175,18 +177,26 @@
 <script type="text/javascript">
 $(document).ready(function(){
   
-jQuery.validator.addMethod("valid_email", function(value, element) {
-  console.log(value.indexOf("."))
-  if(value.indexOf(".") >= 0 ){
-    return true;
-  }else {
-    return false;
-  }
-}, "Please enter valid email address.");
+    jQuery.validator.addMethod("valid_email", function(value, element) {
+      console.log(value.indexOf("."))
+      if(value.indexOf(".") >= 0 ){
+        return true;
+      }else {
+        return false;
+      }
+    }, "Please enter valid email address.");
 
-$.validator.addMethod("first_name_alphanumeric", function(value, element) {
+    $.validator.addMethod("valid_email2", function(value, element) {
+            return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+    }, "Please enter valid email address.");
+
+
+
+    $.validator.addMethod("first_name_alphanumeric", function(value, element) {
             return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
     },"First name should be alphanumeric only.");
+
+
 
     $.validator.addMethod("last_name_alphanumeric", function(value, element) {
             return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
@@ -202,33 +212,34 @@ $.validator.addMethod("first_name_alphanumeric", function(value, element) {
       first_name: {
          required: true,
          first_name_alphanumeric: true,
-         minlength: 3,
-         maxlength : 50,
+         minlength: 2,
+         maxlength : 20,
          noSpace: true,
       },
       last_name: {
          required: true,
          last_name_alphanumeric: true,
-         minlength: 3,
-         maxlength : 50,
+         minlength: 2,
+         maxlength : 20,
          noSpace: true,
       },
       email : {
           email : true,
           required : true,
-          valid_email: true
+          valid_email: true,
+          valid_email2: true, 
       },
   },
   messages : {
    first_name: {
       required: "Please enter first name.",
-      minlength: "First name must be at least 3 characters long.",
-      maxlength : "First name should be less than 50 characters."
+      minlength: "First name must be at least 2 characters long.",
+      maxlength : "First name should be less than 20 characters."
    },
    last_name: {
       required: "Please enter last name.",
-      minlength: "last name must be at least 3 characters long.",
-      maxlength : "last name should be less than 50 characters."
+      minlength: "last name must be at least 2 characters long.",
+      maxlength : "last name should be less than 20 characters."
    },
     email : {
         email : "Please enter valid email address.",
@@ -240,6 +251,41 @@ $.validator.addMethod("first_name_alphanumeric", function(value, element) {
   }
 });
 });
+
+</script>
+
+
+
+
+
+<!-- trim space -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-control").on("keyup",function(){
+        var length = $.trim($(this).val()).length;
+        if(length == 0){
+           $(this).val("");
+        }
+      })
+    });
+</script>
+<!-- Block space at beninning of field -->
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('input').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+
+    $('textarea').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-~!@#$%^&*()_+{}:"<>,.;'/"]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  });
 
 </script>
 

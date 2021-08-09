@@ -1,16 +1,30 @@
 @extends('restaurant.layout.layout')
-@section('title','Menu Management')
+@section('title','Sub Menu Management')
 @section('content')
 <style type="text/css">
-	.alert-danger {
+	/*.alert-danger {
 		    border-left: 0px; 
 		    color: #302d2d;
 		}
 		.alert-success {
 		    border-left: 0px; 
 		    color: #302d2d;
+		}*/
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		    margin-top: 23px;
 		}
-
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
+		    margin-top: 23px;
+		}
+		 
 		div#loaderImg2 {
 		    position: absolute;
 		    left: 0;
@@ -20,6 +34,8 @@
 		}
 
 
+
+		/*Pop up*/
 		#alertModel h4.modal-title {
 		    text-align: center;
 		    margin: auto;
@@ -76,6 +92,8 @@
 		}
 
 
+
+
 		#deleteModel h4.modal-title {
 		    text-align: center;
 		    margin: auto;
@@ -87,8 +105,8 @@
 		}
 		#deleteModel  button.close {
 		    position: absolute;
-		    right: -11px;
-		    top: -12px;
+		    right: -15px;
+		    top: -16px;
 		    width: 31px;
 		    height: 30px;
 		    text-shadow: 0 1px 0 #ed1f24;
@@ -110,7 +128,7 @@
 
 		#deleteModel .modal-footer {
 		    border-top: 0px solid #e9ecef;
-
+		    justify-content: center;
 		}
 		#deleteModel button.btn.btn-secondary.btn-lg.login_btn {
 		    width: 37%;
@@ -126,11 +144,20 @@
 		p#delete_alert_txt {
 		    text-align: center;
 		    font-weight: 500;
+		    margin-bottom: -2px;
+    		margin-top: 30px;
+    		font-size: 16px;
 		}
 
 		#deleteModel .modal-content {
 		    width: 110%;
 		}
+
+
+
+
+
+
 
 		#basic-datatables_wrapper .col-sm-12 {
 		    overflow-x: auto;
@@ -140,8 +167,32 @@
 		div.dataTables_wrapper div.dataTables_paginate {
 		    margin: 10px 0px 0px 0px;
 		}
+		.dashboard_panel .card td.user_img img { 
+		    object-fit: cover;
+		}
 				
+		.dashboard_panel .card .card-body .serch_icon i{
+			top: 38px;
+		}	
 
+
+		input.form-control.form-control-sm {
+		    background-image: url('{{url('public/restaurant/assets/img/loupe.png')}}');
+		    background-repeat: no-repeat;
+		    background-size: 15px;
+		    background-position: 3% 50%;
+		}
+		.common_btnn {
+			/*padding: 0px 31px;*/
+			font-size: 15px;
+			font-weight: 700;
+		}
+		.common_btnn:hover {
+			color: #fff !important;
+		}
+		.btn-info:disabled, .btn-info:focus, .btn-info:hover {
+			color: #fff !important;
+		}
 </style>
 		<div class="main-panel dashboard_panel">
 			<div class="content">
@@ -150,16 +201,43 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item active"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item remove_hover">Menu Management</li>
+
+								<li class="breadcrumb-item active">
+									<a href="{{url('restaurant/parent-menu-management')}}">Menu Management</a>
+								</li>
+
+								<li class="breadcrumb-item remove_hover">Sub Menu Management</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
-					<h1>Menu Management</h1>
+
+					
+
+					<form action="{{ url('restaurant/import-menu') }}" method="POST" name="importform" enctype="multipart/form-data" >
+                			{{csrf_field()}}
+
+						
+                		<!-- <div class="d-flex"> -->
+							<input type="file" name="import_menu" class="form-control" style="width: 300px;     border: 0 !important;
+    background-color: transparent;
+    color: #fff !important; padding-left: 0;">
+                			
+                		<!-- </div> -->
+						<div class="d-flex mt-3">
+		        			<button class="btn btn-success mr-3 common_btnn">Import Menu</button>
+							<a class="btn btn-info mr-3 common_btnn" href="{{ url('restaurant/export-menu') }}"> Export Menu </a>
+		                	<!-- <a href="{{url('restaurant/menu-images')}}">
+								<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Menu Images</button>
+							</a> -->
+						</div>
+
+					</form>
 
 
-					@if(Session::has("error"))
+
+					  @if(Session::has("error"))
 		              <div class="alert alert-danger">{{Session::get("error")}}</div>
 		              @endif
 		              @if(Session::has("success"))
@@ -173,16 +251,26 @@
 		              </div>
 		              @endif
 
+
+					<h1>Sub Menu Management</h1>
+
+					
+
 					<div class="card">
 						<div class="card-body">
 							<div class="add_btn">
 								<a href="{{route('restaurant.addItem')}}">
 									<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Add Item</button>
 								</a>
+
+
+							
+
+
 							</div>
-							<div class="serch_icon">
+							<!-- <div class="serch_icon">
 								<i class="fas fa-search"></i>
-							</div>
+							</div> -->
 							<div class="table-responsive">
 								<table id="basic-datatables" class="display table table-striped table-hover" >
 									<thead>
@@ -284,18 +372,18 @@
 			{{@csrf_field()}}
 		<input type="hidden" name="delete_item_id" id="delete_item_id">
       <div class="modal-header">
-        <button type="button" class="close" data-dismiss="modal">&times;</button>
+        <button type="button" class="close" data-dismiss="modal" style="right: -11px; top: -15px">&times;</button>
         <h4 class="modal-title">Alert</h4>
       </div>
       <div class="modal-body">
             
-            <p id="delete_alert_txt">Are you sure you want to delete this item?</p>    
+            <p id="delete_alert_txt">Are you sure, you want to delete this item?</p>    
 
       </div>
 
       <div class="modal-footer">
-        <button type="button" class="btn btn-warning same_wd_btn border_btn yes" style="background-color: #ed1f24!important; font-weight: 600 ">Yes</button>
-        <button type="button" class="btn btn-warning same_wd_btn border_btn no" style="background-color: #ed1f24!important; font-weight: 600 ">No</button>
+        <button type="button" class="btn btn-warning same_wd_btn border_btn yes" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">Yes</button>
+        <button type="button" class="btn btn-warning same_wd_btn border_btn no" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">No</button>
       </div>
       </form>
     </div>
@@ -450,4 +538,9 @@ $(function(){
 	});
 </script>
 
+<script type="text/javascript">
+	$(document).ready(function(){
+		$('.dataTables_empty').text("No data available");
+	})
+</script>
 @endsection()

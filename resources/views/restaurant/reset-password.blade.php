@@ -31,9 +31,22 @@
 		label.error {
 		    color: #ff000d!important;
 		    font-size: 13px!important;
+		    margin-bottom: 0px;
 		}
-		.alert-danger, .alert-success {
+		/*.alert-danger, .alert-success {
 		    border-left: 0px; 
+		}*/
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		}
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
 		}
 
 	</style>
@@ -110,11 +123,11 @@
                   </div>
                   <form class="user">
                     <div class="form-group" style="padding-right: 0; padding-left: 0;">
-                      <input type="password" class="form-control form-control-user" name="password" id="password" aria-describedby="emailHelp" maxlength="15" placeholder="Enter Password" onkeypress="return AvoidSpace(event)">
+                      <input type="password" class="form-control form-control-user" name="password" id="password" aria-describedby="emailHelp" maxlength="70" placeholder="Enter Password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" onkeypress="return AvoidSpace(event)">
                     </div>
 
                     <div class="form-group" style="padding-right: 0; padding-left: 0;">
-                      <input type="password" class="form-control form-control-user" name="confirm_password" id="confirm_password" aria-describedby="emailHelp" maxlength="15" placeholder="Enter Confirm Password" onkeypress="return AvoidSpace(event)">
+                      <input type="password" class="form-control form-control-user" name="confirm_password" id="confirm_password" aria-describedby="emailHelp" maxlength="70" placeholder="Enter Confirm Password" onselectstart="return false" onpaste="return false" onCopy="return false" onCut="return false" onDrag="return false" onDrop="return false" autocomplete="off" onkeypress="return AvoidSpace(event)">
                     </div>
 
                     <!-- <a href="{{route('restaurant.login')}}" class="btn btn-primary btn-user btn-block common_btn mt-3"> -->
@@ -227,7 +240,7 @@
 			messages:{
 				password:{
 					required:'Please enter password.',
-					minlength:'Password should be atleast 6 characters long.',
+					minlength:'Password should be at least 6 characters long.',
 				},
 				confirm_password:{
 					required:'Please enter confirm password.',

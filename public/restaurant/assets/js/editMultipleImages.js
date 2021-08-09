@@ -26,7 +26,7 @@
             maxImages : 5,
             maxImagesLen : 20971520, // 4194304 /*4MB*/
             totalMedia : 5,
-            maxImageLenText : ((20971520 / 1024) / 1024) + "MB"
+            maxImageLenText : ((20971520 / 1024) / 1024) + ' '+ "MB"
           }
 
       $("#image_error").text("").hide();
@@ -114,7 +114,7 @@
               // $("#image_error").text(`Please upload ${file_Types.image.join(", ")} file only.`).show();
                                 $("#alertModel").modal("show");
                                 $("#alertModel").unbind("click");
-                                $("#alert_txt").text("Only .jpeg, .jpg, .png type file is allowed.");
+                                $("#alert_txt").text("Only .jpeg, .jpg, .png type file are allowed.");
               return false;
             }
 
@@ -153,7 +153,10 @@
                 image_error = parseInt(image_error) - valid_file;
               $(".ext_media_record").attr("total-media",image_error)
               
-              $("#image_error").text("Image size should not be greater than "+util.maxImageLenText+".").show();
+              // $("#image_error").text("Image size should not be greater than "+util.maxImageLenText+".").show();
+                                $("#alertModel").modal("show");
+                                $("#alertModel").unbind("click");
+                                $("#alert_txt").text("Image size should not be greater than "+util.maxImageLenText+".");
               return false;
             }
 
@@ -170,7 +173,7 @@
             var reader = new FileReader();
               reader.onload = function(e){
               $(".media_preview").append(`<div class="upload_images text-center">
-              <i class="remove-img far fa-times-circle cross_icon" data-parent = "${_cls+"_"+i}" title="Remove image" type="total-media"></i> 
+              <i class="remove-img  cross_icon" data-parent = "${_cls+"_"+i}" title="Remove image" type="total-media"></i> 
               <img src="${e.target.result}" class="preview_image" title="${file_name}">
               <div class="slide_name" style='display:none' >${trim_name}</div>
               </div>`);
@@ -179,7 +182,7 @@
               reader.readAsDataURL(files[i]);
           }else if(file_Types.video.indexOf(get_type) != -1){
             $(".media_preview").append(`<div class="upload_images col-5 text-center">
-              <i class="remove-img far fa-times-circle cross_icon" data-parent = "${_cls+"_"+i}" title="Remove video" type="total-media"></i> 
+              <i class="remove-img  cross_icon" data-parent = "${_cls+"_"+i}" title="Remove video" type="total-media"></i> 
               <video controls loop src="${URL.createObjectURL(files[i])}" class="preview_image" title="${file_name}"></video>
               <div class="slide_name" style='display:none' media-name >${trim_name}</div>
               </div>`);

@@ -20,7 +20,13 @@ class CreateTablesTable extends Migration
             $table->string('table_id');
             $table->string('table_name');
             $table->string('qr_code');
-            $table->integer('is_occupied')->default(1)->comment("1=>available, 2=> not available");
+            $table->integer('is_occupied')->default(1)->comment("1=>available, 2=> not available , 3=> request waiter");
+
+            $table->string('assign_menu_id')->nullable();
+            $table->string('assign_document_id')->nullable();
+
+
+
             $table->timestamps();
             $table->softDeletes();
         });

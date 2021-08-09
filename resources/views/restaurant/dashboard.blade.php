@@ -2,7 +2,21 @@
 @section('title','Dashboard')
 @section('content')
 		
-
+	<style type="text/css">
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		}
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
+		}
+	</style>
+	
 		<div class="main-panel dashboard_panel">
 			<div class="content">
 				<div class="page-inner" style="padding-right: 12px;">
@@ -15,6 +29,23 @@
 							</ol>
 						</nav>
 					</div>
+
+
+				<!-- 	  @if(Session::has("error"))
+		              <div class="alert alert-danger">{{Session::get("error")}}</div>
+		              @endif
+		              @if(Session::has("success"))
+		              <div class="alert alert-success">{{Session::get("success")}}</div>
+		              @endif
+		              @if ($errors->any())
+		              <div class="alert alert-danger">
+		                    @foreach ($errors->all() as $error)
+		                    {{$error}}
+		                    @endforeach
+		              </div>
+		              @endif -->
+
+
 					<div class="row mt-5">
 						<div class="col-md-6 mb_bottom ">
 							<a href="" class="hover_box">
@@ -90,5 +121,21 @@
 
 @endsection()
 @section('js')
+
+
+<script type="text/javascript">
+	$(function(){
+		setTimeout(function(){
+			$('.alert-danger').hide();
+		},5000);
+	});
+	$(function(){
+		setTimeout(function(){
+			$('.alert-success').hide();
+		},5000);
+	});
+</script>
+
+
 @endsection()
 	
