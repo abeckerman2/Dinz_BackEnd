@@ -93,7 +93,7 @@
 
 
 
-						<li class="nav-item @if(  Request::is('restaurant/create-order') || Request::is('restaurant/order-management')  || Request::is('restaurant/present-order-details') || Request::is('restaurant/present-order-edit')  || Request::is('restaurant/past-orders') || Request::is('restaurant/past-order-details')  ||  Request::is('restaurant/today-orders')  ||  Request::is('restaurant/today-order-details')  ) active @endif">
+						<li class="nav-item @if(  Request::is('restaurant/create-order') || Request::is('restaurant/order-management')  || Request::is('restaurant/present-order-details/*') || Request::is('restaurant/present-order-edit')  || Request::is('restaurant/past-orders') || Request::is('restaurant/past-order-details/*')  ||  Request::is('restaurant/today-orders')  ||  Request::is('restaurant/today-order-details/*')  ) active @endif">
 							<a href="{{route('restaurant.orderManagement')}}">
 								<i class="fas fa-book"></i>
 								<p>Order Management</p>

@@ -113,13 +113,13 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
         Route::match(['GET','POST'],'add-item','MenuManagementController@addItem')->name('addItem');
         Route::match(['GET','POST'],'edit-item/{menu_id}','MenuManagementController@editItem')->name('editItem');
         Route::match(['GET','POST'],'order-management','OrderManagementController@orderManagement')->name('orderManagement');
-        Route::match(['GET','POST'],'present-order-details','OrderManagementController@presentOrderDetails')->name('presentOrderDetails');
+        Route::match(['GET','POST'],'present-order-details/{id}','OrderManagementController@presentOrderDetails')->name('presentOrderDetails');
         Route::match(['GET','POST'],'present-order-edit','OrderManagementController@presentOrderEdit')->name('presentOrderEdit');
         Route::match(['GET','POST'],'create-order','OrderManagementController@createOrder')->name('createOrder');
         Route::match(['GET','POST'],'past-orders','OrderManagementController@pastOrders')->name('pastOrders');
-        Route::match(['GET','POST'],'past-order-details','OrderManagementController@pastOrderDetails')->name('pastOrderDetails');
+        Route::match(['GET','POST'],'past-order-details/{id}','OrderManagementController@pastOrderDetails')->name('pastOrderDetails');
         Route::match(['GET','POST'],'today-orders','OrderManagementController@todayOrders')->name('todayOrders');
-        Route::match(['GET','POST'],'today-order-details','OrderManagementController@todayOrderDetails')->name('todayOrderDetails');
+        Route::match(['GET','POST'],'today-order-details/{id}','OrderManagementController@todayOrderDetails')->name('todayOrderDetails');
         Route::match(['GET','POST'],'profile','SettingController@profile')->name('profile');
         Route::match(['GET','POST'],'edit-profile','SettingController@editProfile')->name('editProfile');
         Route::match(['GET','POST'],'my-earnings','SettingController@myEarnings')->name('myEarnings');
@@ -167,6 +167,10 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
         Route::match(['GET' , 'POST'] , 'edit-parent-menu-name/{id}' , 'MenuManagementController@editParentMenuName')->name('editParentMenuName');
 
         Route::match(['GET' , 'POST'] , 'delete-parent-menu' , 'MenuManagementController@deleteParentMenu')->name('deleteParentMenu');
+
+
+        Route::match(['GET' , 'POST'] , 'delete-order' , 'OrderManagementController@deleteOrder')->name('deleteOrder');
+
 
 
 
@@ -230,9 +234,24 @@ Route::group(['namespace' => 'Admin','prefix'=>'/admin', 'as' => 'admin.'],funct
         Route::match(['GET' , 'POST'] , 'delete-rejected-restauarnt' , 'RestaurantManagementController@deleterejectedRestaurant')->name('deleterejectedRestaurant');
 
         
-        
     }); 
            
 });
 
 /*END OF ADMIN ROUTE*/
+
+
+
+/*START OF WEBSITE ROUTE*/
+Route::group(['namespace' => 'Website' , 'prefix' => "website"] , function(){ 
+
+    Route::match(['GET' , 'POST'] , 'menu-list/{restaurant_id}/{table_id}' , 'WebsiteController@menuList')->name('menuList');
+    Route::post('add-cart' , 'WebsiteController@addCart')->name('addCart');
+    Route::match(['GET' , 'POST'] , 'cart-listing' , 'WebsiteController@cartListing')->name('cartListing');
+    Route::match(['GET' , 'POST'] , 'payment' , 'WebsiteController@payment')->name('payment');
+
+    Route::match(['GET' , 'POST'] , 'book-order' , 'WebsiteController@bookOrder');
+    Route::match(['GET' , 'POST'] , 'no-item-in-cart' , 'WebsiteController@noItemInCart');
+    
+});
+/*END OF WEBSITE ROUTE*/

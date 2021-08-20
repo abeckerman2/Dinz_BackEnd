@@ -342,60 +342,7 @@
 						</div>
 					</div>
 
-
-
-
-
-
-
-
-
-					<div style="display: flex;justify-content: space-between;padding: 22px 0px;">
-						<h2 style="margin: 0px;padding: 0px;text-align: center;">User Details</h1> 
-					</div>
-					<div class="card order_details">
-						<div class="card-body add_imgae_box"> 
-							<div class="table-responsive">
-								<table class="display table table-striped table-hover dataTable" > 
-									<tbody> 
-										 <tr>
-											<th class="heading_user_width">Name</th>
-											<td>
-												{{$order_details->user->first_name ?? 'N/A'}}
-												{{$order_details->user->last_name ?? 'N/A'}} 
-											</td>
-										</tr> 
-									<!-- 	<tr>
-											<th class="heading_user_width">Image</th>
-											<td class="user_image">
-												<img src="{{$order_details->user->image}}" style="    object-fit: cover;">
-											</td>
-										</tr> -->
-										<tr>
-											<th class="heading_user_width">Email Address</th>
-											<td>
-												{{$order_details->user->email ?? 'N/A'}}
-											</td>
-										</tr>
-										<!-- <tr>
-											<th class="heading_user_width">Address</th>
-											<td>
-												{{$order_details->address ?? 'N/A'}}
-											</td>
-										</tr>
-										<tr>
-											<th class="heading_user_width">Phone Number</th>
-											<td>
-												{{$order_details->phone_number ?? "N/A"}}
-											</td>
-										</tr> -->
-									</tbody>
-								</table>
-							</div>
-						</div>
-					</div>
-
-
+ 
 
 				</div>
 			</div>

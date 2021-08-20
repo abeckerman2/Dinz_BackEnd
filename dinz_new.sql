@@ -1,15 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.4
+-- version 4.6.6deb5ubuntu0.5
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Generation Time: Aug 06, 2021 at 02:22 PM
--- Server version: 10.1.37-MariaDB
--- PHP Version: 7.2.14
+-- Host: localhost:3306
+-- Generation Time: Aug 13, 2021 at 05:29 PM
+-- Server version: 5.7.35-0ubuntu0.18.04.1
+-- PHP Version: 7.2.34-23+ubuntu18.04.1+deb.sury.org+1
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
-START TRANSACTION;
 SET time_zone = "+00:00";
 
 
@@ -19,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dinz_2_aug`
+-- Database: `dinz_13_aug`
 --
 
 -- --------------------------------------------------------
@@ -30,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `add_carts` (
   `id` int(10) UNSIGNED NOT NULL,
-  `user_id` int(10) UNSIGNED NOT NULL,
+  `user_id` int(10) UNSIGNED DEFAULT NULL,
   `restaurant_id` int(10) UNSIGNED NOT NULL,
   `table_id` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `menu_id` int(10) UNSIGNED NOT NULL,
@@ -61,7 +59,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', 'SZOHbF1U0E7gULpd1IYDA9rXSe6qSmImaSFJUyJP0SJpFVaqAEv6vmMxFr2bQRkO', NULL, '2021-08-02 00:36:19');
+(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', '9E20XEoTC00KubZ2FkWbGyEsDLDHwosKWOq5kuWkfVFIyVXVoyxPtfKNPJGNpM2g', NULL, '2021-08-12 22:36:44');
 
 -- --------------------------------------------------------
 
@@ -190,12 +188,14 @@ CREATE TABLE `oauth_access_tokens` (
 INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes`, `revoked`, `created_at`, `updated_at`, `expires_at`) VALUES
 ('0073c8d18e9f4891bd076db921ed7b999b0b811149ee93a17a4eda7ec66ff1a10baa7ab5b0555d17', 7, 1, 'andrew', '[]', 1, '2021-07-26 00:58:31', '2021-07-26 00:58:31', '2022-07-26 06:28:31'),
 ('00effd5a7ab882e8ede975ac13c4cfca97c14a6f4033c667df92234d8235120e498ac2882b83594d', 7, 1, 'andrew', '[]', 0, '2021-07-29 22:59:40', '2021-07-29 22:59:40', '2022-07-30 04:29:40'),
+('022ea3ae4ea815d5284142630adcac238258822ea380f56fdf5f848b7af3138e3acbd02d4b97995a', 4, 1, 'andrew', '[]', 1, '2021-08-09 04:11:09', '2021-08-09 04:11:09', '2022-08-09 09:41:09'),
 ('02aa3b5ff598db052cbc8ef1d46af2d6d70f89af27e6ed36ad5c5971030f3149fe3646186817f835', 3, 1, 'andrew', '[]', 1, '2021-07-27 04:50:15', '2021-07-27 04:50:15', '2022-07-27 10:20:15'),
 ('02be9a6ae10de13fe0998640b95be6cfb647a4d31b89b27eb5141a4f8e984d4b5390f945f20d569f', 2, 1, 'andrew', '[]', 1, '2021-07-19 23:42:17', '2021-07-19 23:42:17', '2022-07-20 05:12:17'),
 ('031c5c920500c8c40555686da2c47ee357e5603b0822633ef7fdb3fc82d6dfd5885f31922a326197', 3, 1, 'andrew', '[]', 1, '2021-07-13 01:35:29', '2021-07-13 01:35:29', '2022-07-13 07:05:29'),
 ('03c90fc8c80fef02fc66cf3aa65b82a7830d1a254be8d51551f8d60d5226208c771714b0538ab03e', 29, 1, 'andrew', '[]', 0, '2021-07-21 10:20:56', '2021-07-21 10:20:56', '2022-07-21 15:50:56'),
 ('0550b3b1fa7ce92c3490c77545f4f400c617d5e83c55581d0eb882a25fa721c7cee7e83929d75fc5', 7, 1, 'andrew', '[]', 1, '2021-07-28 07:13:22', '2021-07-28 07:13:22', '2022-07-28 12:43:22'),
 ('06dda0e078a1fe4748954b87650285a0ab12d7a21fa63bfe4ad488dc9290e7830f58841a42200d11', 16, 1, 'andrew', '[]', 1, '2021-07-20 04:38:52', '2021-07-20 04:38:52', '2022-07-20 10:08:52'),
+('07a3341119d97d74fb93d5824aaa541641ae6c09705cfabaff89c198d7d2fd856f2c9a7de183f819', 4, 1, 'andrew', '[]', 1, '2021-08-09 04:30:53', '2021-08-09 04:30:53', '2022-08-09 10:00:53'),
 ('08f36ddb5e9a65122d66589628986e372172c05be4b942c188a37222f7ea8174b72d53ccd0953b0b', 33, 1, 'andrew', '[]', 1, '2021-07-29 07:22:54', '2021-07-29 07:22:54', '2022-07-29 12:52:54'),
 ('08f720b5ebc8744c0a1d0773070945946fe032a9d2395a48fc7bb83617549a730b9d2cd7fb00b536', 3, 1, 'andrew', '[]', 1, '2021-07-14 21:41:50', '2021-07-14 21:41:50', '2022-07-15 03:11:50'),
 ('09555d6ea2a208a7e9bc1d1f1fe05b9928a6b0ca24db75e4b5b53405a58fee8e6f6d01a8d123852c', 3, 1, 'andrew', '[]', 1, '2021-07-20 02:12:27', '2021-07-20 02:12:27', '2022-07-20 07:42:27'),
@@ -208,6 +208,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('0f679a118710d902530947c6650c0004bf5a9270759b3751b24bfa040ce7195c79052fbd1fbe821b', 7, 1, 'andrew', '[]', 1, '2021-07-21 07:33:59', '2021-07-21 07:33:59', '2022-07-21 13:03:59'),
 ('1045a3ff79a5de039e7585ab88a9ae2d50c75d441c3aedae82827a85effdf21e666afa5a75ed836f', 15, 1, 'andrew', '[]', 0, '2021-07-20 23:18:00', '2021-07-20 23:18:00', '2022-07-21 04:48:00'),
 ('15061aa4d8131fc46cf7eac1ed3c9b6cd01a3ee24e9ab5561c6a38daeb9edcee4fe4607b60564e5b', 8, 1, 'andrew', '[]', 1, '2021-07-20 07:43:44', '2021-07-20 07:43:44', '2022-07-20 13:13:44'),
+('163cbc1ac201029988fffa4e38109199d79b06593a616d029f4f2b9218f1847a0bc50ab58fc62177', 4, 1, 'andrew', '[]', 1, '2021-08-09 04:10:36', '2021-08-09 04:10:36', '2022-08-09 09:40:36'),
 ('1840c02e78e259e261fbeafd27a9f869766ae6b206859fc90c8605cbe257ee1fdaac2c1b0c4fe0fa', 1, 1, 'andrew', '[]', 0, '2021-07-30 03:33:50', '2021-07-30 03:33:50', '2022-07-30 09:03:50'),
 ('18eb042371c7790fc619d2add72818d6a90788b9f4c6105d899e9ad5b1dd1afab9fdc86ea5103295', 4, 1, 'andrew', '[]', 1, '2021-07-15 04:42:03', '2021-07-15 04:42:03', '2022-07-15 10:12:03'),
 ('1bd9d5b2a7cc06e12f208e85095b32deadc4c49dc26513395893087122b87da6c0f2d8e489252b87', 32, 1, 'andrew', '[]', 1, '2021-07-21 10:22:18', '2021-07-21 10:22:18', '2022-07-21 15:52:18'),
@@ -271,6 +272,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('5ee92ebebc415786df05227bea3c0810539a663b8c05397fc99b1df89a9a4d75afff745b03946615', 25, 1, 'andrew', '[]', 0, '2021-07-21 09:15:38', '2021-07-21 09:15:38', '2022-07-21 14:45:38'),
 ('5f78400580429a132aac11a1afa7ec057dd95625cc1111749a35382b7da519a1948cf362390beacb', 1, 1, 'andrew', '[]', 1, '2021-07-19 23:35:02', '2021-07-19 23:35:02', '2022-07-20 05:05:02'),
 ('60ed862304f717b0ed4bd962fad3b17c410816a374b58d6aa76c8e4a4a60359b6b99bb400e5e8e2d', 5, 1, 'andrew', '[]', 0, '2021-07-15 05:31:47', '2021-07-15 05:31:47', '2022-07-15 11:01:47'),
+('6352ba259144576a305f11b646cc594b8c63395f02dfb5c27c01c316dfd392b826cb87e723329d69', 4, 1, 'andrew', '[]', 0, '2021-08-09 23:49:31', '2021-08-09 23:49:31', '2022-08-10 05:19:31'),
 ('63b0eac2d69fec1007daabd0c2c37e08e0059ba27079f55be03aeafeed122be53bfeb96e2606bdcc', 10, 1, 'andrew', '[]', 1, '2021-07-20 22:53:58', '2021-07-20 22:53:58', '2022-07-21 04:23:58'),
 ('64460725278f62c2d4e82711b38e4fc32c1c1fce9a79acc0ce0940c613a01b1c68086fc18390bcf6', 2, 1, 'andrew', '[]', 1, '2021-07-28 06:31:57', '2021-07-28 06:31:57', '2022-07-28 12:01:57'),
 ('64e8a838483b9ffa9dd98754e5f8cd4b0a28cf010b2cc64dcf5b608a9ff25fb903fc093b07afe475', 3, 1, 'andrew', '[]', 1, '2021-07-13 22:49:25', '2021-07-13 22:49:25', '2022-07-14 04:19:25'),
@@ -286,7 +288,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('71e9b21917d22dfc7ca389b2f9cade300b5b0cddc18e31d5978ff503f0ffcbe91fc29a7486c2545b', 1, 1, 'andrew', '[]', 1, '2021-07-27 04:47:06', '2021-07-27 04:47:06', '2022-07-27 10:17:06'),
 ('729d0eef84cbbc1cf5f4af5db8b3f9e5688d15ddd60ec3ab0fae5a012da2932af827ecf6cc051e41', 2, 1, 'andrew', '[]', 1, '2021-07-12 22:03:16', '2021-07-12 22:03:16', '2022-07-13 03:33:16'),
 ('75a60908756e6c075677e59237cd59c3d2d3abbb911b67f6c6192b35e8183244d14fec6cd7da49cd', 1, 1, 'andrew', '[]', 1, '2021-07-20 05:25:28', '2021-07-20 05:25:28', '2022-07-20 10:55:28'),
-('75d79b2bd99bfd8752bbef856b7c9cdfb1ad8ea9bd5d878096496775c95ab6187a1382eb3c33790a', 4, 1, 'andrew', '[]', 0, '2021-07-20 05:35:10', '2021-07-20 05:35:10', '2022-07-20 11:05:10'),
+('75d79b2bd99bfd8752bbef856b7c9cdfb1ad8ea9bd5d878096496775c95ab6187a1382eb3c33790a', 4, 1, 'andrew', '[]', 1, '2021-07-20 05:35:10', '2021-07-20 05:35:10', '2022-07-20 11:05:10'),
 ('781a9fc28eb5283a58e307661bb9d0367d71e39124f73d1512e25d7b53e704047c996801a597bf5b', 7, 1, 'andrew', '[]', 1, '2021-07-21 00:24:35', '2021-07-21 00:24:35', '2022-07-21 05:54:35'),
 ('7aef0a2411583b1114b7f33e547f8523e0f61f0f72ab0ee76fe5648f11d7b1c3e8d018d842c2305c', 24, 1, 'andrew', '[]', 1, '2021-07-21 07:25:23', '2021-07-21 07:25:23', '2022-07-21 12:55:23'),
 ('7b8591e7d32f50848c1e5f1e19025cdbfb6485870f79d5af3fba6ce35e7bd59604e76647ba5a6c9d', 16, 1, 'andrew', '[]', 1, '2021-07-19 23:23:58', '2021-07-19 23:23:58', '2022-07-20 04:53:58'),
@@ -369,6 +371,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('cf642208027717eb9d851c074cc24649b3e7d531a22af5dcf66a689392b775b34fcb8e2e201760c5', 26, 1, 'andrew', '[]', 0, '2021-07-21 09:10:17', '2021-07-21 09:10:17', '2022-07-21 14:40:17'),
 ('d08b11d9ce2c51b6ca9e1ba1f93f3be4b5195ddcddb9f09d8b22991273e01fb512fb602faede96eb', 7, 1, 'andrew', '[]', 1, '2021-07-16 04:25:39', '2021-07-16 04:25:39', '2022-07-16 09:55:39'),
 ('d1b686e9b56069146e24a8b1071be774194df4068aa0612bae935ffc58fb4f2e02c15b91cfcc10e0', 3, 1, 'andrew', '[]', 1, '2021-07-14 01:42:30', '2021-07-14 01:42:30', '2022-07-14 07:12:30'),
+('d1e547d08f62d79dddf807015073fd8e7fa75a833da3aff1dcc8d117bfcf593ad05524d5bb15bdc1', 4, 1, 'andrew', '[]', 1, '2021-08-09 04:16:29', '2021-08-09 04:16:29', '2022-08-09 09:46:29'),
 ('d1fb03a1df96c5cd4518702e6058dc5b4b53cd35d81506b67ca1139a2e301a38e02a5d19cad0728a', 4, 1, 'andrew', '[]', 1, '2021-07-15 04:42:46', '2021-07-15 04:42:46', '2022-07-15 10:12:46'),
 ('d26b047e4a165e0ec0eee2db3af2cac949d1844ff4b3e7b9393b35e2690804fb80fbce5a08aeb56a', 3, 1, 'andrew', '[]', 1, '2021-07-12 06:28:02', '2021-07-12 06:28:02', '2022-07-12 11:58:02'),
 ('d28d201c97642c9f00cd1b93a9551862c7cf9cc43b6bbaf6d082e7349df114231dc3086a22326c2c', 9, 1, 'andrew', '[]', 0, '2021-07-16 06:55:59', '2021-07-16 06:55:59', '2022-07-16 12:25:59'),
@@ -380,6 +383,7 @@ INSERT INTO `oauth_access_tokens` (`id`, `user_id`, `client_id`, `name`, `scopes
 ('d9c54a017506d68a7152a2b89b6d4a69032c36a5bd077d49192d9001a9dafbb05ee67f7cc8036f80', 1, 1, 'andrew', '[]', 1, '2021-07-20 01:08:44', '2021-07-20 01:08:44', '2022-07-20 06:38:44'),
 ('d9f257778aa908028cdf94f3ba0752315ee5a69ccd9f6cc7b21aedac0d98300e1a6619dc60f521a8', 3, 1, 'andrew', '[]', 1, '2021-07-15 06:09:53', '2021-07-15 06:09:53', '2022-07-15 11:39:53'),
 ('da7a1825171a4938120cc360da3fc0557cde97c314c70ded96a6a316f08ebcc94a594e0888248bf2', 15, 1, 'andrew', '[]', 1, '2021-07-19 00:31:56', '2021-07-19 00:31:56', '2022-07-19 06:01:56'),
+('db4c9b39dbb6b8391176c3380eaf1a9baa11754e351a017fef6418fab850f5e36bc13608fa173465', 5, 1, 'andrew', '[]', 0, '2021-08-09 23:47:51', '2021-08-09 23:47:51', '2022-08-10 05:17:51'),
 ('dbac1b0177809a8c8c458e4d870738f98c1c0e4e1590ceb8ccb45e2b98b0f46e2b4835ef296f5adb', 13, 1, 'andrew', '[]', 0, '2021-07-20 23:08:43', '2021-07-20 23:08:43', '2022-07-21 04:38:43'),
 ('dbeaaf05f7bf18fcf7c8d5c2a2f7be906cb50e1d059505d2acc046ba57719d9f4e2496c241c129e2', 16, 1, 'andrew', '[]', 1, '2021-07-19 23:34:36', '2021-07-19 23:34:36', '2022-07-20 05:04:36'),
 ('dcb6c7dfc4c75333a4f1371d49fc5568ca5c0e1a3b1c981c735a2e7e9eab5f22a7791c203906e373', 1, 1, 'andrew', '[]', 1, '2021-07-20 06:01:09', '2021-07-20 06:01:09', '2022-07-20 11:31:09'),
@@ -617,6 +621,13 @@ CREATE TABLE `restaurants` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `restaurants`
+--
+
+INSERT INTO `restaurants` (`id`, `first_name`, `last_name`, `restaurant_name`, `owner_name`, `restaurant_logo`, `restaurant_address`, `city`, `lat`, `lon`, `email`, `country_code`, `phone_number`, `password`, `is_approved`, `is_block`, `qr_code`, `description`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
+(1, 'restaurant', 'restaurant', 'restaurant', NULL, '080920210553306110c2da7c7fa.jpeg', 'Restaurante El Campero, Avenida Constitución, Barbate, Spain', 'restaurant', '36.18844110000001', '-5.924819299999999', 'restaurant@yopmail.com', '297', '5555555555555', '$2y$10$fGvddt..cGAKtdeFfQUtxOs5gnC.tHy1l2dNQJzImZolxAcEYrOIO', 1, 0, '080920210553306110c2da7c866.png', 'restaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurant', 'xufdOeJHG3uSQ7k7ciexE13PwV4grTIX8iotfTOMIIHYqnKBi3rEygFyPtknbaSE', NULL, '2021-08-09 00:23:30', '2021-08-12 08:06:42');
+
 -- --------------------------------------------------------
 
 --
@@ -650,6 +661,14 @@ CREATE TABLE `restaurant_images` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `restaurant_images`
+--
+
+INSERT INTO `restaurant_images` (`id`, `restaurant_id`, `restaurant_image`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, '080920210553306110c2da7c6ba.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
+(2, 1, '080920210553306110c2da7c789.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -668,6 +687,19 @@ CREATE TABLE `restaurant_timings` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `restaurant_timings`
+--
+
+INSERT INTO `restaurant_timings` (`id`, `restaurant_id`, `day`, `open_time`, `close_time`, `open_status`, `close_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 1, 'Sunday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
+(2, 1, 'Monday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
+(3, 1, 'Tuesday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
+(4, 1, 'Wednesday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
+(5, 1, 'Thursday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
+(6, 1, 'Friday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
+(7, 1, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -722,7 +754,9 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `password`, `image`, `device_type`, `device_token`, `reset_password_token`, `verify_email_token`, `is_block`, `is_verify`, `refresh_token`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'Dina', 'Nath', 'dina@yopmail.com', '$2y$10$xIdbCSpMeNruYtV3JFgIWuNqSd17XV4z8EfyHeZsq7noz/6OeMhpu', NULL, 'Ios', 'nfwhifiw', NULL, NULL, '0', '1', NULL, NULL, '2021-07-30 03:33:00', '2021-07-30 03:33:50', NULL),
 (2, 'kom', 'singh', 'kom@yopmail.com', '$2y$10$byHcHFkodauvMPihDGTSbOJPMJ9nFjORR8qlTxVVFntU1Zz6Tn5yi', NULL, 'Ios', 'nfwhifiw', NULL, NULL, '0', '1', NULL, NULL, '2021-07-30 05:34:57', '2021-07-30 05:35:30', NULL),
-(3, 'hindi', 'singh', 'hind@yopmail.com', '$2y$10$Ryj47xqrPpVebub.6nVh7ex9hifdQQAdCUV7fXk1j1Odn.7ZYSuT6', NULL, 'Ios', 'nfwhifiw', NULL, NULL, '0', '1', NULL, NULL, '2021-07-30 07:03:54', '2021-07-30 07:20:35', NULL);
+(3, 'hindi', 'singh', 'hind@yopmail.com', '$2y$10$Ryj47xqrPpVebub.6nVh7ex9hifdQQAdCUV7fXk1j1Odn.7ZYSuT6', NULL, 'Ios', 'nfwhifiw', NULL, NULL, '0', '1', NULL, NULL, '2021-07-30 07:03:54', '2021-07-30 07:20:35', NULL),
+(4, 'demo', 'demo', 'demo@yopmail.com', '$2y$10$IB2f2ebu9OTJroCc7Mbdf.cf/uCQtJ0czhKne4H/Oq8KyS2c4q5RG', NULL, 'Ios', 'nfwhifiw', NULL, NULL, '0', '1', NULL, NULL, '2021-08-09 04:10:36', '2021-08-09 04:30:53', NULL),
+(5, 'dads', 'adds', 'abd@yopmail.com', '$2y$10$QF8nZMln.qW9T6gIouYhOO9Y0RLk5lYm2EkaewYw6iOjN6H2p3HkO', NULL, 'None', NULL, NULL, 'E6E2DZ0sQGQmfqZGqlfMBEmugfAx4pVjwKOjvOeHvZUh6EHxOJvsxdqnCravccLV', '0', '0', NULL, NULL, '2021-08-09 23:47:51', '2021-08-09 23:47:51', NULL);
 
 --
 -- Indexes for dumped tables
@@ -894,120 +928,94 @@ ALTER TABLE `users`
 --
 ALTER TABLE `add_carts`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `admins`
 --
 ALTER TABLE `admins`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
-
 --
 -- AUTO_INCREMENT for table `menus`
 --
 ALTER TABLE `menus`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `menu_images`
 --
 ALTER TABLE `menu_images`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=66;
-
 --
 -- AUTO_INCREMENT for table `oauth_clients`
 --
 ALTER TABLE `oauth_clients`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
-
 --
 -- AUTO_INCREMENT for table `oauth_personal_access_clients`
 --
 ALTER TABLE `oauth_personal_access_clients`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
-
 --
 -- AUTO_INCREMENT for table `orders`
 --
 ALTER TABLE `orders`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `order_items`
 --
 ALTER TABLE `order_items`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `parent_menu_names`
 --
 ALTER TABLE `parent_menu_names`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `payments`
 --
 ALTER TABLE `payments`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `restaurant_docs`
 --
 ALTER TABLE `restaurant_docs`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `restaurant_images`
 --
 ALTER TABLE `restaurant_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `restaurant_timings`
 --
 ALTER TABLE `restaurant_timings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tables`
 --
 ALTER TABLE `tables`
   MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
-
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
-
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 --
 -- Constraints for dumped tables
 --
-
---
--- Constraints for table `add_carts`
---
-ALTER TABLE `add_carts`
-  ADD CONSTRAINT `add_carts_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus_old` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `add_carts_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `add_carts_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
 
 --
 -- Constraints for table `menus`
@@ -1016,67 +1024,6 @@ ALTER TABLE `menus`
   ADD CONSTRAINT `menus_category_id_foreign` FOREIGN KEY (`category_id`) REFERENCES `categories` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `menus_parent_menu_id_foreign` FOREIGN KEY (`parent_menu_id`) REFERENCES `parent_menu_names` (`id`) ON DELETE CASCADE,
   ADD CONSTRAINT `menus_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `menu_images`
---
-ALTER TABLE `menu_images`
-  ADD CONSTRAINT `menu_images_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `orders`
---
-ALTER TABLE `orders`
-  ADD CONSTRAINT `orders_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_table_id_foreign` FOREIGN KEY (`table_id`) REFERENCES `tables` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `orders_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `order_items`
---
-ALTER TABLE `order_items`
-  ADD CONSTRAINT `order_items_menu_id_foreign` FOREIGN KEY (`menu_id`) REFERENCES `menus_old` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_items_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `order_items_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `parent_menu_names`
---
-ALTER TABLE `parent_menu_names`
-  ADD CONSTRAINT `parent_menu_names_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `payments`
---
-ALTER TABLE `payments`
-  ADD CONSTRAINT `payments_order_id_foreign` FOREIGN KEY (`order_id`) REFERENCES `orders` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payments_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE,
-  ADD CONSTRAINT `payments_user_id_foreign` FOREIGN KEY (`user_id`) REFERENCES `users` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `restaurant_docs`
---
-ALTER TABLE `restaurant_docs`
-  ADD CONSTRAINT `restaurant_docs_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `restaurant_images`
---
-ALTER TABLE `restaurant_images`
-  ADD CONSTRAINT `restaurant_images_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `restaurant_timings`
---
-ALTER TABLE `restaurant_timings`
-  ADD CONSTRAINT `restaurant_timings_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-
---
--- Constraints for table `tables`
---
-ALTER TABLE `tables`
-  ADD CONSTRAINT `tables_restaurant_id_foreign` FOREIGN KEY (`restaurant_id`) REFERENCES `restaurants` (`id`) ON DELETE CASCADE;
-COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;

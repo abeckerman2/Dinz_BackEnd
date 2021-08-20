@@ -14,6 +14,7 @@ class AddCart extends Model
         'menu_id',
         'quantity',
         'instructions',
+        'user_ip',
     ];
 
     public function menu(){

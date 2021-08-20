@@ -219,12 +219,14 @@ class RestaurantBusinessModel extends Model
         $table->fill($data);
         $table->save();
 
+
+        $base_url = url('website/menu-list');
         $scanner_id = $restaurant->id .'/'.$table->id;
         $qr_code = \QrCode::format('png')
                          ->size(500)->errorCorrection('H')
                          // ->backgroundColor(0xff, 0xff, 0xcc)
                          // ->backgroundColor(204,0,0)
-                         ->generate($scanner_id, $img_store);
+                         ->generate($base_url.'/'.$scanner_id, $img_store);
         
         return "success";
 

@@ -66,7 +66,7 @@ class Kernel extends HttpKernel
         'CheckAdmin' => \App\Http\Middleware\CheckAdmin::class,
         'CheckRestaurantBlockDelete' => \App\Http\Middleware\CheckRestaurantBlockDelete::class,
         'CheckUserBlock' => \App\Http\Middleware\BlockUser::class,
-        'CheckDeleteUser' => \App\Http\Middleware\CheckDeleteUser::class,
+        'CheckDeleteUser' => \App\Http\Middleware\CheckdeleteUser::class,
 
 
     ];

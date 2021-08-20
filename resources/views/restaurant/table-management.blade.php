@@ -109,7 +109,7 @@
 			    padding: 7px 15px;
 			    position: relative;
 			    margin-bottom: 39px;
-			    height: 165px;
+			    height: 150px;
 			 	border: 1px solid #ffffff; 
 			}
 			.dot_wrapper {
@@ -370,8 +370,11 @@
 									</div>
 									@endif()
 								</div>
-                                    <h2>Table Name</h2>
-                                    <p>{{$table->table_name}}</p>
+								<?php
+									$table_name = ucfirst($table->table_name);
+								?>
+                                    <h2>{{$table_name}}</h2>
+                                    <p></p>
                                     
                                     <div class="vacent new">
                                     	<p>Active Orders</p>

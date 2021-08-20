@@ -11,6 +11,90 @@
 		div.dataTables_wrapper div.dataTables_paginate {
 		    margin: 10px 0px 0px 0px;
 		}
+
+		.fa-search{
+			top:130px!important;
+		}
+
+
+		/*Flash message*/
+		.alert-danger {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #ed2227;
+		    color: #fff;
+		    margin-top: 23px;
+		}
+		.alert-success {
+		    border-left: 0px;
+		    color: #302d2d;
+		    background-color: #008000;
+		    color: white;
+		    margin-top: 23px;
+		}
+
+
+		/*Delete model popup*/
+		#deleteModel h4.modal-title {
+		    text-align: center;
+		    margin: auto;
+		    color: #fff;
+		}
+		#deleteModel  .modal-header .close{
+		    padding: 0;
+		    margin: 0;
+		}
+		#deleteModel  button.close {
+		    position: absolute;
+		    right: -15px;
+		    top: -16px;
+		    width: 31px;
+		    height: 30px;
+		    text-shadow: 0 1px 0 #ed1f24;
+		    background: #ed1f24;
+		    opacity: .5;
+		    border-radius: 100%;
+		    opacity: 1;
+		        border: 2px solid #fff;
+
+		}
+
+		#deleteModel .modal-header {
+		    background-color: #ed1f24 !important;
+		    border: 1px solid #ed1f24 !important;
+		    background: linear-gradient( 
+		167deg
+		 , rgb(237 31 36) 0%, rgb(90 0 3) 100%) !important;
+		}
+
+		#deleteModel .modal-footer {
+		    border-top: 0px solid #e9ecef;
+		    justify-content: center;
+		}
+		#deleteModel button.btn.btn-secondary.btn-lg.login_btn {
+		    width: 37%;
+		    font-size: 24px;
+		    padding: 6px 0;
+		}
+
+		#deleteModel .modal-dialog {
+		    margin-top: 200px;
+		}
+
+
+		p#delete_alert_txt {
+		    text-align: center;
+		    font-weight: 500;
+		    margin-bottom: -2px;
+    		margin-top: 30px;
+    		font-size: 16px;
+		}
+
+		#deleteModel .modal-content {
+		    width: 110%;
+		}
+
+
 </style>
 
 		<div class="main-panel dashboard_panel">
@@ -20,49 +104,49 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.orderManagement')}}">Order Management</a></li>
-								<li class="breadcrumb-item remove_hover">Today Orders</li>
+								<li class="breadcrumb-item active">Order Management</li>
+								<!-- <li class="breadcrumb-item remove_hover">Today Orders</li> -->
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
 					<h1>Today Orders</h1>
+
+
+			          @if(Session::has("error"))
+		              <div class="alert alert-danger">{{Session::get("error")}}</div>
+		              @endif
+		              @if(Session::has("success"))
+		              <div class="alert alert-success">{{Session::get("success")}}</div>
+		              @endif
+		              @if ($errors->any())
+		              <div class="alert alert-danger">
+		                    @foreach ($errors->all() as $error)
+		                    {{$error}}
+		                    @endforeach
+		              </div>
+		              @endif
+
 					<div class="card">
 						<div class="card-body calender_inputs">
 							<div class="d-flex justify-content-between">
-								<div class="add_btn" style="position: inherit; visibility: hidden;">
-									<a href="{{route('restaurant.orderManagement')}}">
-										<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Create Order</button>
-									</a>
-								</div>
-								<div class="d-flex">
-									<div class="mr-3">
-										<input type="date" class="form-control" placeholder="Start Date" style="    padding: 8px 15px;">
-									</div>
-									<div class="mr-3">
-										<input type="date" class="form-control" placeholder="End Date" style="    padding: 8px 15px;">
-									</div>
-									<div>
-										<a href="">
-											<button type="button" class="btn btn-warning same_wd_btn">Filter</button>
-										</a>
-									</div>
-								</div>
+							
+							
 							</div>
 							<div class="mt-5">
 									<a href="{{route('restaurant.orderManagement')}}">
-										<button type="button" class="btn btn-warning same_wd_btn border_btn" style="width: 146px;">Present Orders</button>
-									</a>
-									<a href="{{route('restaurant.pastOrders')}}">
-										<button type="button" class="btn btn-warning same_wd_btn border_btn" style="width: 146px;">Past Orders</button>
+										<button type="button" class="btn btn-warning same_wd_btn border_btn" style="width: 146px;">Ongoing Orders</button>
 									</a>
 									<a href="{{route('restaurant.todayOrders')}}">
 										<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Today Orders</button>
 									</a>
+									<a href="{{route('restaurant.pastOrders')}}">
+										<button type="button" class="btn btn-warning same_wd_btn border_btn" style="width: 146px;">Past Orders</button>
+									</a>
 							</div>
 							<div class="serch_icon">
-								<i class="fas fa-search" style="top: 172px;"></i>
+								<i class="fas fa-search" ></i>
 							</div>
 							<div class="table-responsive">
 								<table id="basic-datatables" class="display table table-striped table-hover" >
@@ -79,116 +163,51 @@
 										</tr>
 									</thead>
 									<tbody>
+									 
+									<?php
+										$i=0;
+									?>
+									@foreach($order as $row)
 										<tr>
-											<td>1</td>
+											<td>{{++$i}}</td>
+											<td>{{$row->id}}</td>
+											<td>{{$row->table->table_name}}</td>
+											<?php 
+												$count_items = count($row->orderItemsWithMenu);
+											?> 
 											<td>
-												56567
+												@if($count_items > 0) 
+													<?php 
+														$menu_pluck = Illuminate\Support\Arr::pluck($row->orderItemsWithMenu, 'menu');
+														$item_pluck = Illuminate\Support\Arr::pluck($menu_pluck, 'item_name');
+														echo $implode_items = implode(", ", $item_pluck)  
+													?> 
+												@else 
+													<?php echo "N/A"; ?> 
+												@endif() 
 											</td>
-											<td>First</td>
-											<td>Bread</td>
-											<td>30-05-2021</td>
-											<td>8:00 AM</td>
-											<td>400</td>
+
+											<?php
+												$date_and_time = explode(" ", $row->date_time);
+												$date  =  $date_and_time[0];
+												$time  =  $date_and_time[1];
+											?>
+											<td>{{$date}}</td>
+											<td>{{$time}}</td>
+											<td>{{$row->total_amount}}</td>
 											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
-												<a href="{{route('restaurant.todayOrderDetails')}}">
+												<a href="{{url('restaurant/today-order-details').'/'.$row->id}}">
 													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
 												</a>
-												<!-- <a href="">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
-												</a> -->
-												<a href="">
-													<button type="button" class="btn btn-warning same_wd_btn border_btn">Delete</button>
-												</a>
+												<!-- <a href="{{route('restaurant.presentOrderEdit')}}"> -->
+													<!-- <button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button> -->
+												<!-- </a> -->
+												<button type="button" class="btn btn-warning same_wd_btn border_btn delete_btn"  data-id="{{$row->id}}">Delete</button>
 											</td>
 										</tr>
-										<tr>
-											<td>2</td>
-											<td>
-												56567
-											</td>
-											<td>Second</td>
-											<td>Bread</td>
-											<td>30-05-2021</td>
-											<td>8:00 AM</td>
-											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
-												<a href="{{route('restaurant.todayOrderDetails')}}">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
-												</a>
-												<!-- <a href="">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
-												</a> -->
-												<a href="">
-													<button type="button" class="btn btn-warning same_wd_btn border_btn">Delete</button>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>3</td>
-											<td>
-												56567
-											</td>
-											<td>Thrid</td>
-											<td>Bread</td>
-											<td>30-05-2021</td>
-											<td>8:00 AM</td>
-											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
-												<a href="{{route('restaurant.todayOrderDetails')}}">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
-												</a>
-												<!-- <a href="">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
-												</a> -->
-												<a href="">
-													<button type="button" class="btn btn-warning same_wd_btn border_btn">Delete</button>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>4</td>
-											<td>
-												56567
-											</td>
-											<td>Fourth</td>
-											<td>Bread</td>
-											<td>30-05-2021</td>
-											<td>8:00 AM</td>
-											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
-												<a href="{{route('restaurant.todayOrderDetails')}}">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
-												</a>
-												<!-- <a href="">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
-												</a> -->
-												<a href="">
-													<button type="button" class="btn btn-warning same_wd_btn border_btn">Delete</button>
-												</a>
-											</td>
-										</tr>
-										<tr>
-											<td>5</td>
-											<td>
-												56567
-											</td>
-											<td>Fifth</td>
-											<td>Bread</td>
-											<td>30-05-2021</td>
-											<td>8:00 AM</td>
-											<td>400</td>
-											<td class="text-center" style="padding-right: 15px !important;    white-space: nowrap;">
-												<a href="{{route('restaurant.todayOrderDetails')}}">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">View</button>
-												</a>
-												<!-- <a href="">
-													<button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
-												</a> -->
-												<a href="">
-													<button type="button" class="btn btn-warning same_wd_btn border_btn">Delete</button>
-												</a>
-											</td>
-										</tr>
+									@endforeach
+
+										
 									</tbody>
 								</table>
 							</div>
@@ -197,6 +216,32 @@
 				</div>
 			</div>
 		</div>
+
+
+
+<div id="deleteModel" class="modal fade" role="dialog">
+  <div class="modal-dialog">
+    <!-- Modal content-->
+    <div class="modal-content">
+    	<form method="POST" action="{{route('restaurant.deleteOrder')}}" id="deleteFORM">
+		{{@csrf_field()}}
+		<input type="hidden" name="delete_order_id" id="delete_order_id">
+      <div class="modal-header">
+        <button type="button" class="close no" data-dismiss="modal" style="right: -11px; top: -15px">&times;</button>
+        <h4 class="modal-title">Alert</h4>
+      </div>
+      <div class="modal-body"> 
+            <p id="delete_alert_txt">Are you sure, you want to delete this Order?</p>    
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning same_wd_btn border_btn yes" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">Yes</button>
+        <button type="button" class="btn btn-warning same_wd_btn border_btn no" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">No</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>
+
 @endsection()
 @section('js')
 	<script >
@@ -247,4 +292,40 @@
 			});
 		});
 	</script>
+
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+		$(".delete_btn").on("click",function(){
+			let order_id = $(this).data("id");
+			$("#delete_order_id").val(order_id);
+			$("#deleteModel").modal("show");
+			$("#deleteModel").unbind("click");
+		});
+
+		$(".yes").on("click",function(){
+			$("#deleteFORM").submit();
+		});
+
+		$(".no").on("click",function(){
+			$("#deleteModel").modal("hide");
+		});
+	})
+</script>
+
+
+<script type="text/javascript">
+$(function(){
+	setTimeout(function(){
+		$('.alert-danger').hide();
+	},5000);
+});
+$(function(){
+	setTimeout(function(){
+		$('.alert-success').hide();
+	},5000);
+});
+</script>
+
 	@endsection()

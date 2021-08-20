@@ -14,6 +14,7 @@ class Order extends Model
         'user_id',
     	'restaurant_id',
     	'table_id',
+        'date',
     	'date_time',
     	'order_status',
     	'order_type',
