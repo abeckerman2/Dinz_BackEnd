@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
+<svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+	 viewBox="0 0 612 792" style="enable-background:new 0 0 612 792;" xml:space="preserve">
+<style type="text/css">
+	.st0{fill:url(#SVGID_1_);}
+	.st1{fill:#FFFFFF;}
+	.st2{font-family:'Roboto-Medium';}
+	.st3{font-size:58.1189px;}
+</style>
+<linearGradient id="SVGID_1_" gradientUnits="userSpaceOnUse" x1="304.75" y1="164" x2="304.75" y2="86.7213">
+	<stop  offset="0" style="stop-color:#231F20"/>
+	<stop  offset="1" style="stop-color:#5C5657"/>
+</linearGradient>
+<path class="st0" d="M935,263.5H-325.5v-128c0-18.2,14.9-33,33-33H902c18.2,0,33,14.8,33,33V263.5z"/>
+<text id="XMLID_1_" transform="matrix(1.0299 0 0 1 -195.0718 198.4907)" class="st1 st2 st3">Push Notification</text>
+</svg>
