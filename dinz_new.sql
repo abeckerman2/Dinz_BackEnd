@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 27, 2021 at 06:34 PM
+-- Generation Time: Aug 19, 2021 at 12:26 PM
 -- Server version: 5.7.35-0ubuntu0.18.04.1
 -- PHP Version: 7.2.34-23+ubuntu18.04.1+deb.sury.org+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dinz_26_aug`
+-- Database: `dinz_19_aug`
 --
 
 -- --------------------------------------------------------
@@ -59,7 +59,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', 'nfBtJfqE1mHILsLYuGyuDrswzLLpkz2JssscbstA4Za6jgnhoq1rMHzGQsXk', NULL, '2021-08-27 03:39:50');
+(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', 'ITr6eNsgbzXVBiCqH6IRcAL7YsfiSFnWS0CggmctmDMgoygWkhd6MZBudiMWjEEx', NULL, '2021-08-16 23:41:37');
 
 -- --------------------------------------------------------
 
@@ -627,9 +627,7 @@ CREATE TABLE `restaurants` (
 --
 
 INSERT INTO `restaurants` (`id`, `first_name`, `last_name`, `restaurant_name`, `owner_name`, `restaurant_logo`, `restaurant_address`, `city`, `lat`, `lon`, `email`, `country_code`, `phone_number`, `password`, `is_approved`, `is_block`, `qr_code`, `description`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'restaurant', 'restaurant', 'restaurant', NULL, '080920210553306110c2da7c7fa.jpeg', 'Restaurante El Campero, Avenida Constitución, Barbate, Spain', 'restaurant', '36.18844110000001', '-5.924819299999999', 'restaurant@yopmail.com', '297', '5555555555555', '$2y$10$fGvddt..cGAKtdeFfQUtxOs5gnC.tHy1l2dNQJzImZolxAcEYrOIO', 1, 0, '080920210553306110c2da7c866.png', 'restaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurant', 'DhU2ACHTmUlvfdO4ZadML7U7H6lMmPlJ7vkARco7NQ1UcVz03UTGKMlsoWNR', NULL, '2021-08-09 00:23:30', '2021-08-27 01:37:19'),
-(2, 'kanhaiya', 'goyal', 'kanhaiyarestaurant', NULL, '08272021042829612869edb3a5d.jpg', 'Indian Oil Petrol/CNG Pump, Sector 70, Mohali, Punjab, India', 'mohali', '30.69279090000001', '76.7138342', 'kanhaiya@yopmail.com', '91', '7206531926', '$2y$10$iODF0PhOOBypbQGm5gFB6Ootuadizz/HNAKLryCCVasg1z1dpnXE.', 1, 0, '08272021042829612869edb3b3c.png', 'this is dummy data.', 'jCNNnM9vhxFhhrJTATpbThY9bq43CmiHd4s6Sd1ngZWsMoaX9YQ9MlU0q7IXbXLP', NULL, '2021-08-26 22:58:29', '2021-08-27 03:51:35'),
-(3, 'google', 'sharma', 'ASHISH', NULL, '08272021071422612890ce3b200.png', 'New Delhi, Delhi, India', 'karachi', '28.6139391', '77.2090212', 'ash@yopmail.com', '1', '9991112820', '$2y$10$LntmXfNjtCwObbCP9jE2RODY8tbnNsbr4UDd973sDrNmmK4y43ZbC', 1, 0, '08272021071422612890ce3b2c0.png', NULL, '7b0fvthkDUz9GDGSJpH0FV8RMHzwBTJpfqpQbAcDy7Dc9Di9Zcj2NOQXvWVD', NULL, '2021-08-27 01:44:22', '2021-08-27 04:06:27');
+(1, 'restaurant', 'restaurant', 'restaurant', NULL, '080920210553306110c2da7c7fa.jpeg', 'Restaurante El Campero, Avenida Constitución, Barbate, Spain', 'restaurant', '36.18844110000001', '-5.924819299999999', 'restaurant@yopmail.com', '297', '5555555555555', '$2y$10$fGvddt..cGAKtdeFfQUtxOs5gnC.tHy1l2dNQJzImZolxAcEYrOIO', 1, 0, '080920210553306110c2da7c866.png', 'restaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurant', '38bRudBDjxxNTZy0GczVNjeTAg1iiZrl1G6vWbSfZm1MjwSFlFqAdcZcoEIYFDY5', NULL, '2021-08-09 00:23:30', '2021-08-18 08:02:02');
 
 -- --------------------------------------------------------
 
@@ -670,17 +668,7 @@ CREATE TABLE `restaurant_images` (
 
 INSERT INTO `restaurant_images` (`id`, `restaurant_id`, `restaurant_image`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 1, '080920210553306110c2da7c6ba.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(2, 1, '080920210553306110c2da7c789.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(3, 2, '08272021042829612869edb3669.jpg', '2021-08-26 22:58:29', '2021-08-26 22:58:29', NULL),
-(4, 2, '08272021042829612869edb37b6.jpg', '2021-08-26 22:58:29', '2021-08-26 22:58:29', NULL),
-(5, 2, '08272021042829612869edb38fc.jpg', '2021-08-26 22:58:29', '2021-08-26 22:58:29', NULL),
-(6, 2, '08272021042829612869edb3970.jpg', '2021-08-26 22:58:29', '2021-08-26 22:58:29', NULL),
-(7, 2, '08272021042829612869edb39dc.jpg', '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(8, 3, '08272021071422612890ce3a855.png', '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(9, 3, '08272021071422612890ce3aada.png', '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(10, 3, '08272021071422612890ce3ac47.png', '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(11, 3, '08272021071422612890ce3ad4e.png', '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(12, 3, '08272021071422612890ce3af44.png', '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL);
+(2, 1, '080920210553306110c2da7c789.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL);
 
 -- --------------------------------------------------------
 
@@ -712,21 +700,7 @@ INSERT INTO `restaurant_timings` (`id`, `restaurant_id`, `day`, `open_time`, `cl
 (4, 1, 'Wednesday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
 (5, 1, 'Thursday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
 (6, 1, 'Friday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
-(7, 1, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
-(8, 2, 'Sunday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(9, 2, 'Monday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(10, 2, 'Tuesday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(11, 2, 'Wednesday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(12, 2, 'Thursday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(13, 2, 'Friday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(14, 2, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-26 22:58:30', '2021-08-26 22:58:30', NULL),
-(15, 3, 'Sunday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(16, 3, 'Monday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(17, 3, 'Tuesday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(18, 3, 'Wednesday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(19, 3, 'Thursday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(20, 3, 'Friday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL),
-(21, 3, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-27 01:44:22', '2021-08-27 01:44:22', NULL);
+(7, 1, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -1003,7 +977,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 --
 -- AUTO_INCREMENT for table `restaurant_docs`
 --
@@ -1013,12 +987,12 @@ ALTER TABLE `restaurant_docs`
 -- AUTO_INCREMENT for table `restaurant_images`
 --
 ALTER TABLE `restaurant_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `restaurant_timings`
 --
 ALTER TABLE `restaurant_timings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
 --
 -- AUTO_INCREMENT for table `tables`
 --

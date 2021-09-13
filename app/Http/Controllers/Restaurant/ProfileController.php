@@ -315,7 +315,7 @@ class ProfileController extends Controller
             $is_created = RestaurantDocs::create($data);
 
             if($is_created){
-                return redirect('restaurant/document-management')->with('success' , 'Document has been uploaded successfully.');
+                return redirect('restaurant/document-management')->with('success' , 'Document has been added successfully.');
             }else{
                 return back()->with('error' , 'Unable to upload document.');
             }
@@ -378,6 +378,12 @@ class ProfileController extends Controller
 
     public function deleteDocument(Request $request){
         $document_id = $request->delete_item_id;
+
+        $check_document_assign_to_table = Table::where('assign_document_id' , $document_id)->first();
+        if($check_document_assign_to_table){
+            return back()->with('error' , 'This document has been assigned to the entity, so you can not delete this document.');
+        }
+
         RestaurantDocs::whereId($document_id)->update(['deleted_at' => Carbon::now()]);
         Table::where('assign_document_id' , $document_id)->update(['assign_document_id' => null]);
         return redirect(route('restaurant.documentManagement'))->with('success' , 'Document has been deleted successfully.'); 

@@ -147,7 +147,7 @@ a:hover {
 	margin: 17px 0;
 }
 .header_logo .logo-header[data-background-color=dark2] {
-	height: 180px;
+	height: 109px;
 	background: #2f2f2f!important;
 }
 .header_logo .logo-header .logo {
@@ -514,6 +514,7 @@ body[data-background-color=dark] .dashboard_panel  .card {
   /*background-position: center;*/
   background-size: cover;
   border-radius: 5px;
+  -webkit-transform: scaleX(-1);
 }
 .forgot {
 	background-image: url(../../assets/img/forgot.png);	

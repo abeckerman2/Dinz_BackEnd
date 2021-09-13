@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Restaurant Profile')
+@section('title','Profile')
 @section('content')
 
 
@@ -33,7 +33,7 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
 								<li class="breadcrumb-item active"><a href="#">Settings</a></li>
-								<li class="breadcrumb-item remove_hover">Restaurant Profile</li>
+								<li class="breadcrumb-item remove_hover">Profile</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
@@ -42,7 +42,7 @@
 
 
 
-					<h1>Restaurant Profile</h1>
+					<h1>Profile</h1>
 					  @if(Session::has("error"))
 		              <div class="alert alert-danger">{{Session::get("error")}}</div>
 		              @endif
@@ -84,7 +84,7 @@
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">
-										Restaurant Name
+										Company Name
 									</label>
 									<div class="form-group pb-3">
 										<input type="text" class="form-control" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required readonly/>
@@ -106,14 +106,16 @@
 							<div class="add_content">
 								<form>
 									<label for="" class="pb-1">
-										Restaurant Logo
+										Company Logo/Image
 									</label>
 									<div class="pb-1 rest_logo">
 										<img src="{{$data->restaurant_logo}}" alt="kitchen">
 									</div>
 								</form>
 							</div>
-							<div class="add_content">
+
+							
+							<!-- <div class="add_content" style="display: none">
 								<form>
 									<label for="" class="pb-1">
 										Restaurant Other Images
@@ -126,13 +128,13 @@
 										@endforeach
 									</div>
 								</form>
-							</div>
+							</div> -->
 							
 							
 							<div class="add_content">
 								<form action="">
 									<label for="" class="pb-1">
-										Restaurant Address
+										Company Address
 									</label>
 									<div class="form-group pb-3">
 										<input type="text" class="form-control" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required readonly/>

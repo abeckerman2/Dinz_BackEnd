@@ -102,13 +102,13 @@
                    
 
 
-                    <label>Restaurant Logo</label>
+                    <label>Company Logo</label>
                     <div class="view-image">
                       <img src="{{$reject_restaurant_detail->restaurant_logo}}" width="100px" height="100px" style="">
                     </div>
 
 
-                 <label style="margin-top: 20px;">Restaurant Image</label>
+                 <!-- <label style="margin-top: 20px;">Restaurant Image</label>
                   <div class="text-center liner view-image">
                   @foreach($reject_restaurant_detail->restaurantImages as $rows)
                    <img src="{{$rows->restaurant_image}}" width="100px" height="100px" style="">
@@ -118,12 +118,12 @@
                   <div class="img_line"></div>
                   <div class="img_line"></div>
                 </div>
-
+ -->
 
                         
 
                          <div class="form-group" style="margin-top: 20px;">
-                          <label>Restaurant Name</label>
+                          <label>Company Name</label>
                           <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->restaurant_name}}" disabled="">
                         </div>
 
@@ -145,7 +145,7 @@
                       <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->email}}" disabled="">
                     </div>
                     <div class="form-group">
-                      <label>Restaurant Address</label>
+                      <label>Company Address</label>
                       <input type="text" class="form-control form-control-user" id="exampleInputtext" value="{{$reject_restaurant_detail->restaurant_address}}" disabled="">
                     </div>
                     <div class="form-group">

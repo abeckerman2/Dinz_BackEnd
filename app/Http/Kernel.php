@@ -68,6 +68,9 @@ class Kernel extends HttpKernel
         'CheckUserBlock' => \App\Http\Middleware\BlockUser::class,
         'CheckDeleteUser' => \App\Http\Middleware\CheckdeleteUser::class,
 
+        'TimeZone' => \App\Http\Middleware\TimeZone::class,
+
+
 
     ];
 

@@ -37,7 +37,7 @@ class MenuExport implements FromCollection,WithHeadings
             'Image',
             'Item Name',
             'Item Type',
-            'Price',
+            'Price($)',
             'Description',
             // 'is_available',
         ];

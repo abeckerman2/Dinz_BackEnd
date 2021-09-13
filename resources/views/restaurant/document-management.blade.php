@@ -116,6 +116,14 @@ input#submit {
     }
 
 
+.dashboard_panel .card .card-body .serch_icon i {
+    position: absolute;
+    color: #000;
+    right: 181px;
+    z-index: 99;
+    top: 39px;
+    font-size: 14px;
+}
 
 
 </style>
@@ -172,12 +180,18 @@ input#submit {
 
                 <div class="card">
                   <div class="card-body">
+
+                    <div class="serch_icon">
+                      <i class="fas fa-search"></i>
+                    </div>
+
+                    
                     <div class="table-responsive">
                       <table id="basic-datatables" class="display table table-striped table-hover" >
                         <thead>
                           <tr>
                             <th>Sr. No.</th> 
-                            <th>Qr Code</th>
+                            <th>QR Code</th>
                             <th>Document Name</th>
                             <th class="text-center">Action</th>
                           </tr>
@@ -349,6 +363,9 @@ input#submit {
     });
 
 
+
+    $('.dataTables_empty').text('No data available');
+    
   })
 </script>
 

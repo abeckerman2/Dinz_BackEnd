@@ -88,7 +88,7 @@ input.form-control {
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item active">
 									<a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-							   <li class="breadcrumb-item active"><a href="{{route('restaurant.documentManagement')}}">Menu Management</a></li>
+							   <li class="breadcrumb-item active"><a href="{{route('restaurant.parentMenuManagement')}}">Menu Management</a></li>
 
 								<li class="breadcrumb-item remove_hover">Add Menu</li>
 

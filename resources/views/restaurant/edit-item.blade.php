@@ -105,7 +105,7 @@ label#exampleFormControlSelect1-error {
 									<a href="{{url('restaurant/parent-menu-management')}}">Menu Management</a>
 								</li>
 								
-								<li class="breadcrumb-item active"><a href="{{url('restaurant/menu-management').'/'.$parent_menu_id}}">Sub Menu Management</a></li>
+								<li class="breadcrumb-item active"><a href="{{url('restaurant/menu-management').'/'.$parent_menu_id}}">Menu Details</a></li>
 								<li class="breadcrumb-item remove_hover">Edit Item</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
@@ -158,11 +158,11 @@ label#exampleFormControlSelect1-error {
 										Item Type
 									</label>
 									<div class="form-group">
-										<label class="raaddio"><span class="text">Veg</span>
+										<label class="raaddio"><span class="text">Vegetarian</span>
 											<input type="radio" class="radio" n_type="Veg" @if($menu_find->item_type == "Veg") checked="checked" @endif()>
 											<span class="checkmark"></span>
 										</label>
-										<label class="raaddio"><span class="text">Non-Veg</span>
+										<label class="raaddio"><span class="text">Not Vegetarian</span>
 											<input type="radio" class="radio" n_type="Non-Veg" @if($menu_find->item_type == "Non-Veg") checked="checked" @endif()>
 											<span class="checkmark"></span>
 										</label>
@@ -175,7 +175,7 @@ label#exampleFormControlSelect1-error {
 										Price($)
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control" maxlength="5" name="price" id="price" placeholder="Enter Price" value="{{$menu_find->price}}" />
+										<input type="text" class="form-control" maxlength="5" name="price" id="price" placeholder="Enter Price" value="{{$menu_find->price}}" onpaste="return false"/>
 									</div>
 								
 							</div>
@@ -185,7 +185,7 @@ label#exampleFormControlSelect1-error {
 									</label>
 									<div class="form-group pb-3">
 										<!-- <input type="email" class="form-control" placeholder="Email Address" value="" required /> -->
-										<textarea class="form-control" name="description" rows="4" placeholder="Enter Description" maxlength="1000">{{$menu_find->description}}</textarea>
+										<textarea class="form-control" name="description" rows="4" placeholder="Enter Description" maxlength="200">{{$menu_find->description}}</textarea>
 									</div>
 							</div>
 							<div class="text-center mt-2">
@@ -265,7 +265,7 @@ label#exampleFormControlSelect1-error {
                $(".add_img").hide();
                $("#item_file_invalid").text("").hide();
               }else {
-                $("#item_file_invalid").text("Please select .jpg, .jpeg or .png image format only.").show();
+                $("#item_file_invalid").text("Only .jpeg, .jpg and .png format images are allowed.").show();
                 $("#item_file").val("");
                 $('#item_image').attr('src',"{{url('public/restaurant/assets/img/foodImage.jpg')}}");
                 $(".add_img").show();
@@ -301,6 +301,9 @@ label#exampleFormControlSelect1-error {
 		});
 
 
+		$.validator.addMethod("alphabatic", function(value, element) {
+	            return this.optional(element) || value == value.match(/^[a-zA-Z0-9\s]+$/);
+	    });
 
 		$('#validate-form').validate({
 
@@ -308,13 +311,14 @@ label#exampleFormControlSelect1-error {
 	          item_name:{
 	            required:true,
 	            minlength:2,
+	            alphabatic: true,
 	          },
 	          category_id:{
 	            required:true
 	          },
 	          price:{
 	            required:true,
-	            number:true,
+	            // number:true,
 	            max:10000,
 	            min:0.1,
 	          },
@@ -325,7 +329,8 @@ label#exampleFormControlSelect1-error {
 	        messages: {
 	          item_name:{
 	            required: 'Please enter item name.',
-	            minlength: 'Item name should be at least 2 characters long.'
+	            minlength: 'Item name should be at least 2 characters long.',
+	            alphabatic: "Item name should be alphanumeric only.",
 	          },
 	          category_id:{
 	            required: 'Please select category.'
@@ -408,7 +413,15 @@ label#exampleFormControlSelect1-error {
 		function isNumber(evt, element) {
 		    var charCode = (evt.which) ? evt.which : event.keyCode
 				if($(element).val().indexOf('.') != -1){
-					$("#price").attr("maxlength","6");	
+					$("#price").attr("maxlength","6");
+
+					var number = ($(element).val().split('.'));
+					var filtered = number.filter(function (el) {
+					  return el != "";
+					});
+					if(filtered[1] && filtered[1].length > 1){
+						return false;
+					}
 				}else{
 					$("#price").attr("maxlength","5");
 				}

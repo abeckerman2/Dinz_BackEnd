@@ -105,6 +105,8 @@
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
 								<li class="breadcrumb-item active">Order Management</li>
+								<li class="breadcrumb-item active">Today Orders</li>
+
 								<!-- <li class="breadcrumb-item remove_hover">Today Orders</li> -->
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
@@ -154,7 +156,7 @@
 										<tr>
 											<th>Sr. No.</th>
 											<th>Order ID</th>
-											<th>Table Name</th>
+											<th>Table Entity</th>
 											<th>Item Name</th>
 											<th>Order Date</th>
 											<th>Order Time</th>
@@ -231,7 +233,7 @@
         <h4 class="modal-title">Alert</h4>
       </div>
       <div class="modal-body"> 
-            <p id="delete_alert_txt">Are you sure, you want to delete this Order?</p>    
+            <p id="delete_alert_txt">Are you sure, you want to delete this order?</p>    
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-warning same_wd_btn border_btn yes" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">Yes</button>

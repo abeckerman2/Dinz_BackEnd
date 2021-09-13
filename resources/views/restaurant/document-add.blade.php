@@ -117,13 +117,13 @@ input.form-control {
                       Document Name
                     </label>
                     <div class="form-group pb-3" style="padding-left: 0;">
-                      <input type="text" name="document_name" maxlength="50" class="form-control block-start-space" placeholder="Enter Document Name"/>
+                      <input type="text" name="document_name" maxlength="30" class="form-control block-start-space" placeholder="Enter Document Name"/>
                     </div>
                 </div>
                 
 
                 <div class="add_content">
-                    <label for="" class="pb-1">
+                    <label for="" class="pb-1" style="    margin-bottom: 9px;">
                       Document
                     </label>
                   <div class="img-upload">
@@ -209,7 +209,7 @@ $(document).ready(function(){
       messages:{
         document_name:{
           required:'Please enter document name.',
-          minlength: 'Document name should be greater than 2 characters.',
+          minlength: 'Document name should be at least 2 characters long.',
         },
       },
 
@@ -333,7 +333,7 @@ $(document).ready(function(){
 
             } else {
                 $('#invalid_file').css({'display': 'block'});
-                $("#invalid_file").text("File should be jpg, jpeg, png, pdf, doc format only.");
+                $("#invalid_file").text("File should be .jpg, .jpeg, .png, .pdf, .doc format only.");
                 $("#blah").attr("src", "{{url('public/restaurant/assets/img/add-mul.png')}}");
                 $('#imgInp').val('');
                 $("#imgInp").removeAttr("img");

@@ -15,7 +15,9 @@
 		    background-color: #008000;
 		    color: white;
 		}
-
+div#basic-datatables_wrapper .col-sm-12 {
+    overflow: auto;
+}
 
 
 img#blah {
@@ -125,6 +127,17 @@ input#submit {
     margin-bottom: 0;
 }
 
+
+.dashboard_panel .card .card-body .serch_icon i {
+    position: absolute;
+    color: #000;
+    right: 181px;
+    z-index: 99;
+    top: 39px;
+    font-size: 14px;
+}
+
+
 </style>
 
 
@@ -187,6 +200,11 @@ input#submit {
 
                 <div class="card">
                   <div class="card-body">
+
+                    <div class="serch_icon">
+                      <i class="fas fa-search"></i>
+                    </div>
+
                     <div class="table-responsive">
                       <table id="basic-datatables" class="display table table-striped table-hover" >
                         <thead>
@@ -222,6 +240,10 @@ input#submit {
                                 <button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button>
                               </a>
 
+
+                              <a href="{{url('restaurant/add-item-from-management-page').'/'.$rows->id}}">
+                                <button type="button" class="btn btn-warning same_wd_btn mr-2" style="width: 146px;">Add Item</button>
+                              </a>
                                
                               <button type="button" class="btn btn-warning same_wd_btn border_btn delete_btn" data-id="{{$rows->id}}">Delete</button>
                             </td>

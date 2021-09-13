@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Table Details')
+@section('title','Entity Details')
 @section('content')
 <style type="text/css">
 		#basic-datatables_wrapper .col-sm-12 {
@@ -155,6 +155,20 @@
 	width: 200px;
     height: 40px!important;
     background-color: #000!important;
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+
+    background-image: url('{{url('public/restaurant/assets/img/white_arrow.png')}}');
+	background-repeat: no-repeat;
+    content: ' ';
+    background-position: 89% 54%;
+    background-size: 13px;
+
+        padding-right: 42px;
+            line-height: 12px;
+
+
 }
 
 
@@ -194,15 +208,15 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Table Management</a></li>
-								<li class="breadcrumb-item remove_hover">Table Details</li>
+								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Entity Management</a></li>
+								<li class="breadcrumb-item remove_hover">Entity Details</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
 					<div style="display: flex;justify-content: space-between;padding: 22px 0px;">
-						<h1 style="margin: 0px;padding: 0px">Table Details</h1>
+						<h1 style="margin: 0px;padding: 0px">Entity Details</h1>
                         <div class="right_wrapper">
 							<a href="#"> <button type="button" class="btn btn-warning same_wd_btn mr-2 delete_table" id="delete_table" data-id="{{$table_find->id}}" >Delete</button> </a> 
 							<a href="{{url('restaurant/edit-table').'/'.$table_id}}"> <button type="button" class="btn btn-warning same_wd_btn mr-2">Edit</button> </a>
@@ -254,7 +268,7 @@
 												</td>
 											</tr> -->
 											<tr>
-												<th style="width: 110px" >Table Name</th>
+												<th style="width: 110px" >Entity Name</th>
 												<td>
 													{{$table_find->table_name}}
 												</td>
@@ -277,7 +291,7 @@
 												}
 											?>
 											<tr>
-												<th style="width: 110px" >Table Status</th>
+												<th style="width: 110px" >Entity Status</th>
 												<td>
 													{{$table_status}}
 												</td>
@@ -308,7 +322,7 @@
 													<div class="d-flex button-resize" id="main-menu">
 
 														<div>
-															<select class="form-control select-dropdown" id="menu_id" name="menu_id">
+															<select class="form-control select-dropdown" id="menu_id" name="menu_id" title="Select menu" style="cursor: pointer;">
 																<option value="">Select Menu</option>
 																@foreach($main_menu_name as $rows)
 																	<option value="{{$rows->id}}" @if($rows->id == $table_find->assign_menu_id) selected @endif>{{$rows->menu_name}}
@@ -318,7 +332,7 @@
 
 															<span style="display: none" class="upload-error" id="menu-error">Please select menu.</span>
 														</div>
-														<button type="button" class="btn btn-warning same_wd_btn mr-2 remove_button_two" id="add-menu" title="Click to add menu">ADD</button>
+														<button type="button" class="btn btn-warning same_wd_btn mr-2 remove_button_two" id="add-menu" title="Click to add menu" style="display: none;">ADD</button>
 													</div>
 
 													<input type="hidden" value="{{$table_find->assign_menu_id}}" id="is_menu_selected">
@@ -352,7 +366,7 @@
 												<td>
 													<div class="d-flex button-resize" id="main-document">
 														<div>
-															<select class="form-control select-dropdown" id="document_id" name="document_id">
+															<select class="form-control select-dropdown" id="document_id" name="document_id" title="Select document" style="cursor: pointer;">
 																<option value="">Select Document</option>
 																@foreach($documents as $rows)
 																	<option value="{{$rows->id}}" @if($rows->id == $table_find->assign_document_id) selected @endif>{{$rows->document_name}}
@@ -361,8 +375,11 @@
 															</select>
 
 															<span style="display: none" class="upload-error" id="document-error">Please select document.</span>
+
+															<span style="display: none" class="upload-error" id="both-error">Please select at least one menu or document.</span>
+
 														</div>
-														<button type="button" class="btn btn-warning same_wd_btn mr-2 remove_button_two" id="add-document" title="Click to add document">ADD</button>
+														<button type="button" class="btn btn-warning same_wd_btn mr-2 remove_button_two" id="add-document" title="Click to add document" style="display: none">ADD</button>
 													</div>
 
 													<input type="hidden" value="{{$table_find->assign_document_id}}" id="is_document_selected">
@@ -385,11 +402,20 @@
 											</tr>
 											@endif
 
-											
+											<tr>
+												<th style="width: 110px" ></th>
+												<td>
+													<button type="button" class="btn btn-warning same_wd_btn mr-2 remove_button_two" id="add">ADD</button>
+												</td>
+											</tr>
 
 
 										</tbody>
 									</table>
+
+
+								
+
 
 								</div>
 							</form>
@@ -471,49 +497,10 @@
 
 
 
-							<!-- <div class="border-bottom mb-3 mt-3"></div> -->
 
 							 
 
-							<h3>Service Requests</h3>
-							<div class="table-responsive descp">
-								<table id="basic-datatables-2" class="display table table-striped table-hover" >
-									<thead>
-										<tr>
-											<th class="sr-no">Sr. No.</th>
-											<th class="date_time">User Name</th>
-											<th class="descption_data">Description</th>
-											<th class="date_time">Date & Time</th>
-											<!-- <th>Table Name</th> -->
-											
-										</tr>
-									</thead>
-									<tbody>
-
-										<?php
-											$i=0;
-										?>
-
-										@foreach($table_description->requestWaiter as $rows)
-
-
-											<tr>
-												<td>{{++$i}}</td>
-												<?php
-													$full_name = $rows->user->first_name.' '.$rows->user->last_name;
-												?>
-												<td style="word-break: break-all;">{{$full_name}}</td>
-												<td style="padding: 4px 17px !important; word-break: break-all;">
-													{{$rows->order_text_customization}} .
-												</td>
-												<td>{{$rows->date_time}}</td>
-											</tr>
-										@endforeach
-							 
-										 
-									</tbody>
-								</table>
-							</div>
+							
 
 
 
@@ -549,7 +536,7 @@
       </div>
       <div class="modal-body">
             
-            <p id="delete_alert_txt">Are you sure, you want to delete this table?</p>    
+            <p id="delete_alert_txt">Are you sure, you want to delete this entity?</p>    
 
       </div>
 
@@ -719,48 +706,85 @@
 
 		/*For add menu*/
 		$('#menu_id').on('change' , function(){
+
+			$('#both-error').css('display' , 'none');
+
 			$('#main-menu').removeClass('validate_spacing');
 			$('#menu-error').css('display' , 'none');
 			var value  = $(this).val();
 			$('#is_menu_selected').val(value);
 		})
 
-		$('#add-menu').on('click' , function(){
-			var is_menu_selected = $('#is_menu_selected').val();
-			if(is_menu_selected != ""){
-				$('#add-doc-menu').submit();
-				$(this).attr('disabled' , 'true');
-			}else{
-				$('#main-menu').addClass('validate_spacing');
-				$('#menu-error').css('display' , 'block');
-				return false;
-			}
-		})
+		// $('#add-menu').on('click' , function(){
+		// 	var is_menu_selected = $('#is_menu_selected').val();
+		// 	if(is_menu_selected != ""){
+		// 		$('#add-doc-menu').submit();
+		// 		$(this).attr('disabled' , 'true');
+		// 	}else{
+		// 		$('#main-menu').addClass('validate_spacing');
+		// 		$('#menu-error').css('display' , 'block');
+		// 		return false;
+		// 	}
+		// })
 
 
 
 		/*For add document*/
 		$('#document_id').on('change' , function(){
+
+			$('#both-error').css('display' , 'none');
+
 			$('#main-document').removeClass('validate_spacing');
 			$('#document-error').css('display' , 'none');
 			var value  = $(this).val();
 			$('#is_document_selected').val(value);
 		})
 
-		$('#add-document').on('click' , function(){
+		// $('#add-document').on('click' , function(){
+		// 	var is_document_selected = $('#is_document_selected').val();
+		// 	if(is_document_selected != ""){
+		// 		$('#add-doc-menu').submit();
+		// 		$(this).attr('disabled' , 'true');
+		// 	}else{
+		// 		$('#main-document').addClass('validate_spacing');
+		// 		$('#document-error').css('display' , 'block');
+		// 		return false;
+		// 	}
+		// })
+
+
+
+	})
+</script>
+
+
+<script type="text/javascript">
+	$(document).ready(function(){
+
+
+		$('#add').on('click' , function(){
+			var is_menu_selected = $('#is_menu_selected').val();
 			var is_document_selected = $('#is_document_selected').val();
-			if(is_document_selected != ""){
+
+			if(is_menu_selected == "" && is_document_selected == ''){
+				// $('#main-menu').addClass('validate_spacing');
+				// $('#menu-error').css('display' , 'block');
+				// $('#main-document').addClass('validate_spacing');
+				// $('#document-error').css('display' , 'block');
+
+				$('#main-document').addClass('validate_spacing');
+				$('#both-error').css('display' , 'block');
+
+				return false;
+			}else{
+
+				$('#menu_id').css('pointer-events' , 'none')	
+				$('#document_id').css('pointer-events' , 'none')
+
 				$('#add-doc-menu').submit();
 				$(this).attr('disabled' , 'true');
-			}else{
-				$('#main-document').addClass('validate_spacing');
-				$('#document-error').css('display' , 'block');
-				return false;
 			}
 		})
-
-
-
 	})
 </script>
 
@@ -777,4 +801,24 @@
 		},5000);
 	});
 </script>
-@endsection()
+
+
+<!-- <script type="text/javascript">
+	$(document).ready(function(){
+		$('#add-menu').on('click' , function(){
+			var check_is_any_selected = $('#menu_id').val();
+				if(check_is_any_selected != ''){
+					$('#menu_id').css('pointer-events' , 'none')	
+				}
+		})
+
+		
+		$('#add-document').on('click' , function(){
+			var check_is_any_selected = $('#document_id').val();
+				if(check_is_any_selected != ''){
+					$('#document_id').css('pointer-events' , 'none')	
+				}
+		})
+	})
+</script>
+ -->@endsection()

@@ -98,15 +98,42 @@
 										<div class="d-flex earnings justify-content-around">
 											<div>
 												<p class="mb-0">This Day</p>
-												<h2 class="number">$200</h2>
+												<?php
+													if($today_earning > 1000){
+														$in_k = $today_earning/1000;
+														$today_revenue_in_k = number_format((float)$in_k, 2, '.', '');
+														$today = $today_revenue_in_k.''."k";
+													}else{
+														$today = $today_earning;
+													}
+												?>
+												<h2 class="number">${{$today}}</h2>
 											</div>
 											<div>
 												<p class="mb-0">This Month</p>
-												<h2 class="number">$1000</h2>
+												<?php
+													if($this_month > 1000){
+														$in_k = $this_month/1000; 
+														$monthly_revenue_in_k = number_format((float)$in_k, 2, '.', ''); 
+														$month = $monthly_revenue_in_k.''."k";
+													}else{
+														$month = $today_earning;
+													}
+												?>
+												<h2 class="number">${{$month}}</h2>
 											</div>
 											<div>
 												<p class="mb-0">This Year</p>
-												<h2 class="number">$2000</h2>
+												<?php
+													if($this_year > 1000){
+														$in_k = $this_year/1000;
+														$yearly_revenue_in_k  = number_format((float)$in_k, 2, '.', '');
+														$year = $yearly_revenue_in_k.''."k";
+													}else{
+														$year = $today_earning;
+													}
+												?>
+												<h2 class="number">${{$year}}</h2>
 											</div>
 										</div>
 									</div>

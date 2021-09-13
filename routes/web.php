@@ -111,6 +111,9 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
         Route::match(['GET','POST'],'table-details/{table_id}','TableManagementController@tableDetails')->name('tableDetails');
         Route::match(['GET','POST'],'menu-management/{id}','MenuManagementController@menuManagement')->name('menuManagement');
         Route::match(['GET','POST'],'add-item','MenuManagementController@addItem')->name('addItem');
+        Route::match(['GET','POST'],'add-item-from-management-page/{id}','MenuManagementController@addItemFromManagementPage')->name('addItemFromManagementPage');
+
+
         Route::match(['GET','POST'],'edit-item/{menu_id}','MenuManagementController@editItem')->name('editItem');
         Route::match(['GET','POST'],'order-management','OrderManagementController@orderManagement')->name('orderManagement');
         Route::match(['GET','POST'],'present-order-details/{id}','OrderManagementController@presentOrderDetails')->name('presentOrderDetails');
@@ -142,7 +145,7 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
         Route::match(['GET' , 'POST'] , 'menu-images' , 'MenuManagementController@menuImages')->name('menuImages');
         
 
-        Route::match(['GET' , 'POST'] , 'delete-menu-image/{id}' , 'MenuManagementController@deleteMenuImages')->name('deleteMenuImages');
+        Route::match(['GET' , 'POST'] , 'delete-menu-image' , 'MenuManagementController@deleteMenuImages')->name('deleteMenuImages');
 
         Route::match(["GET","POST"],'import-menu', 'MenuManagementController@importMenu')->name('importMenu');
         Route::get('export-menu', 'MenuManagementController@exportMenu')->name('exportMenu');
@@ -173,6 +176,7 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
 
 
 
+        Route::match(['GET' , 'POST'] , 'delete-all-images' , 'MenuManagementController@deleteAllImages')->name('deleteAllImages');
 
     });
 
@@ -245,18 +249,23 @@ Route::group(['namespace' => 'Admin','prefix'=>'/admin', 'as' => 'admin.'],funct
 /*START OF WEBSITE ROUTE*/
 Route::group(['namespace' => 'Website' , 'prefix' => "website"] , function(){ 
 
-    Route::match(['GET' , 'POST'] , 'menu-list/{restaurant_id}/{table_id}' , 'WebsiteController@menuList')->name('menuList');
-    Route::post('add-cart' , 'WebsiteController@addCart')->name('addCart');
-    Route::match(['GET' , 'POST'] , 'cart-listing' , 'WebsiteController@cartListing')->name('cartListing');
-    Route::match(['GET' , 'POST'] , 'payment' , 'WebsiteController@payment')->name('payment');
+    Route::group(['middleware'=>['TimeZone']] , function() {
 
-    Route::match(['GET' , 'POST'] , 'book-order' , 'WebsiteController@bookOrder');
-    Route::match(['GET' , 'POST'] , 'no-item-in-cart' , 'WebsiteController@noItemInCart');
+        Route::match(['GET' , 'POST'] , 'menu-list/{restaurant_id}/{table_id}' , 'WebsiteController@menuList')->name('menuList');
+        Route::post('add-cart' , 'WebsiteController@addCart')->name('addCart');
+        Route::match(['GET' , 'POST'] , 'cart-listing' , 'WebsiteController@cartListing')->name('cartListing');
+        Route::match(['GET' , 'POST'] , 'payment' , 'WebsiteController@payment')->name('payment');
 
-    Route::match(['GET' , 'POST'] , 'block-restaurant' , 'WebsiteController@blockRestaurant');
-    Route::match(['GET' , 'POST'] , 'delete-restaurant' , 'WebsiteController@deleteRestaurant');
-    Route::match(['GET' , 'POST'] , 'delete-table' , 'WebsiteController@deleteTable');
+        Route::match(['GET' , 'POST'] , 'book-order' , 'WebsiteController@bookOrder');
+        Route::match(['GET' , 'POST'] , 'no-item-in-cart' , 'WebsiteController@noItemInCart');
 
+        Route::match(['GET' , 'POST'] , 'block-restaurant' , 'WebsiteController@blockRestaurant');
+        Route::match(['GET' , 'POST'] , 'delete-restaurant' , 'WebsiteController@deleteRestaurant');
+        Route::match(['GET' , 'POST'] , 'delete-table' , 'WebsiteController@deleteTable');
+
+        // Route::match(['GET' , 'POST'] , 'payment-invoice' , 'WebsiteController@paymentInvoice');
+
+    });
     
 });
 /*END OF WEBSITE ROUTE*/

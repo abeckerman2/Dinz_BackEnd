@@ -117,7 +117,7 @@ input.form-control {
                       Document Name
                     </label>
                     <div class="form-group pb-3" style="padding-left: 0;">
-                      <input type="text" name="document_name" maxlength="50" class="form-control block-start-space" value="{{$data->document_name}}" placeholder="Enter Document Name"/>
+                      <input type="text" name="document_name" maxlength="30" class="form-control block-start-space" value="{{$data->document_name}}" placeholder="Enter Document Name"/>
                     </div>
                 </div>
                 
@@ -231,7 +231,7 @@ $(document).ready(function(){
       messages:{
         document_name:{
           required:'Please enter document name.',
-          minlength: 'Document name should be greater than 2 characters.',
+          minlength: 'Document name should be at least 2 characters long.',
         },
       },
 
@@ -381,7 +381,7 @@ $(document).ready(function(){
 
                 } else {
                     $('#invalid_file').css({'display': 'block'});
-                    $("#invalid_file").text("File should be jpg, jpeg, png, pdf, doc format only.");
+                    $("#invalid_file").text("File should be .jpg, .jpeg, .png, .pdf, .doc format only.");
                     $("#blah").attr("src",user_img);
                     $('#imgInp').val('');
                     $("#imgInp").removeAttr("img");

@@ -151,13 +151,13 @@
                         <div class="d-flex view" style="    margin-top: 15px;    margin-bottom: 10px;">
                         <img src="{{$file}}" style="width: 130px; height: 130px;">
                           <!-- <button type="button" class="btn btn-warning same_wd_btn mr-2">Document Details</button> -->
-                          <a href="{{$data->file}}" target="_blank" title="Click to Document Details" class="btn btn-warning same_wd_btn mr-2">View Document</a>
+                          <a href="{{$data->file}}" target="_blank"  class="btn btn-warning same_wd_btn mr-2">View Document</a>
                       </div>
                       </td>
 
                     </tr>
                      <tr>
-                      <th>Qr Code</th>
+                      <th>QR Code</th>
                       <td>
                         <div style="    margin-top: 15px;margin-bottom: 15px;">
                           <img src="{{$data->qr_code_name}}" style="width: 130px; height: 130px;">

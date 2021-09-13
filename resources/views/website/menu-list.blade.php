@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>mobile</title>
+      <title>Menu List</title>
       <link rel="icon" href="{{url('public/website/images/favicon.png')}}" sizes="16x16" type="images/png">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" type="text/css" href="{{url('public/website/css/bootstrap.css')}}">
@@ -35,15 +35,41 @@
             left: 0;
             right: 0;
             margin: auto;
-            background-color: #000!important;
+            background-color: #c90202!important;
             background-image: none;
             max-width: 150px;
             width: 100%;
             height: 39px;
             border-radius: 24px;
+                line-height: 30px;
+
         }
 
 
+
+        .info_message {
+            font-size: 17px;
+            color: #ff0000;
+            font-weight: 600;
+        }
+button.owl-next {
+    position: absolute;
+    right: 0;
+    top: 23%;
+    font-size: 40px;
+}
+button.owl-prev{
+   position: absolute;
+    left: 0;
+    top: 23%;
+    font-size: 40px;
+}
+.owl-nav span{
+  font-size: 45px;
+}
+.owl-dots{
+  display: none;
+}
       </style>
 
 
@@ -53,9 +79,6 @@
          <div class="container">
             <div class="d-flex newdata">
            
-            <div class="line_element">
-               <p>Restaurant</p>
-            </div>
             <div class="cart">
              <!--  <a href="{{url('website/cart-listing')}}">
                 <img src="{{url('public/website/images/cart.png')}}" title="Cart" alt="">
@@ -63,15 +86,44 @@
             </div>
          </div>
 
-         <div class="new-file-line">
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+         <div class="new-file-line" style="margin-bottom: 70px">
             <div class="align_data">
-            <!-- <img src="{{url('public/website/images/image.png')}}" alt="" width="300px;"> -->
-            <img src="{{$restaurant_find->restaurant_logo}}" style="height: 180px;width: 180px;    border-radius: 20px;" alt="" width="300px;">
+              <div class="owl-carousel owl-theme">
+                @foreach($rest_images as $row)
+                  <div class="item"><h4> <img src="{{$row}}" style="height: 160px;width: 160px; margin: auto; border-radius: 20px; " alt="" width="300px; "></h4></div>
+                @endforeach
+              </div>
+            <!-- <img src="{{$restaurant_find->restaurant_logo}}" style="height: 180px;width: 180px;    border-radius: 20px;" alt="" width="300px;"> -->
          </div>
          <div class="fine_line" style="    margin-top: 15px;">
-            <h2>Restaurant</h2>
-            <p>{{$restaurant_find->restaurant_address}}</p>
+
+          <?php
+            $rest_name = ucfirst($restaurant_find->restaurant_name);
+          ?>
+            <h2 style="word-break: break-all;">{{$rest_name}}</h2>
+            <p style="word-break: break-all;">{{$restaurant_find->restaurant_address}}</p>
+
+
             <h3 class="spain_line">Open</h3>
+            <p style="word-break: break-all;">{{$restaurant_find->description}}</p>
             <!-- <h5>Snacks</h5> -->
 
          </div>
@@ -81,7 +133,12 @@
           <input type="hidden" name="menu_id" id="table_id" value="{{$table_id}}">
 
 
- 
+          <?php
+            $item_count = count($menus);
+          ?>
+
+          @if($item_count > 0)
+
             @foreach($menus as $rows)
               <div class="veg menus" menu_id="{{$rows->id}}">
                 <div class="d-flex lines">
@@ -96,8 +153,29 @@
                    {{$rows->item_type}}
                   </div>
 
-                   <h3>{{$rows->item_name}}</h3>
-                   <h2>{{$rows->price}}</h2>
+                   <h3 style="word-break: break-all;">{{$rows->item_name}}</h3>
+                   <h2>${{$rows->price}}</h2>
+
+                   <?php
+                    $category_id = $rows->category_id;
+                    if($category_id == 1){
+                      $category_name = "Breakfast";
+                    }
+                    elseif($category_id == 2){
+                      $category_name = "Lunch";
+                    }
+                    elseif($category_id == 3){
+                      $category_name = "Snacks";
+                    }
+                    elseif($category_id == 4){
+                      $category_name = "Dinner";
+                    }
+                    else{
+                      $category_name = "Beverages";
+                    }
+                   ?>
+                   <h3>{{$category_name}}</h3>
+
                    <p style="word-break: break-all;">{{$rows->description}}</p>
                 </div>
 
@@ -125,6 +203,14 @@
 
               </div>
             @endforeach
+
+          @else
+            <br>
+            <br>
+            <br>
+            <h2 style="color: red" ; align="center" class="info_message">No item available</h2>
+
+          @endif
 
 
 
@@ -363,7 +449,22 @@
     })
   // })
 
-
+$('.owl-carousel').owlCarousel({
+    loop:true,
+    margin:10,
+    nav:true,
+    responsive:{
+        0:{
+            items:1
+        },
+        600:{
+            items:1
+        },
+        1000:{
+            items:1
+        }
+    }
+})
 </script>
 
 <!-- 

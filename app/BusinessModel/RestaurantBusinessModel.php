@@ -21,44 +21,44 @@ class RestaurantBusinessModel extends Model
     }
 
     public function createRestaurant(array $data){
-    	$acceptable_files = array_filter($data['acceptable']);
-        $non_acceptable_files = array_filter($data['non_acceptable']);
+    	// $acceptable_files = array_filter($data['acceptable']);
+     //    $non_acceptable_files = array_filter($data['non_acceptable']);
 
-        $explode_accepted_files = explode(',', $acceptable_files[0]);
+     //    $explode_accepted_files = explode(',', $acceptable_files[0]);
 
-        if(isset($non_acceptable_files[0]) && !empty($non_acceptable_files[0])){
+     //    if(isset($non_acceptable_files[0]) && !empty($non_acceptable_files[0])){
 
-            $explode_non_accepted_files = explode(',', $non_acceptable_files[0]);
-
-
-
-            //#override and remove dupicate array
-            $explode_accepted_files = array_diff($explode_accepted_files, $explode_non_accepted_files);
-
-        }
+     //        $explode_non_accepted_files = explode(',', $non_acceptable_files[0]);
 
 
-        $files_uploded = $data['files'];
 
-        $files = [];
+     //        //#override and remove dupicate array
+     //        $explode_accepted_files = array_diff($explode_accepted_files, $explode_non_accepted_files);
 
-        foreach ($explode_accepted_files as $acceptable_file) {
-
-            $exp_file = explode('_', $acceptable_file);
-
-            $extension = $files_uploded[$exp_file[0]][$exp_file[1]]->getClientOriginalExtension();
-
-            $file1_thumbname = "";
-            if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "JPG" || $extension == "PNG" || $extension == "JPEG"){
-
-                $destinationPath = storage_path(). DIRECTORY_SEPARATOR . env('RESTAURANT_IMAGES');
-                $file_name = $this->uploadImage($files_uploded[$exp_file[0]][$exp_file[1]], $destinationPath);
-
-                $files[] = ['file_url' => $file_name, 'thumbnail_url' => $file1_thumbname,'file_type' => "image"];
-            }
+     //    }
 
 
-        }
+     //    $files_uploded = $data['files'];
+
+     //    $files = [];
+
+     //    foreach ($explode_accepted_files as $acceptable_file) {
+
+     //        $exp_file = explode('_', $acceptable_file);
+
+     //        $extension = $files_uploded[$exp_file[0]][$exp_file[1]]->getClientOriginalExtension();
+
+     //        $file1_thumbname = "";
+     //        if($extension == "jpg" || $extension == "png" || $extension == "jpeg" || $extension == "JPG" || $extension == "PNG" || $extension == "JPEG"){
+
+     //            $destinationPath = storage_path(). DIRECTORY_SEPARATOR . env('RESTAURANT_IMAGES');
+     //            $file_name = $this->uploadImage($files_uploded[$exp_file[0]][$exp_file[1]], $destinationPath);
+
+     //            $files[] = ['file_url' => $file_name, 'thumbnail_url' => $file1_thumbname,'file_type' => "image"];
+     //        }
+
+
+     //    }
 
         if($data['restaurant_logo']){
         	$extension_logo = $data['restaurant_logo']->getClientOriginalExtension();
@@ -88,12 +88,12 @@ class RestaurantBusinessModel extends Model
                          ->backgroundColor(0,149,235)
                          ->generate($restaurant->id, $img_store);
 
-        foreach ($files as $file) {
-        	$restaurant_images = new RestaurantImage();
-        	$restaurant_images->restaurant_id = $restaurant->id;
-        	$restaurant_images->restaurant_image = $file['file_url'];
-        	$restaurant_images->save();
-        }
+        // foreach ($files as $file) {
+        // 	$restaurant_images = new RestaurantImage();
+        // 	$restaurant_images->restaurant_id = $restaurant->id;
+        // 	$restaurant_images->restaurant_image = $file['file_url'];
+        // 	$restaurant_images->save();
+        // }
 
         $i = 1;
         /*default_timing set*/

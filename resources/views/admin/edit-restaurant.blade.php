@@ -341,7 +341,7 @@ form.user img {
 
                     <div class="add_content">
                       <label for="" class="">
-                        Restaurant Logo
+                        Company Logo
                       </label>
                         <div class="pb-1 rest_logo rest_logoo">
                           <img src="{{$restaurant_find->restaurant_logo}}" onclick="$('#imgInp').click()" width="125px" height="125px" title="Change Restaurant Logo" id="blah" style="    object-fit: contain; cursor: pointer;" />
@@ -353,51 +353,13 @@ form.user img {
 
 
 
-
-							      <input type="hidden" name="delete_images" id="delete_image"> 
-                        <div class="add_content" style="    margin-top: 13px;">
-                         <label>Restaurant Other Images</label>
-                          <div class="restru_images" style="margin-top: 11px;">
-                            <div class="images_container" style="    margin-bottom: -5px;">
-                              <div class="img_count" style="    margin-top: -22px;">
-
-                                <?php $img_counts = count($restaurant_find->restaurantImages); ?>
-
-                                <div class="media_inputs">
-                                  <div class="img_upload upload_images">
-                                      <input type="hidden" name="non_acceptable_files" class="non_acceptable_files">
-                                      <input type="hidden" class="ext_media_record" images="0" total-media ="{{$img_counts}}" />
-                                      <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold" title="Click to upload images" data-recursion="-1" / style="margin-top: 12px;">
-                                  </div>
-                                </div>
-
-
-                                <div class="media_preview d-flex flex-wrap pb-1">
-                                  <?php $count = 0; ?>
-                                    @foreach($restaurant_find->restaurantImages as $photo)
-                                    @php ($urls = $photo->restaurant_image ? url($photo->restaurant_image) : url('public/restaurant/production/images/add_image.png'))
-                                      <div class="rest_logo rest_images" style="margin-top: 12px ; margin-right: 15px; position: relative;"  >
-                                        <img src='{{$urls}}' id="{{$photo->id}}" /> 
-                                        <i class="remove-img  cross_icon" id="{{$photo->id}}" data-parent="0_0" title="Remove image" type="total-media"></i>
-                                      </div>
-                                    <?php $count++ ?>
-                                    @endforeach
-                                </div>
-                                
-                              </div>
-                            </div>
-                             <div class="clear-fix"></div>
-                            <label class="custom_error2" id="image_error2" style="display: none;"></label>
-                            <label class="custom_error" id="image_error" style="display: none;"></label>
-
-                          </div>
-                        </div>
+ 
 
 
 
                          <div class="form-group" style="    margin-top: 13px;">
-                            <label>Restaurant Name</label>
-                            <input type="text" class="form-control form-control-user block-start-space" maxlength="50" id="restaurant_name" name="restaurant_name" placeholder="Restaurant Name" value="{{$restaurant_find->restaurant_name}}">
+                            <label>Company Name</label>
+                            <input type="text" class="form-control form-control-user block-start-space" maxlength="50" id="restaurant_name" name="restaurant_name" placeholder="Company Name" value="{{$restaurant_find->restaurant_name}}">
                           </div>
                 
            
@@ -417,8 +379,8 @@ form.user img {
                       <input type="text" class="form-control form-control-user block-start-space" maxlength="100" id="email" name="email" placeholder="Email Address" value="{{$restaurant_find->email}}">
                     </div>
                     <div class="form-group">
-                      <label>Restaurant Address</label>
-                      <input type="text" class="form-control form-control-user block-start-space-special" placeholder="Restaurant Address" maxlength="100"  id="restaurant_address" name="restaurant_address" value="{{$restaurant_find->restaurant_address ?? 'N/A'}}">
+                      <label>Company Address</label>
+                      <input type="text" class="form-control form-control-user block-start-space-special" placeholder="Company Address" maxlength="100"  id="restaurant_address" name="restaurant_address" value="{{$restaurant_find->restaurant_address ?? 'N/A'}}">
                     </div>
                     <div class="form-group">
                       <label>City</label>
@@ -433,7 +395,7 @@ form.user img {
 
                     <div class="form-group" style="margin-top: 15px">
                       <label>Description</label>
-                      <textarea class="form-control form-control-user block-start-space-special" rows="3" maxlength="1000" name="description">{{$restaurant_find->description}}</textarea>
+                      <textarea class="form-control form-control-user block-start-space-special" rows="3" maxlength="200" name="description">{{$restaurant_find->description}}</textarea>
                     </div>
 
 
@@ -592,7 +554,7 @@ function initialize() {
 		            required:true,
 		            minlength:2,
                 maxlength:100,
-		            alphabatic: true,
+		            // alphabatic: true,
 		          },
               first_name:{
 		            required:true,
@@ -646,9 +608,9 @@ function initialize() {
 			},
 		    messages:{ 
 				      restaurant_name:{
-		            required: 'Please enter restaurant name.',
-		            minlength: 'Restaurant name should be at least 2 characters long.',
-		            alphabatic: "Restaurant name should be alphanumeric only.",
+		            required: 'Please enter company name.',
+		            minlength: 'Company name should be at least 2 characters long.',
+		            alphabatic: "Company name should be alphanumeric only.",
 		          },
               first_name:{
 		            required: 'Please enter first name.',
@@ -666,8 +628,8 @@ function initialize() {
 		            alphabatic: "Owner name should be alphanumeric only.",
 		          },
 		          restaurant_address:{
-		            required: 'Please enter restaurant address.',
-		            minlength: 'Restaurant address should be at least 2 characters long.'
+		            required: 'Please enter company address.',
+		            minlength: 'Company address should be at least 2 characters long.'
 		          }, 
 		          city:{
 		          	required:'Please enter city.',
@@ -694,41 +656,12 @@ function initialize() {
 
 		})
 
-    $("#validate-form").on("submit",function(){
-
-      max_images_check = $(".img_count").find('img').length - 1;
-        if(max_images_check==0){
-          $('#image_error2').css({'display':'none'});
-          $(".custom_error").text("Please upload restaurant other images.").show();
-          return false
-        }
-
-      })
+ 
 
 });
 
     </script>
-
-<script type="text/javascript">
-	// $(document).ready(function(){
-
-		$(document).on("click",".remove-img",function(){
-			max_images_check = $(".img_count").find('img').length - 1;
-            if(max_images_check==0){
-            	$('#image_error2').css({'display':'block'});
-            	$("#image_error2").text("Please upload restaurant other images.").show();
-            }
-
-		})
-
-		$('.images_placehold').on('click' , function(){
-			$('#image_error2').css({'display':'none'});
-		})
-
-	// })
-</script>
-    
-
+ 
 
 
     <!-- Country Code -->

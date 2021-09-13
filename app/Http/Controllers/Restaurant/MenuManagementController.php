@@ -32,6 +32,7 @@ use File;
 use App\ParentMenuName;
 use App\Table;
 
+
 class MenuManagementController extends Controller
 {
 
@@ -46,7 +47,10 @@ class MenuManagementController extends Controller
         Session::put('parent_menu_id' , $id);
     	$restaurant = Auth()->guard('restaurant')->user();
     	$menus = Menu::whereDeletedAt(null)->whereRestaurantId($restaurant->id)->where('parent_menu_id' , $id)->orderBy('id','desc')->get();
-        return view('restaurant.menu-management' ,compact('menus'));
+
+        $main_menu_details = ParentMenuName::where('id' , $id)->first();
+
+        return view('restaurant.menu-management' ,compact('menus' , 'main_menu_details'));
     }
     
 
@@ -62,16 +66,50 @@ class MenuManagementController extends Controller
     	if($request->isMethod('POST')){
             $parent_menu_id = Session::get('parent_menu_id'); 
 
-    		$data = $request->all();
+    		$restaurant = Auth()->guard('restaurant')->user();
+
+            // $check_item_name_already_exist = Menu::where('parent_menu_id' , $parent_menu_id)->where('restaurant_id' , $restaurant->id)->where('item_name' , $request->item_name)->where('deleted_at' , null)->first();
+
+            // if($check_item_name_already_exist){
+            //     return back()->with('error' , 'Item name is already exist.');
+            // }
+
+
+
+            $data = $request->all();
             $data['item_name'] = ucfirst($data['item_name']);
             $data['parent_menu_id'] = $parent_menu_id;
 
 
-    		$restaurant = Auth()->guard('restaurant')->user();
     		$add_item = $this->restaurantBusinessModel()->addItem($data, $restaurant);
     		return redirect('restaurant/menu-management'.'/'.$parent_menu_id)->with('success' , 'Item has been added successfully.'); 
     	}
     }
+
+
+    public function addItemFromManagementPage(Request $request , $id){
+
+        if($request->isMethod('GET')){
+            $parent_menu_id = $id;
+
+            $categories = Category::whereDeletedAt(null)->get();
+            return view('restaurant.add_item_outer',compact('categories' , 'parent_menu_id'));
+        }
+
+        if($request->isMethod('POST')){
+            $parent_menu_id = $id;
+
+            $data = $request->all();
+            $data['item_name'] = ucfirst($data['item_name']);
+            $data['parent_menu_id'] = $parent_menu_id;
+
+
+            $restaurant = Auth()->guard('restaurant')->user();
+            $add_item = $this->restaurantBusinessModel()->addItem($data, $restaurant);
+            return redirect('restaurant/menu-management'.'/'.$parent_menu_id)->with('success' , 'Item has been added successfully.'); 
+        }
+    }
+    
 
     public function editItem(Request $request){
     	if($request->isMethod('GET')){
@@ -119,7 +157,9 @@ class MenuManagementController extends Controller
 
 
     private function uploadProfile($destinationPath,$image){
-        $imageName = date('mdY') . uniqid().'.'.$image->getClientOriginalExtension();
+        // $imageName = date('mdY') . uniqid().'.'.$image->getClientOriginalExtension();
+        $imageName = rand(100000,999999).'.'.$image->getClientOriginalExtension();
+
         $image->move($destinationPath, $imageName);
         return $imageName;
     }
@@ -163,7 +203,7 @@ class MenuManagementController extends Controller
 
 
     public function deleteMenuImages(Request $request) {
-        $menu_image_id =  $request->id;
+        $menu_image_id =  $request->delete_single_image_id;
 
         if(!empty($menu_image_id)  && $menu_image_id)  {
             $deleteMenuImage = MenuImages::where('id' , $menu_image_id)->update(['deleted_at' => Carbon::now()]);
@@ -195,6 +235,7 @@ class MenuManagementController extends Controller
 
         $message = [
                     'import_menu.required' => 'Please select file to import.',
+                    'import_menu.mimes' => 'Only .xls and .xlsx format file allowed.',
                 ];
 
         $request->validate([
@@ -206,7 +247,7 @@ class MenuManagementController extends Controller
         $array = Excel::toArray(new MenuImport, request()->file('import_menu'));
         $data_file = $array[0];
         if(count($data_file) <= 0){
-              return back()->with("error" , "File is empty.");
+              return back()->with("error" , "Empty file is not allowed.");
         }
 
 
@@ -278,13 +319,15 @@ class MenuManagementController extends Controller
                         return back()->with("error" , "Category name field is required.");
                     }
                     $Category_name = array(
-                                            'Breakfast',
-                                            'Lunch',
-                                            'Snacks',
-                                            'Dinner',
-                                            'Beverages',
+                                            'breakfast',
+                                            'lunch',
+                                            'snacks',
+                                            'dinner',
+                                            'beverages',
                                         );
-                    if (!in_array($data_file[$i]["category_name"], $Category_name)) {
+                    $file_category_name = strtolower($data_file[$i]["category_name"]);
+
+                    if (!in_array($file_category_name, $Category_name)) {
                         return back()->with("error" , "Please enter valid category name. it should be Breakfast, Lunch, Snacks, Dinner and Beverages.");
                     }
                     
@@ -313,11 +356,14 @@ class MenuManagementController extends Controller
                     if(trim($data_file[$i]["item_type"]) == "" ){
                         return back()->with("error" , "Item type field is required.");
                     }
-                    $Category_name = array(
-                                            'Non-Veg',
-                                            'Veg',
+                    $item_type = array(
+                                            'non-veg',
+                                            'veg',
                                         );
-                    if (!in_array($data_file[$i]["item_type"], $Category_name)) {
+
+                    $file_item_type = strtolower($data_file[$i]["item_type"]);
+
+                    if (!in_array($file_item_type, $item_type)) {
                         return back()->with("error" , "Please enter valid Item type, it should be Veg or Non-Veg.");
                     }
 
@@ -347,8 +393,8 @@ class MenuManagementController extends Controller
                     if(strlen($data_file[$i]["description"]) < 2 ){
                         return back()->with("error" , "Description should be at least 2 characters long.");
                     }
-                    if(strlen($data_file[$i]["description"]) >1000 ){
-                        return back()->with("error" , "Description should be less than 1000 characters.");
+                    if(strlen($data_file[$i]["description"]) > 200 ){
+                        return back()->with("error" , "Description should be less than or equal to 200 characters.");
                     }
                     // $word_count = array_filter(explode(" ",str_replace("  "," ",$data_file[$i]["description"])));
                     // if (count($word_count) > 100) {
@@ -363,20 +409,20 @@ class MenuManagementController extends Controller
                     // if (empty($count_table) ) {
                         for($i=0 ; $i < $count_file; $i++){
 
-                            $category_name = ucfirst($data_file[$i]["category_name"]);
-                            if($category_name == 'Breakfast'){
+                            $category_name = strtolower($data_file[$i]["category_name"]);
+                            if($category_name == 'breakfast'){
                                 $category_id = 1;
                             }
-                            if($category_name == 'Lunch'){
+                            if($category_name == 'lunch'){
                                 $category_id = 2;
                             }
-                            if($category_name == 'Snacks'){
+                            if($category_name == 'snacks'){
                                 $category_id = 3;
                             }
-                            if($category_name == 'Dinner'){
+                            if($category_name == 'dinner'){
                                 $category_id = 4;
                             }
-                            if($category_name == 'Beverages'){
+                            if($category_name == 'beverages'){
                                 $category_id = 5;
                             }
 
@@ -386,7 +432,7 @@ class MenuManagementController extends Controller
                                 "parent_menu_id" => $parent_menu_id,
                                 "restaurant_id" => $restaurant_id,
                                 "category_id"   => $category_id,
-                                "category_name" => $category_name,
+                                "category_name" => ucfirst($category_name),
                                 "image"         => $data_file[$i]["image"],
                                 "item_name"     => $item_name,
                                 "item_type"     => $data_file[$i]["item_type"],
@@ -431,7 +477,7 @@ class MenuManagementController extends Controller
 
                 //     }
                 // }
-        return redirect(url("restaurant/menu-management").'/'.$parent_menu_id)->with("success","Menu imported successfully.");  
+        return redirect(url("restaurant/menu-management").'/'.$parent_menu_id)->with("success","File uploaded successfully.");  
     }
 
 
@@ -463,6 +509,14 @@ class MenuManagementController extends Controller
         }
         if($request->isMethod('POST')){
             $restaurant_id = Auth::guard('restaurant')->user()->id;
+
+
+            $check_parent_name_already_exist = ParentMenuName::where('restaurant_id' , $restaurant_id)->where('menu_name' , $request->menu_name)->where('deleted_at' , null)->first();
+
+            if($check_parent_name_already_exist){
+                return back()->with('error' , 'Menu name is already exist.');
+            }
+
             $data = [
                 'restaurant_id' => $restaurant_id,
                 'menu_name' => $request->menu_name,
@@ -485,6 +539,13 @@ class MenuManagementController extends Controller
         }
         if($request->isMethod('POST')){
             $restaurant_id = Auth::guard('restaurant')->user()->id;
+
+            $check_parent_name_already_exist = ParentMenuName::where('id' ,'!=' , $id)->where('restaurant_id' , $restaurant_id)->where('menu_name' , $request->menu_name)->where('deleted_at' , null)->first();
+
+            if($check_parent_name_already_exist){
+                return back()->with('error' , 'Menu name is already exist.');
+            }
+
             $data = [
                 'menu_name' => $request->menu_name,
             ];
@@ -501,6 +562,12 @@ class MenuManagementController extends Controller
 
     public function deleteParentMenu(Request $request){
         $parent_menu_id = $request->delete_parent_menu_id;
+
+        $check_menu_assign_to_table = Table::where('assign_menu_id' , $parent_menu_id)->first();
+        if($check_menu_assign_to_table){
+            return back()->with('error' , 'This menu has been assigned to the entity, so you can not delete this menu.');
+        }
+
         ParentMenuName::whereId($parent_menu_id)->update(['deleted_at' => Carbon::now()]);
         // Menu::where('parent_menu_id' , $parent_menu_id)->update(['deleted_at' => Carbon::now()]);
         Table::where('assign_menu_id' , $parent_menu_id)->update(['assign_menu_id' => null]);
@@ -509,6 +576,10 @@ class MenuManagementController extends Controller
     }
 
 
-
+    public function deleteAllImages(Request $request){
+        $restaurant_id = Auth()->guard('restaurant')->user()->id;
+        MenuImages::where('restaurant_id' , $restaurant_id)->delete();
+        return back()->with('success' , 'Images has been deleted successfully.');
+    }
 
 }

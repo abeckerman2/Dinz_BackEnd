@@ -29,7 +29,10 @@ use App\OrderItem;
 class OrderManagementController extends Controller
 {
     public function orderManagement(Request $request){
-        $order = Order::where('order_status', '!=' , 'completed')->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
+
+        $restaurant_id = Auth::guard('restaurant')->user()->id;
+
+        $order = Order::where('restaurant_id' , $restaurant_id)->where('order_status', '!=' , 'completed')->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
         return view('restaurant.present-order' , compact('order'));
     }
 
@@ -50,8 +53,11 @@ class OrderManagementController extends Controller
     public function pastOrders(Request $request){
 
         if($request->isMethod('GET')){
+
+            $restaurant_id = Auth::guard('restaurant')->user()->id;
+
             $current_date =  date('Y-m-d');
-            $order = Order::where('date' , '<' , $current_date)->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
+            $order = Order::where('restaurant_id' , $restaurant_id)->where('date' , '<' , $current_date)->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
 
             $start_date = "";
             $end_date = "";
@@ -60,11 +66,12 @@ class OrderManagementController extends Controller
         }
         if($request->isMethod('POST')){
 
+            $restaurant_id = Auth::guard('restaurant')->user()->id;
 
             $start_date = $request->start_date;
             $end_date = $request->end_date;
 
-            $order = Order::where('date' , '>=' , $start_date)->where('date' , '<=' , $end_date)->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
+            $order = Order::where('restaurant_id' , $restaurant_id)->where('date' , '>=' , $start_date)->where('date' , '<=' , $end_date)->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
             return view('restaurant.past-orders' , compact('order' , 'start_date' , 'end_date'));
 
         }
@@ -76,8 +83,11 @@ class OrderManagementController extends Controller
     }
 
     public function todayOrders(Request $request){
+
+        $restaurant_id = Auth::guard('restaurant')->user()->id;
+
         $current_date =  date('Y-m-d');
-        $order = Order::where('date' , $current_date)->where('order_status' , 'completed')->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
+        $order = Order::where('restaurant_id' , $restaurant_id)->where('date' , $current_date)->where('order_status' , 'completed')->orderBy('id' , 'desc')->with('orderItemsWithMenu' , 'table')->get();
         return view('restaurant.today-orders' , compact('order'));
     }
 

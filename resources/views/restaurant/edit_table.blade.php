@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Edit Table Details')
+@section('title','Edit Entity Details')
 @section('content')
 
 <style type="text/css">
@@ -117,15 +117,15 @@ label.raaddio {
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Table Management</a></li>
-								<li class="breadcrumb-item active"><a href="{{url('restaurant/table-details').'/'.$table_id}}">Table Details</a></li>
-								<li class="breadcrumb-item remove_hover">Edit Table Details</li>
+								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Entity Management</a></li>
+								<li class="breadcrumb-item active"><a href="{{url('restaurant/table-details').'/'.$table_id}}">Entity Details</a></li>
+								<li class="breadcrumb-item remove_hover">Edit Entity Details</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
-					<h1>Edit Table Details</h1>
+					<h1>Edit Entity Details</h1>
 					<div class="card">
 						<div class="card-body add_imgae_box">
 							<form method="POST" id="validate-form">
@@ -156,10 +156,10 @@ label.raaddio {
 							</div> -->
 							<div class="add_content">
 									<label for="" class="pb-1">
-										Table Name
+										Entity Name
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" name="table_name" class="form-control" value="{{$data->table_name ?? ''}}" placeholder="Enter Table Name" maxlength="30" />
+										<input type="text" name="table_name" id="table_name" class="form-control" value="{{$data->table_name ?? ''}}" placeholder="Enter Entity Name" maxlength="30" />
 									</div>
 							</div>
 
@@ -276,9 +276,9 @@ label.raaddio {
 	        },
 	        messages: {
 	          table_name:{
-	            required: 'Please enter table name.',
-	            minlength: 'Table name should be at least 2 characters long.',
-            	alphabatic: "Table name should be alphanumeric only.",
+	            required: 'Please enter entity name.',
+	            minlength: 'Entity name should be at least 2 characters long.',
+            	alphabatic: "Entity name should be alphanumeric only.",
 	          }
 	        },
 	        submitHandler:function(form){
@@ -302,6 +302,15 @@ label.raaddio {
             }
 
 	    });
+
+
+
+	    $("#table_name").on('focusout',function(){
+	    	let value = $(this).val();
+	    	// console.log(value)
+	    	$(this).val(value.trim(""));
+	    })
+	    
 
 	});
 </script>

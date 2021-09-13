@@ -212,10 +212,10 @@ p#alert_txt {
 
 							<div class="add_content">
 								<label for="" class="pb-1">
-									Restaurant Name
+									Company Name
 								</label>
 								<div class="form-group pb-3">
-									<input type="text" class="form-control block-start-space" name="restaurant_name" maxlength="50" placeholder="Enter Restaurant Name" value="{{$data->restaurant_name ?? 'N/A'}}" required />
+									<input type="text" class="form-control block-start-space" name="restaurant_name" maxlength="50" placeholder="Enter Company Name" value="{{$data->restaurant_name ?? 'N/A'}}" required />
 								</div>
 							</div>
 
@@ -232,7 +232,7 @@ p#alert_txt {
 
 							<div class="add_content">
 									<label for="" class="pb-1">
-										Restaurant Logo
+										Company Logo/Image
 									</label>
 									  <div class="pb-1 rest_logo rest_logoo">
 				                      	<img src="{{$data->restaurant_logo}}" onclick="$('#imgInp').click()" title="Change Restaurant Logo" id="blah"/>
@@ -249,88 +249,16 @@ p#alert_txt {
 
 
 
-							<!-- <div class="add_content">
-									<label for="" class="pb-1">
-										Restaurant Other Images
-									</label>
-									<div class="d-flex flex-wrap pb-1">
-
-										
-										@foreach($data->restaurantImages as $rows)
-										<div class="rest_logo">
-											<img src="{{$rows->restaurant_image}}" alt="cafe">
-											<div class="cross_icon">
-												<img src="{{url('public/restaurant/assets/img/cross.png')}}" alt="cross">
-											</div>
-										</div>
-										@endforeach
-										
-										
-										<div class="rest_logo" data-toggle="tooltip" data-placement="right" title="Add Restaurant Image">
-											<img src="{{url('public/restaurant/assets/img/add-mul.png')}}" alt="add-mul" style="margin-right: 0;">
-										</div>
-									</div>
-							</div> -->
-
-                    	<input type="hidden" name="delete_images" id="delete_image">	
-							<div class="add_content">
-		                     <label>Restaurant Other Images</label>
-		                      <div class="restru_images" style="margin-top: 11px;">
-		                        <div class="images_container" style="    margin-bottom: -5px;">
-		                          <div class="img_count" style="    margin-top: -12px;">
-
-		                          	<?php $img_counts = count($data->restaurantImages); ?>
-
-		                          	<div class="media_inputs">
-		                              <div class="img_upload upload_images">
-		                                  <input type="hidden" name="non_acceptable_files" class="non_acceptable_files">
-		                                  <input type="hidden" class="ext_media_record" images="0" total-media ="{{$img_counts}}" />
-		                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold" title="Click to upload images" data-recursion="-1" / style="margin-top: 12px;">
-		                              </div>
-		                            </div>
-
-
-		                            <div class="media_preview d-flex flex-wrap pb-1">
-		                              <?php $count = 0; ?>
-		                                @foreach($data->restaurantImages as $photo)
-		                                @php ($urls = $photo->restaurant_image ? url($photo->restaurant_image) : url('public/restaurant/production/images/add_image.png'))
-		                                  <div class="rest_logo rest_images"  >
-		                                    <img src='{{$urls}}' id="{{$photo->id}}" /> 
-		                                    <i class="remove-img  cross_icon" id="{{$photo->id}}" data-parent="0_0" title="Remove image" type="total-media"></i>
-		                                  </div>
-		                                <?php $count++ ?>
-		                                @endforeach
-		                            </div>
-		                            
-		                          </div>
-		                        </div>
-		                         <div class="clear-fix"></div>
-		                        <label class="custom_error" id="image_error" style="display: none;"></label>
-		                        <label class="custom_error2" id="image_error2" style="display: none;"></label>
-
-		                      </div>
-		                    </div>
-
-
-
-						
-							<!-- <div class="add_content country_code">
-									<label for="" class="pb-1">
-										Mobile Number
-									</label>
-									<div class="form-group pb-3">
-										<input type="text" class="form-control" name="phone_number" maxlength="15" placeholder="Enter Mobile Number" value="{{$data->phone_number ?? 'N/A'}}" required />
-               							<input type="hiden" name="country_code" id="country_code">
-									</div>
-							</div> -->
+							 
+ 
 
 
 							<div class="add_content">
 									<label for="" class="pb-1">
-										Restaurant Address
+										Company Address
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" class="form-control block-start-space-special" name="restaurant_address" id="restaurant_address" maxlength="100" placeholder="Enter Restaurant Address" value="{{$data->restaurant_address ?? 'N/A'}}" required />
+										<input type="text" class="form-control block-start-space-special" name="restaurant_address" id="restaurant_address" maxlength="100" placeholder="Enter Company Address" value="{{$data->restaurant_address ?? 'N/A'}}" required />
 										<input type="hidden" name="lat" value="{{$data->lat}}" id="lat">
                   						<input type="hidden" name="lon" value="{{$data->lon}}" id="lon"> 
 									</div>
@@ -385,7 +313,7 @@ p#alert_txt {
 									</label>
 									<div class="form-group pb-3">
 										<!-- <input type="email" class="form-control" placeholder="Email Address" value="" required /> -->
-										<textarea class="form-control" name="description block-start-space-special" id="description" rows="4" maxlength="1000" placeholder="Enter Description">{{$data->description ?? 'N/A'}}</textarea>
+										<textarea class="form-control block-start-space-special" name="description" id="description" rows="4" maxlength="200" placeholder="Enter Description">{{$data->description ?? 'N/A'}}</textarea>
 									</div>
 							</div>
 							<div class="text-center mt-2">
@@ -535,9 +463,9 @@ p#alert_txt {
 		            alphabatic: "Last name should be alphanumeric only.",
 		          },
 				  restaurant_name:{
-		            required: 'Please enter restaurant name.',
-		            minlength: 'Restaurant name should be at least 2 characters long.',
-		            alphabatic: "Restaurant name should be alphanumeric only.",
+		            required: 'Please enter company name.',
+		            minlength: 'Company name should be at least 2 characters long.',
+		            alphabatic: "Company name should be alphanumeric only.",
 		          },
 		          owner_name:{
 		            required: 'Please enter owner name.',
@@ -545,8 +473,8 @@ p#alert_txt {
 		            alphabatic: "Owner name should be alphanumeric only.",
 		          },
 		          restaurant_address:{
-		            required: 'Please enter restaurant address.',
-		            minlength: 'Restaurant address should be at least 2 characters long.'
+		            required: 'Please enter company address.',
+		            minlength: 'Company address should be at least 2 characters long.'
 		          }, 
 		          city:{
 		          	required:'Please enter city.',
@@ -574,25 +502,15 @@ p#alert_txt {
 		$("#validate-form").on("submit",function(){
 
 
-			// let email_dot = 'false';
-
-	          // var email_value = $('#email').val();
-	          // var check_exist = email_value.includes(".@");
-	          // if(check_exist){
-	          // 	$('#email-error-dot').text('Please enter valid email address.');
-	          //   $('#email-error-dot').css('display' , 'block');
-	          //   return false;
-	          // }else{
-	          //   $('#email-error-dot').css('display' , 'none');
-	          // }
+			 
 
 
-          max_images_check = $(".img_count").find('img').length - 1;
-            if(max_images_check==0){
-			  $('#image_error2').css({'display':'none'});
-              $(".custom_error").text("Please upload restaurant other images.").show();
-              return false
-            }
+     //      	max_images_check = $(".img_count").find('img').length - 1;
+     //        if(max_images_check==0){
+			  // $('#image_error2').css({'display':'none'});
+     //          $(".custom_error").text("Please upload restaurant other images.").show();
+     //          return false
+     //        }
 
       })
 
@@ -755,7 +673,7 @@ function initialize() {
               $('#lat').val("");
               $('#lon').val("");
               $("#restaurant_address").val("");
-              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+              $("#restaurant_address-error").text("Please enter company address.").css("display","block");
             }
           }
         });
@@ -816,7 +734,7 @@ function initialize() {
               $('#lat').val("");
               $('#lon').val("");
               $("#restaurant_address").val("");
-              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+              $("#restaurant_address-error").text("Please enter company address.").css("display","block");
             }
           }
         });

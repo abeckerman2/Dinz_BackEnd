@@ -263,12 +263,16 @@ label#restaurant_address-error {
             <!-- Nested Row within Card Body -->
             <div class="row">
 
+              <div class="col-lg-6 d-none d-lg-block bg-login-image register"></div>
+
+              
+
               <div class="col-lg-6">
                 <div class="p-5">
                   <div class="text-center">
                     <a href="{{route('restaurant.login')}}" class="back"><img src="{{url('public/restaurant/assets/img/back1.png')}}" alt=""></a>
                     <div class="logo-wrapper"><a href="{{url('restaurant/login')}}"><img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="andrewlogo"/></a></div>
-                    <h1 class="h4 text-gray-900 mb-4">Register For Restaurant</h1>
+                    <h1 class="h4 text-gray-900 mb-4">Register Company</h1>
                   </div>
                   <form method="POST" enctype="multipart/form-data" class="user scrollbar" style="max-height: 330px; overflow-y: scroll; padding-right: 10px"  id="style-1">
                   {{csrf_field()}}
@@ -299,7 +303,7 @@ label#restaurant_address-error {
                       <input type="text" name="last_name" maxlength="50" class="form-control form-control-user block-start-space" placeholder="Enter Last Name">
                     </div>
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="restaurant_name" maxlength="50" class="form-control form-control-user block-start-space" placeholder="Enter Restaurant Name">
+                      <input type="text" name="restaurant_name" maxlength="50" class="form-control form-control-user block-start-space" placeholder="Enter Company Name">
                     </div> 
 
 
@@ -309,8 +313,8 @@ label#restaurant_address-error {
 
 
 
-                    <div class="form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;">
-                    	<label>Restaurant Logo/Image</label>
+                    <div class="form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;margin-bottom: -10px;">
+                    	<label>Company Logo/Image</label>
                       <div class="rest_logo" style="margin-top: 0px">
                       	<img src="{{url('public/restaurant/assets/img/add-mul.png')}}" title="Click to upload logo" id="logo_upload" />
                       	<input style="display:none; " type="file" id="logo_file" name="restaurant_logo" data-role="magic-overlay" img="false";  data-target="#pictureBtn" value="" class="user_img" accept="image/*">
@@ -341,60 +345,7 @@ label#restaurant_address-error {
 
 
 
-
-                      <div class=" restaurant_div form-group label" style="padding-right: 0; padding-left: 0; margin-top: -5px;    padding-bottom: 0px;">
-                        <label>Restaurant Other Images</label>
-                          <div class="restru_images d-flex flex-wrap" style="">
-
-                            <div class="dynamic_image_show">
-                              
-                              <!-- <div class="img_div">
-                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" data-recursion="-1" />
-                                  <span>
-                                        <i class="far fa-times-circle cross_icon" ui="image"></i>
-                                  </span>
-                              </div>
-
-                              <div class="img_div">
-                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" data-recursion="-1" />
-                                  <span>
-                                        <i class="far fa-times-circle cross_icon" ui="image"></i>
-                                  </span>
-                              </div>
-
-                              <div class="img_div">
-                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" data-recursion="-1" />
-                                  <span>
-                                        <i class="far fa-times-circle cross_icon" ui="image"></i>
-                                  </span>
-                              </div>
-
-
-                              <div class="img_div">
-                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" data-recursion="-1" />
-                                  <span>
-                                        <i class="far fa-times-circle cross_icon" ui="image"></i>
-                                  </span>
-                              </div>
-
-                              <div class="img_div">
-                                  <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" data-recursion="-1" />
-                                  <span>
-                                        <i class="far fa-times-circle cross_icon" ui="image"></i>
-                                  </span>
-                              </div> -->
-
-                              <div class="rest_logo plus_icon" style="margin:0;">
-                                      <img src="{{url('public/restaurant/assets/img/add-mul.png')}}" class="images_placehold plus_icon_click_for_multiple_img_upload" title="Click to upload images" data-recursion="-1" />
-                              </div>
-                            </div>
-
-
-
-                          </div>
-                              <span style="display:none; font-weight: 600; color: #ff000d!important; top: -6px;
-    position: relative;" class="text-danger" id="other_images_invalid"></span>
-                      </div>
+ 
 
 
 
@@ -403,7 +354,7 @@ label#restaurant_address-error {
 
                     
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <input type="text" name="restaurant_address" id="restaurant_address" maxlength="100" class="form-control form-control-user block-start-space-special" placeholder="Enter Restaurant Address">
+                      <input type="text" name="restaurant_address" id="restaurant_address" maxlength="100" class="form-control form-control-user block-start-space-special" placeholder="Enter Company Address">
                     </div>
 
                     <div class="form-group" id="map" style="width:100%;height:200px;" frameborder="0" scrolling="no" marginheight="0" marginwidth="0"></div>
@@ -431,7 +382,7 @@ label#restaurant_address-error {
 
 
                     <div class="form-group" style="padding-right: 0; padding-left: 0">
-                      <textarea class="form-control block-start-space-special" name="description" id="description" rows="3" maxlength="1000" placeholder="Enter Description"></textarea>
+                      <textarea class="form-control block-start-space-special" name="description" id="description" rows="3" maxlength="200" placeholder="Enter Description"></textarea>
                     </div>
 
 
@@ -455,7 +406,6 @@ label#restaurant_address-error {
                 </div>
                   
               </div>
-              <div class="col-lg-6 d-none d-lg-block bg-login-image register"></div>
             </div>
           </div>
         </div>
@@ -649,246 +599,6 @@ label#restaurant_address-error {
             $("#alertModel").modal("hide");
         });
 
-        enableClickClasses();
-
-        function enableClickClasses(){
-
-            $(document).on("click",".plus_icon_click_for_multiple_img_upload",function(){
-
-                let __count_click = $("#click_on_file_count").val();
-
-
-
-                __count = __count_click == "" ? 0 : parseInt(__count_click) + 1;
-
-                $("#click_on_file_count").val(__count);
-
-                
-                /*Make Html Input FIles*/
-
-                $(".files_container").append(`<input type='file' style="display:none" id="files_`+__count+`" accept="image/*" class ="files" name="files[`+__count+`][]" multiple>`);
-
-
-                $("#files_"+__count).click();
-
-
-
-                $("#files_"+__count).on("change",function(event){
-
-                    var files = event.target.files;
-
-                    let error = "false";
-
-                    let image_count = 0;
-
-                    $.each(files, function (i) {
-                        
-                        let file = event.target.files[i];
-
-
-                        let size = event.target.files[i].size;
-
-
-
-                        if(file.type == "image/jpeg" || file.type == "image/jpg" || file.type == "image/png"){
-
-                            if(size > 20971520){
-                                
-                                $("#alertModel").modal("show");
-                                $("#alertModel").unbind("click");
-                                $("#alert_txt").text("Image size should not be greater than 20 MB.");
-
-                                $("#files_"+__count).remove();  
-                                error = "true";
-                                return false;
-                            }
-
-                            image_count++;
-                           
-                        }else{
-                            
-
-                            $("#alertModel").modal("show");
-                            $("#alertModel").unbind("click");
-                            $("#alert_txt").text("Only .jpeg, .jpg, .png type file are allowed.");
-
-                            $("#files_"+__count).remove();  
-                            error =  "true";
-                            return false;
-
-                         }
-
-                    });
-
-                   // console.log(image_count);
-
-                    if(error == "false"){
-
-                        let already_upload_img_count = $("#image_count").val();
-
-                        let total_img_count = parseInt(already_upload_img_count) + image_count;
-
-                        if(total_img_count > 5){
-
-                            $("#alertModel").modal("show");
-                            $("#alertModel").unbind("click");
-                            $("#alert_txt").text("Maximum 5 images are allowed.");
-                            $("#files_"+__count).remove();  
-                            error =  "true";
-                            return false;
-                        }
-
-
-                        if(total_img_count == 5){
-                          $(".plus_icon").hide();
-                        }else{
-                          $(".plus_icon").show();
-                        }
-
-                    }
-
-
-                    if(error == "false"){
-
-                    $.each(files, function (i) {
-                        
-                        let file = event.target.files[i];
-                        let file_name = file.name;
-
-
-                        if(file){
-
-                           if(file.type == "image/jpeg" || file.type == "image/jpg" || file.type == "image/png"){
-
-                            var reader = new FileReader();
-                            
-                            reader.onload = function(e) {
-                              //$('#profile_picture').attr('src', e.target.result);
-                              
-                                let upload_file_count_val = $("#upload_file_count").val();
-
-                                let __upload_file_count = upload_file_count_val == "" ? 1 : parseInt(upload_file_count_val) + 1;
-
-                                $("#upload_file_count").val(__upload_file_count);
-
-
-                                let acceptable_file_arr = __count+'_'+i;
-
-                                
-                                let acceptable_val = $("#acceptable").val();
-
-                                let push_val_acceptable = acceptable_val == "" ? acceptable_file_arr : acceptable_val+','+acceptable_file_arr;
-
-                       
-
-                                $("#acceptable").val(push_val_acceptable);
-
-
-                                let image_count_val = $("#image_count").val();
-
-                                let __count_image = image_count_val == "" ? 1 : parseInt(image_count_val) + 1;
-
-                                $("#image_count").val(__count_image);
-
-                                
-                                let image_html = `<div class="img_div">
-                                  <img id="accept_`+acceptable_file_arr+`" src="`+e.target.result+`" data-recursion="-1" />
-                                  <span>
-                                        <img class="cross_icon" src="{{url('public/restaurant/assets/img/cross.png')}}" id="cross_`+acceptable_file_arr+`" style="cursor:pointer;" ui="image">
-                                  </span>
-                                  </div>`;
-
-                                $(".dynamic_image_show").append(image_html);
-
-
-                                //cross function
-
-                                $("#cross_"+acceptable_file_arr).on("click",function(){
-
-
-                                  
-                                  $(".plus_icon").show();
-                                  
-
-                                    let check_type = $(this).attr("ui");
-
-                                    if(check_type == "image"){
-                                        
-                                        let parent_div = $(this).parent().parent();
-
-                                        
-                                        let image_count_val = $("#image_count").val();
-
-                                        let sub_image_count_val = image_count_val - 1;
-
-                                        $("#image_count").val(sub_image_count_val);
-
-
-                                        let non_acceptable = $("#non_acceptable").val();
-
-                                        let acceptable = $(this).attr('id');
-
-                                        acceptable = acceptable.replace("cross_", "");
-
-                                        let push_val_non_acceptable = non_acceptable == "" ? acceptable : non_acceptable+','+acceptable;
-
-                               
-
-                                        $("#non_acceptable").val(push_val_non_acceptable);
-
-
-                                        let cross_count_val = $("#click_on_cross_count").val();
-
-
-                                        let cross_count = cross_count_val == "" ? 1 : parseInt(cross_count_val) + 1;
-
-                                        $("#click_on_cross_count").val(cross_count);
-
-                                        parent_div.remove();
-
-
-
-                                        if($("#image_count").val() == "" || $("#image_count").val() == 0){
-                                            
-                                            $("#other_images_invalid").text("Please upload restaurant other images.").show();
-                                        }
-
-
-
-                                    }
-
-        
-                                });
-
-                                //end cross function
-
-
-
-
-                            }
-                    
-                           reader.readAsDataURL(file);
-                           $("#other_images_invalid").text("").hide();
-                           
-                          }
-
-                        }
-
-
-
-                    });
-
-                    }
-
-
-                    
-
-                });
-
-            });
-
-        }
-
     })
  </script>
 
@@ -964,7 +674,7 @@ function initialize() {
               $('#lat').val("");
               $('#lon').val("");
               $("#restaurant_address").val("");
-              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+              $("#restaurant_address-error").text("Please enter company address.").css("display","block");
             }
           }
         });
@@ -1025,7 +735,7 @@ function initialize() {
               $('#lat').val("");
               $('#lon').val("");
               $("#restaurant_address").val("");
-              $("#restaurant_address-error").text("Please enter restaurant address.").css("display","block");
+              $("#restaurant_address-error").text("Please enter company address.").css("display","block");
             }
           }
         });
@@ -1094,13 +804,7 @@ function initialize() {
         $("#logo_invalid_file").text("").hide();
       }
 
-      let other_images_check = $("#image_count").val();
-
-      if(other_images_check <= 0){
-        $("#other_images_invalid").text("Please upload restaurant other images.").show();
-      }else{
-        $("#other_images_invalid").text("").hide();
-      }
+      
     });
 
 
@@ -1261,9 +965,9 @@ function initialize() {
             alphabatic: "Last name should be alphanumeric only.",
           },
           restaurant_name:{
-            required: 'Please enter restaurant name.',
-            minlength: 'Restaurant name should be at least 2 characters long.',
-            alphabatic: "Restaurant name should be alphanumeric only.",
+            required: 'Please enter company name.',
+            minlength: 'Company name should be at least 2 characters long.',
+            alphabatic: "Company name should be alphanumeric only.",
           },
           owner_name:{
             required: 'Please enter owner name.',
@@ -1271,8 +975,8 @@ function initialize() {
             alphabatic: "Owner name should be alphanumeric only.",
           },
           restaurant_address:{
-            required: 'Please enter restaurant address.',
-            minlength: 'Restaurant address should be at least 2 characters long.',
+            required: 'Please enter company address.',
+            minlength: 'Company address should be at least 2 characters long.',
             // alphabatic: "Restaurant should be alphanumeric only.",
           },
           city:{
@@ -1307,13 +1011,9 @@ function initialize() {
 
               let email_validate = "false";
               let phone_validate = "false";
-              let multiple_image_validate = "false";
               let logo_validate = "false";
 
-              let multiple_images_check = $("#image_count").val();
-              if(multiple_images_check <= 0){
-                multiple_image_validate = "true";
-              }
+        
 
               let logo_image_check = $("#logo_file").attr("img");
 
@@ -1402,7 +1102,7 @@ function initialize() {
 
 
                 setTimeout(function(){
-                  if(email_validate == "true" || phone_validate == "true" || multiple_image_validate == "true" || logo_validate == "true"){
+                  if(email_validate == "true" || phone_validate == "true"   || logo_validate == "true"){
 
                     $("#loaderModel").modal("hide");
                     $("#submit_btn").attr('disabled', false);

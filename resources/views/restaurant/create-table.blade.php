@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Create Table')
+@section('title','Create Entity')
 @section('content')
 
 <style type="text/css">
@@ -114,14 +114,14 @@ label#exampleFormControlSelect1-error {
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Table Management</a></li>
-								<li class="breadcrumb-item remove_hover">Create Table</li>
+								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Entity Management</a></li>
+								<li class="breadcrumb-item remove_hover">Create Entity</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
-					<h1>Create Table</h1>
+					<h1>Create Entity</h1>
 
 					@if(Session::has("error"))
 		              <div class="alert alert-danger">{{Session::get("error")}}</div>
@@ -152,10 +152,10 @@ label#exampleFormControlSelect1-error {
 							</div> -->
 							<div class="add_content">
 									<label for="" class="pb-1">
-										Table Name
+										Entity Name
 									</label>
 									<div class="form-group pb-3">
-										<input type="text" name="table_name" class="form-control" placeholder="Enter Table Name" maxlength="30" />
+										<input type="text" name="table_name" id="table_name" class="form-control" placeholder="Enter Entity Name" maxlength="30" />
 									</div>
 							</div>
 							<div class="text-center mt-2">
@@ -204,9 +204,9 @@ label#exampleFormControlSelect1-error {
 	        },
 	        messages: {
 	          table_name:{
-	            required: 'Please enter table name.',
-	            minlength: 'Table name should be at least 2 characters long.',
-            	alphabatic: "Table name should be alphanumeric only.",
+	            required: 'Please enter entity name.',
+	            minlength: 'Entity name should be at least 2 characters long.',
+            	alphabatic: "Entity name should be alphanumeric only.",
 	          }
 	        },
 	        submitHandler:function(form){
@@ -215,21 +215,19 @@ label#exampleFormControlSelect1-error {
 
 	              $("#loaderModel").modal("show");
 	              $("#loaderModel").unbind("click");
-
-	   
-
-	              if(validate == "true"){
-
-	                $("#loaderModel").modal("hide");
-	                $("#submit_btn").attr('disabled', false);
-	              }else{
-	                form.submit();
-	              }
+                form.submit();
 	             
 
             }
 
 	    });
+
+
+	    $("#table_name").on('focusout',function(){
+	    	let value = $(this).val();
+	    	// console.log(value)
+	    	$(this).val(value.trim(""));
+	    })
 
 	});
 </script>

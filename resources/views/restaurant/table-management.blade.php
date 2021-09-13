@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Table Management')
+@section('title','Entity Management')
 @section('content')
 
 
@@ -106,10 +106,10 @@
 			    background-color: #121214;
 			    border-radius: 5px;
 			    text-align: center;
-			    padding: 7px 15px;
+			    padding: 7px 30px;
 			    position: relative;
 			    margin-bottom: 39px;
-			    height: 150px;
+			    height: 161px;
 			 	border: 1px solid #ffffff; 
 			}
 			.dot_wrapper {
@@ -242,6 +242,15 @@
     right: 0;
     top: 8px;
 }	
+
+
+
+.dashboard_panel h2 {
+    font-size: 20px!important;
+}
+
+
+
 </style>
 		<div class="main-panel dashboard_panel">
 			<div class="content">
@@ -250,13 +259,13 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item active"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item remove_hover">Table Management</li>
+								<li class="breadcrumb-item remove_hover">Entity Management</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
-					<h1>Table Management</h1>
+					<h1>Entity Management</h1>
 
 					<!-- <audio id="music" controls>
 						<source src="{{url('public/dummy_audio.mp3')}}">
@@ -289,12 +298,12 @@
 		              			@if(count($tables) >= 10)
 
 			              			<a href="javascript:void(0);">
-										<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px; cursor: not-allowed;" disabled>Create Table</button>
+										<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px; cursor: not-allowed;" disabled>Create Entity</button>
 									</a>
 
 								@else
 								<a href="{{route('restaurant.createTable')}}">
-									<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Create Table</button>
+									<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Create Entity</button>
 								</a>
 
 
@@ -373,7 +382,7 @@
 								<?php
 									$table_name = ucfirst($table->table_name);
 								?>
-                                    <h2>{{$table_name}}</h2>
+                                    <h2 style="    word-break: break-all;    margin-top: 22px;">{{$table_name}}</h2>
                                     <p></p>
                                     
                                     <div class="vacent new">

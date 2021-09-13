@@ -17,6 +17,9 @@ use App\Payment;
 
 use App\Http\Controllers\StripeCustomClass;
 
+use Mail;
+use App\Mail\OrderDetail;
+
 
 class WebsiteController extends Controller
 {
@@ -28,15 +31,35 @@ class WebsiteController extends Controller
 
 	public function menuList(Request $request){ 
 
+
+		$session_restaurant_id = Session::get('restaurant_id');
+
+
 		$restaurant_id = $request->restaurant_id;
         $table_id = $request->table_id;
         $table_find = Table::whereId($table_id)->whereDeletedAt(null)->first();
+
+
+        if($session_restaurant_id != $restaurant_id){
+        	Session::put('cart_items' , '');
+        }
 
         Session::put('restaurant_id' , $restaurant_id);
         Session::put('table_id' , $table_id);
 
 
         $restaurant_find = Restaurant::whereId($restaurant_id)->with('restaurantImages' , 'restaurantTimings')->first();
+
+
+        $rest_images = [];
+        	$image = $restaurant_find->restaurant_logo;
+        	array_push($rest_images, $image);
+        foreach ($restaurant_find->restaurantImages as $key) {
+        	array_push($rest_images, $key->restaurant_image);
+        }
+
+        // return $rest_images;
+
         if($restaurant_find->is_block != 0){
             return redirect('website/block-restaurant');
         }
@@ -50,7 +73,7 @@ class WebsiteController extends Controller
         }
 
         
-        $menus = Menu::where('parent_menu_id' , $table_find->assign_menu_id)->OrderBy('category_id' , 'asc')->whereDeletedAt(null)->whereRestaurantId($restaurant_id)->with('category')->get();
+        $menus = Menu::where('parent_menu_id' , $table_find->assign_menu_id)->where('is_available' , 1)->OrderBy('category_id' , 'asc')->orderBy('id' , 'desc')->whereDeletedAt(null)->whereRestaurantId($restaurant_id)->with('category')->get();
 
 
         foreach ($menus as $menu_list) {
@@ -68,8 +91,9 @@ class WebsiteController extends Controller
 			}
         }
         // return $menus;
-
-        return view('website/menu-list' , compact('menus' , 'restaurant_find' , 'restaurant_id' , 'table_id'));
+        // return $rest_images;
+        
+        return view('website/menu-list' , compact('menus' , 'restaurant_find' , 'restaurant_id' , 'table_id' , 'rest_images'));
 	}
 
 
@@ -84,9 +108,15 @@ class WebsiteController extends Controller
 	public function cartListing(Request $request){
 		 
 		if($request->isMethod('GET')){
+
 			$restaurant_id = Session::get('restaurant_id');
 			$table_id = Session::get('table_id');	
 
+			$cart_list =  Session::get('cart_items');
+
+			if($cart_list == ''){
+				return redirect('website/no-item-in-cart');
+			}
 
 			$restaurant_find = Restaurant::whereId($restaurant_id)->with('restaurantImages' , 'restaurantTimings')->first();
 	        if($restaurant_find->is_block != 0){
@@ -102,7 +132,6 @@ class WebsiteController extends Controller
 	        }
 
         
-			$cart_list =  Session::get('cart_items');
 			
 			$menu_new = [];
 			foreach ($cart_list['menu_data'] as $menu) {
@@ -115,8 +144,13 @@ class WebsiteController extends Controller
 			$cart_menu_details = [];
 			if($cart_list){
 				foreach ($cart_list['menu_data'] as $key) {
-					$data = Menu::where('id' , $key['menu_id'])->with('category')->first();
-					array_push($cart_menu_details, $data);
+
+					$check_menu_is_available = Menu::where('id' , $key['menu_id'])->where('is_available' , 1)->where('deleted_at' , null)->first();
+
+					if($check_menu_is_available){
+						$data = Menu::where('id' , $key['menu_id'])->with('category')->first();
+						array_push($cart_menu_details, $data);
+					}
 				}
 			}
 
@@ -155,8 +189,8 @@ class WebsiteController extends Controller
 			$order = [
 				'restaurant_id' => $restaurant_id,
 				'table_id' => $table_id,
-				'date' => $date,
-				'date_time' => $date_and_time,
+				// 'date' => $date,
+				// 'date_time' => $date_and_time,
 				'order_status' => 'order_placed',
 				'order_type' => 'placed_order',
 				'order_text_customization' => $request->order_text_customization,
@@ -169,7 +203,7 @@ class WebsiteController extends Controller
 
 			Session::put('order' , $order);
  
-			return view('website/payment-page' , compact('order' , 'restaurant_id' , 'table_id'));
+			return view('website/payment-page' , compact('order' , 'restaurant_id' , 'table_id' , 'total_final_amount'));
 
 		}
 	}
@@ -181,28 +215,37 @@ class WebsiteController extends Controller
 			$restaurant_id = Session::get('restaurant_id');
 			$table_id = Session::get('table_id');
 
-
-
-
-			$main_order =  Session::get('order');
-
-			$is_order = Order::create($main_order);
-			$order_id = $is_order->id;
+			$restaurant_details = Restaurant::where('id' , $restaurant_id)->first();
 
 			$cart_list =  Session::get('cart_items');
-			$sub_order = [
-				'order_id' => $order_id,
-			];
-			foreach ($cart_list['menu_data'] as $key) {
-				$menu_Details = Menu::where('id' , $key['menu_id'])->first();
-				$sub_order['menu_id'] = $key['menu_id'];
-				$sub_order['quantity'] = $key['quantity'];
-				$sub_order['item_price'] = $menu_Details->price;
-				$sub_order['amount'] = $key['quantity'] * $menu_Details->price;
-				OrderItem::create($sub_order);
+
+			if($cart_list == ''){
+				return redirect('website/menu-list/'.$restaurant_id.'/'.$table_id);
 			}
 
- 
+			$restaurant_find = Restaurant::where('id' , $restaurant_id)->first();
+
+			if($restaurant_find->is_block == 1){
+				return back()->with('error' , 'Restaurant has been blocked by admin.');
+			}
+
+			if($restaurant_find->deleted_at != ""){
+				return back()->with('error' , 'Restaurant has been deleted by admin.');
+			}
+
+
+			// $cart_list =  Session::get('cart_items');
+			 
+			// foreach ($cart_list['menu_data'] as $key) {
+			// 	$for_menu_name = Menu::where('id' , $key['menu_id'])->first();
+
+			// 	$menu_Details = Menu::where('id' , $key['menu_id'])->where('deleted_at' , null)->where('is_available' , 1)->first();
+			// 	if(!$menu_Details){
+			// 		return back()->with('Item'.$for_menu_name->item_name .'is not available at a moment.');
+			// 	}
+			// }
+
+			
 			$data = $request->all();
 
 			$explode_month_year = explode('/', $request->expiry_month_year);
@@ -231,13 +274,37 @@ class WebsiteController extends Controller
 
             $description = "";
 
-            $payment_stripe = $this->stripeCall()->createCreditCardPayment($stripe_customer_id, $token_id, $is_order->total_amount, $description);
+            $payment_stripe = $this->stripeCall()->createCreditCardPayment($stripe_customer_id, $token_id, $data['final_amount'], $description);
 
             if($payment_stripe['status'] == 2){
                 return back()->with('error','Something went wrong. '.$payment_stripe['error']);
             }
-
             $transacation_id = $payment_stripe['transacation_id'];
+
+
+
+
+            $main_order =  Session::get('order');
+            $main_order['date'] =  date('Y-m-d');
+            $main_order['date_time'] =  date('Y-m-d H:i:s');
+
+
+			$is_order = Order::create($main_order);
+			$order_id = $is_order->id;
+
+			$cart_list =  Session::get('cart_items');
+			$sub_order = [
+				'order_id' => $order_id,
+			];
+			foreach ($cart_list['menu_data'] as $key) {
+				$menu_Details = Menu::where('id' , $key['menu_id'])->first();
+				$sub_order['menu_id'] = $key['menu_id'];
+				$sub_order['quantity'] = $key['quantity'];
+				$sub_order['item_price'] = $menu_Details->price;
+				$sub_order['amount'] = $key['quantity'] * $menu_Details->price;
+				OrderItem::create($sub_order);
+			}
+
 
 
 			$payment = [
@@ -251,9 +318,17 @@ class WebsiteController extends Controller
 				'transaction_id' => $transacation_id,
 			];
 			
-			Payment::create($payment);
+			$payment = Payment::create($payment);
 
 			Table::where('id' , $table_id)->update(['is_occupied' => 2]);
+
+			$email = $request->email_address;
+			if(!empty($email)){
+
+				$menu_order_details = OrderItem::where('order_id' , $order_id)->with('menu')->get();
+
+				Mail::to($email)->send(new OrderDetail($restaurant_details ,$is_order , $payment, $menu_order_details));
+			}
 
 			Session::put('cart_items' , '');
 
@@ -290,7 +365,7 @@ class WebsiteController extends Controller
 	public function deleteRestaurant(Request $request){
 		$restaurant_id = Session::get('restaurant_id');
 		$table_id = Session::get('table_id');
-		$message = "Restaurant has deleted blocked by admin.";
+		$message = "Restaurant has been deleted by admin.";
 		return view('website/message_template' , compact('restaurant_id' , 'table_id' , 'message'));
 	}
 
@@ -300,4 +375,11 @@ class WebsiteController extends Controller
 		$message = "Table has been deletd by restaurant.";
 		return view('website/message_template' , compact('restaurant_id' , 'table_id' , 'message'));
 	}
+
+
+
+	// public function paymentInvoice(Request $request){
+	// 	Mail::to('demo@yopmail.com')->send(new OrderDetail());
+	// 	return view('website/order-details-template');
+	// }
 }

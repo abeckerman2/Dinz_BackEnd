@@ -73,8 +73,8 @@
 button#upload {
    box-shadow: none;
     text-shadow: none!important;
-    background-color: #46ad4b;
-    opacity: 1!important;
+    background-color: #ed1f24!important;
+    opacity: 1;
     font-weight: 500;
         font-size: 14px;
 
@@ -225,6 +225,13 @@ img#oldImg1 {
 }
 
 
+ 
+.btn-success {
+    background: #ed1f24!important;
+    border-color: #ed1f24!important;
+}
+
+
 
 .upload-bg {
   background: #121214 !important;
@@ -265,6 +272,206 @@ img#oldImg1 {
     .close_icon {
       background-color: transparent !important;
     }
+
+
+
+
+
+
+
+
+
+
+
+.user_img {
+    margin-bottom: 22px;
+}
+.add_btn.create_btn {
+    background-color: #000;
+    position: unset;
+    padding: 25px 17px;
+}
+input#submit {
+    margin-left: 23px;
+    width: 100px;
+}
+
+
+.qr_image img{
+    width: 150px;
+    height: 150px;
+    border: 1px solid #fff;
+    object-fit: contain;
+    margin-left: 60px;
+}
+
+
+
+    #deleteModel h4.modal-title {
+        text-align: center;
+        margin: auto;
+        color: #fff;
+    }
+    #deleteModel  .modal-header .close{
+        padding: 0;
+        margin: 0;
+    }
+    #deleteModel  button.close {
+        position: absolute;
+        right: -15px;
+        top: -16px;
+        width: 31px;
+        height: 30px;
+        text-shadow: 0 1px 0 #ed1f24;
+        background: #ed1f24;
+        opacity: .5;
+        border-radius: 100%;
+        opacity: 1;
+            border: 2px solid #fff;
+
+    }
+
+    #deleteModel .modal-header {
+        background-color: #ed1f24 !important;
+        border: 1px solid #ed1f24 !important;
+        background: linear-gradient( 
+    167deg
+     , rgb(237 31 36) 0%, rgb(90 0 3) 100%) !important;
+    }
+
+    #deleteModel .modal-footer {
+        border-top: 0px solid #e9ecef;
+        justify-content: center;
+    }
+    #deleteModel button.btn.btn-secondary.btn-lg.login_btn {
+        width: 37%;
+        font-size: 24px;
+        padding: 6px 0;
+    }
+
+    #deleteModel .modal-dialog {
+        margin-top: 200px;
+    }
+
+
+    p#delete_alert_txt_single_image {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: -2px;
+        margin-top: 30px;
+        font-size: 16px;
+    }
+
+    #deleteSingleImageModel .modal-content {
+        width: 110%;
+    }
+
+
+
+
+    #deleteSingleImageModel .modal-header .close {
+        padding: 0;
+        margin: 0;
+        padding: 0!important;
+        font-size: 24px;
+    }
+    
+    p#delete_alert_txt_single_image {
+        margin-bottom: 14px;
+        margin-top: 41px;
+    }
+
+
+
+
+
+
+
+
+    /*for single image delet popup*/
+    #deleteSingleImageModel h4.modal-title {
+        text-align: center;
+        margin: auto;
+        color: #fff;
+    }
+    #deleteSingleImageModel  .modal-header .close{
+        padding: 0;
+        margin: 0;
+    }
+    #deleteSingleImageModel  button.close {
+        position: absolute;
+        right: -15px;
+        top: -16px;
+        width: 31px;
+        height: 30px;
+        text-shadow: 0 1px 0 #ed1f24;
+        background: #ed1f24;
+        opacity: .5;
+        border-radius: 100%;
+        opacity: 1;
+            border: 2px solid #fff;
+
+    }
+
+    #deleteSingleImageModel .modal-header {
+        background-color: #ed1f24 !important;
+        border: 1px solid #ed1f24 !important;
+        background: linear-gradient( 
+    167deg
+     , rgb(237 31 36) 0%, rgb(90 0 3) 100%) !important;
+    }
+
+    #deleteSingleImageModel .modal-footer {
+        border-top: 0px solid #e9ecef;
+        justify-content: center;
+    }
+    #deleteSingleImageModel button.btn.btn-secondary.btn-lg.login_btn {
+        width: 37%;
+        font-size: 24px;
+        padding: 6px 0;
+    }
+
+    #deleteSingleImageModel .modal-dialog {
+        margin-top: 200px;
+    }
+
+
+    p#delete_alert_txt {
+        text-align: center;
+        font-weight: 500;
+        margin-bottom: -2px;
+        margin-top: 30px;
+        font-size: 16px;
+    }
+
+    #deleteModel .modal-content {
+        width: 110%;
+    }
+
+
+
+
+    .modal-dialog {
+          max-width: 500px!important;
+          margin: 1.75rem auto;
+      }
+    #deleteModel .modal-header .close {
+        padding: 0;
+        margin: 0;
+        padding: 0!important;
+        font-size: 24px;
+    }
+    .modal-footer {
+        margin-bottom: 9px;
+    }
+    p#delete_alert_txt {
+        margin-bottom: 14px;
+        margin-top: 41px;
+    }
+  .modal-footer .btn-success:disabled{
+    opacity: 0.5!important
+   }
+
 </style>
 
 
@@ -321,7 +528,15 @@ img#oldImg1 {
 		                  <div class="row">
                          <div class="upload-bg">
 		                     <div class="col-md-12" style="margin-bottom: 25px; margin-left: 7px; margin-top: 30px;">
-		                        <a href="javascript:void(0);.html" class="btn btn-success edit common_btnn" style="margin-top: 0; " data-toggle="modal" data-target="#myModal1">Upload Image</a>
+		                        <a href="javascript:void(0);.html" class="btn btn-success edit common_btnn" style="margin-top: 0; " data-toggle="modal" data-target="#myModal1" title="Upload images">Upload Image</a>
+
+
+                            @if(count($menu_images) > 0)
+                            <a href="javascript:void(0);.html" title="Clear images" id="clear_images" class="btn btn-success common_btnn" style="margin-top: 0; margin-left: 15px ">Clear All</a>
+                            @else
+                              <a href="javascript:void(0);.html" title="No image available" class="btn btn-success common_btnn" style="margin-top: 0; margin-left: 15px ">Clear All</a>
+                            @endif
+
 		                        
 		                     </div>
   		                     <div class="col-md-12 find upload_img">
@@ -332,10 +547,8 @@ img#oldImg1 {
   		                        <div class="div_mr_ryt">
   		                          <img src="{{url('public/storage/restaurant/menu_gallery_images/'.$images->menu_image)}}" alt=""  data-image="{{$images->images}}" class="edit_image">
   		                          <div class="close_icon" title="Click to delete image">
-  		                            <a href="javascript:void(0)" class="delete_image" onclick="return confirm('Are you sure you want to delete this image?')">
-  		                              <!-- <i style="color: white;" class="fa fa-times menu_images " data-id="{{$images->id}}" aria-hidden="true"></i> -->
+  		                        
                                     <img src="{{url('public/restaurant/assets/img/cross.png')}}" data-id="{{$images->id}}" class="crosss_icon menu_images">
-  		                            </a>
   		                          </div>
   		                          <input type="hidden" name="image_id" class="image_id" value="">
   		                          <p style="color: #ffffff;">{{$images->menu_image}}</p>
@@ -407,11 +620,82 @@ img#oldImg1 {
             </div>
          </div>
          <div class="modal-footer justify-content-center">
-            <button type="submit" class="btn btn-success edit upload" id="upload" disabled="true">Upload</button>
+            <button type="submit" class="btn btn-success edit upload" id="upload" disabled="true" title="Upload images" style="cursor: pointer;">Upload</button>
          </div>
         </form>
       </div>
    </div>
+</div>
+
+
+
+
+
+
+
+
+<div id="deleteModel" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form method="POST" action="{{route('restaurant.deleteAllImages')}}" id="deleteFORM">
+      {{@csrf_field()}}
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" style="right: -11px; top: -15px">&times;</button>
+        <h4 class="modal-title">Alert</h4>
+      </div>
+      <div class="modal-body">
+            
+            <p id="delete_alert_txt">Are you sure, you want to delete all images?</p>    
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning same_wd_btn border_btn yes" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">Yes</button>
+        <button type="button" class="btn btn-warning same_wd_btn border_btn no" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">No</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
+</div>
+
+
+
+
+
+
+
+<div id="deleteSingleImageModel" class="modal fade" role="dialog">
+
+  <div class="modal-dialog">
+
+    <!-- Modal content-->
+    <div class="modal-content">
+      <form method="POST" action="{{route('restaurant.deleteMenuImages')}}" id="singleDeleteFORM">
+      {{@csrf_field()}}
+      <div class="modal-header">
+
+        <input type="hidden" name="delete_single_image_id" id="delete_single_image_id">
+        <button type="button" class="close" id="single_close" data-dismiss="modal" style="right: -11px; top: -15px">&times;</button>
+        <h4 class="modal-title">Alert</h4>
+      </div>
+      <div class="modal-body">
+            
+            <p id="delete_alert_txt_single_image">Are you sure, you want to delete this image?</p>    
+
+      </div>
+
+      <div class="modal-footer">
+        <button type="button" class="btn btn-warning same_wd_btn border_btn yes" id="single_yes" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">Yes</button>
+        <button type="button" class="btn btn-warning same_wd_btn border_btn no" id="single_no" style="background-color: #ed1f24!important; font-weight: 600 ; border: 0px">No</button>
+      </div>
+      </form>
+    </div>
+
+  </div>
 </div>
 
 
@@ -494,7 +778,7 @@ img#oldImg1 {
                     $("#image_pre").html("");
                     $(".upload").attr('disabled',true);
                     $('#oldImg').attr('src',"{{url('public/restaurant/assets/img/upload.png')}}");
-                    $('#msz').text('Only .jpeg, .jpg and .png formats are allowed.');
+                    $('#msz').text('Only .jpeg, .jpg and .png format images are allowed.');
                     $('#msz').css('display','block');
                   }
               }
@@ -505,7 +789,7 @@ img#oldImg1 {
                 $('#gallery-photo-add').val("");
                 $('#msz').show();
                 $('#oldImg').attr('src',"{{url('public/restaurant/assets/img/upload.png')}}");
-                $('#msz').text('Only .jpeg, .jpg and .png formats are allowed.');
+                $('#msz').text('Only .jpeg, .jpg and .png format images are allowed.');
                 $('#msz').css('display','block');
             }
         }
@@ -539,15 +823,33 @@ img#oldImg1 {
   });
 
 
-  $(".menu_images").click(function() {
-    let id = $(this).attr('data-id')
-     //alert(id);
-    $(".image_id").val(id)
-    $(".delete_image").click(function(e) {
-       $(this).attr("href","{{url('restaurant/delete-menu-image')}}/"+id)
-        
-    })
-  })
+
+
+
+    
+
+
+  // $(document).ready(function(){
+  //   $("#clear_images").on("click",function(){
+  //     $("#deleteSingleImageModel").modal("show");
+  //     $("#deleteSingleImageModel").unbind("click");
+  //   });
+  //   $(".yes").on("click",function(){
+  //     $("#deleteFORM").submit();
+  //   });
+
+  //   $(".no").on("click",function(){
+  //     $("#deleteSingleImageModel").modal("hide");
+  //   });
+
+  //   $(".close").on("click",function(){
+  //     $("#deleteSingleImageModel").modal("hide");
+  //   });
+
+
+  // })
+
+
 
 </script>
 
@@ -570,5 +872,55 @@ img#oldImg1 {
 
 
 
+<script type="text/javascript">
+  $(document).ready(function(){
+    $("#clear_images").on("click",function(){
+      $("#deleteModel").modal("show");
+      $("#deleteModel").unbind("click");
+    });
+    $(".yes").on("click",function(){
+      $("#deleteFORM").submit();
+    });
 
+    $(".no").on("click",function(){
+      $("#deleteModel").modal("hide");
+    });
+
+    $(".close").on("click",function(){
+      $("#deleteModel").modal("hide");
+    });
+
+
+  })
+</script>
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+
+    $(".menu_images").click(function() {
+        $("#deleteSingleImageModel").modal("show");
+        $("#deleteSingleImageModel").unbind("click");
+
+          let id = $(this).attr('data-id')
+          $("#delete_single_image_id").val(id)
+      
+    });
+
+
+    $("#single_yes").on("click",function(){
+      $("#singleDeleteFORM").submit();
+    });
+
+
+     $("#single_no").on("click",function(){
+      $("#deleteSingleImageModel").modal("hide");
+    });
+
+    $("#single_close").on("click",function(){
+      $("#deleteSingleImageModel").modal("hide");
+    });
+
+  })
+</script>
 @endsection()

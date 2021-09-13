@@ -5,8 +5,8 @@
 				
 				<a href="{{route('restaurant.dashboard')}}" class="logo">
 					<img src="{{url('public/restaurant/assets/img/andrewlogo.png')}}" alt="navbar brand" class="navbar-brand">
-          			<h2 class="heading">Restaurant Panel</h2>
-				</a>
+<!--           			<h2 class="heading">Restaurant Panel</h2>
+ -->				</a>
 				<button class="navbar-toggler sidenav-toggler ml-auto hide_hum" type="button" data-toggle="collapse" data-target="collapse" aria-expanded="false" aria-label="Toggle navigation">
 					<span class="navbar-toggler-icon">
 						<i class="icon-menu"></i>
@@ -49,7 +49,7 @@
 						<li class="nav-item @if(Request::is('restaurant/table-management') || Request::is('restaurant/create-table') || Request::is('restaurant/table-details/*')  || Request::is('restaurant/edit-table/*') || Request::is('restaurant/table-order-details/*') ) active @endif">
 							<a href="{{route('restaurant.tableManagement')}}">
 								<i class="fas fa-table"></i>
-								<p>Table Management</p>
+								<p>Entity Management</p>
 								<!-- <span class="caret"></span> -->
 							</a>
 							<!-- <div class="collapse" id="sidebarLayouts">
@@ -83,7 +83,7 @@
 							</div> -->
 						</li>
 
-						<li class="nav-item @if(Request::is('restaurant/parent-menu-management') || Request::is('restaurant/add-parent-menu-name') || Request::is('restaurant/edit-parent-menu-name/*')  || Request::is('restaurant/menu-management/*') || Request::is('restaurant/add-item') || Request::is('restaurant/edit-item/*') || Request::is('restaurant/menu-images') ) active @endif">
+						<li class="nav-item @if(Request::is('restaurant/parent-menu-management') || Request::is('restaurant/add-parent-menu-name') || Request::is('restaurant/edit-parent-menu-name/*')  || Request::is('restaurant/menu-management/*') || Request::is('restaurant/add-item') || Request::is('restaurant/edit-item/*') || Request::is('restaurant/menu-images') || Request::is('restaurant/add-item-from-management-page/*')) active @endif">
 							<a href="{{route('restaurant.parentMenuManagement')}}">
 								<i class="fas fa-bars"></i>
 								<p>Menu Management</p> 
@@ -153,16 +153,16 @@
 									<li class="nav-item @if(Request::is('restaurant/contact-us')) active @endif">
 										<a href="{{route('restaurant.contactUs')}}">
 											<i class="fas fa-envelope"></i>
-											<p>Contact Us</p>
+											<p>Contact Dinz</p>
 										</a>
 									</li>
-									<li class="nav-item @if(Request::is('restaurant/about-us')) active @endif">
+									<li class="nav-item @if(Request::is('restaurant/about-us')) active @endif" style="display: none">
 										<a href="{{route('restaurant.aboutUs')}}">
 											<i class="fas fa-address-card"></i>
 											<p>About Us</p>
 										</a>
 									</li>
-									<li class="nav-item @if(Request::is('restaurant/terms-conditions')) active @endif">
+									<li class="nav-item @if(Request::is('restaurant/terms-conditions')) active @endif" style="display: none">
 										<a href="{{route('restaurant.termsConditions')}}">
 											<i class="fas fa-file-signature"></i>
 											<p>Terms & Conditions</p>

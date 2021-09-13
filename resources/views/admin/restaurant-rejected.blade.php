@@ -311,8 +311,8 @@ table.table-bordered.dataTable tbody td {
                   <thead>
                     <tr>
                       <th>Sr. No.</th>
-                      <th>Restaurant Logo</th>
-                      <th>Restaurant Name</th>
+                      <th>Company Logo</th>
+                      <th>Company Name</th>
                       <th>Owner Name</th>
                       <th>Address</th>
                       <th style="width:160px;">Phone Number</th>

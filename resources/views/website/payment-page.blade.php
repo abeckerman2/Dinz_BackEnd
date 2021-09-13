@@ -2,7 +2,8 @@
 <html>
 <head>
 	<title>Payment</title>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
+    <link rel="icon" href="{{url('public/website/images/favicon.png')}}" sizes="16x16" type="images/png">
+	   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" />
         <link rel="stylesheet" type="text/css" href="{{url('public/website/css/style.css')}}">
 
    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -37,10 +38,10 @@
 
           
           button#payment{
-            width: 200px;
-            height: 53px;
-            margin-top: 23px;
-            font-size: 21px;
+            width: 165px;
+            height: 45px;
+            margin-top: 20px;
+            font-size: 15px;
             font-weight: 300;
             text-transform: capitalize;
             background-image: linear-gradient(#ff0000, #980505);
@@ -68,10 +69,12 @@
     <!-- <h1>User Details</h1> -->
     <input type="hidden" name="first_name" maxlength="50" class="form-control" placeholder="Enter First Name">
     <input type="hidden" name="last_name" maxlength="50" class="form-control" placeholder="Enter Last Name">
-    <input type="hidden" name="email_address" class="form-control" placeholder="Enter Email Address">
+    <!-- <input type="hidden" name="email_address" class="form-control" placeholder="Enter Email Address"> -->
     <input type="hidden" name="address" id="address" class="form-control" placeholder="Enter Address">
     <input type="hidden" name="phone_number" maxlength="16" id="phone_number" class="form-control" placeholder="Enter Phone Number">
 
+
+    <input type="hidden" name="final_amount" value="{{$total_final_amount}}">
     <!-- <h1 style="text-align: center;">Payment</h1> -->
     
 
@@ -111,14 +114,21 @@
                     
                     
                     
-                    
 
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
-                                <label class='control-label'>Name on Card</label><input name="name_on_card"  placeholder="Enter Name On Card" class='form-control' maxlength="50" size='4' value="" type='text'>
+                                <label class='control-label'>Name On Card</label><input name="name_on_card"  placeholder="Enter Name On Card" class='form-control block-start-space' maxlength="50" size='4' value="" type='text'>
                             </div>
                         </div>
   
+                       <div class='form-row row'>
+                            <div class='col-xs-12 form-group required'>
+                                <label class='control-label'>Email Address(Optional)</label>
+                                <input name="email_address"  placeholder="Enter Email Address" class='form-control block-start-space' maxlength="50" size='4' value="" type='text'>
+                            </div>
+                        </div>
+
+
                         <div class='form-row row'>
                             <div class='col-xs-12 form-group card required'>
                                 <label class='control-label'>Card Number</label><input value="" name="card_number" placeholder="Enter Card Number" id="card_number"  autocomplete='off' class='form-control card-number' size='20' type='text'>
@@ -127,7 +137,7 @@
   
                         <div class='form-row row'>
                             <div class='col-xs-12 col-md-4 form-group cvc required'>
-                                <label class='control-label'>CVC</label> 
+                                <label class='control-label'>CVV</label> 
                                 <input name="cvv" autocomplete='off'   class='form-control card-cvc' placeholder='***' value="" size='4' id="cvc" 
                                     type='password'>
                             </div>
@@ -153,7 +163,7 @@
                                 <?php
                                     $bill_amount = "$".$order['total_amount'];
                                 ?>
-                                <button class="btn btn-primary btn-lg btn-block pay_button" id="payment" type="submit">Pay Now ({{$bill_amount}})</button>
+                                <button class="btn btn-primary btn-lg btn-block pay_button" id="payment" type="submit">Pay Now</button>
                             </div>
                         </div>
                           
@@ -193,13 +203,35 @@
 
 
 
+        jQuery.validator.addMethod("valid_email", function(value, element) {
+          console.log(value.indexOf("."))
+            if(value.indexOf(".") >= 0 ){
+              return true;
+            }else {
+              return false;
+            }
+        }, "Please enter valid email address.");
+
+
+
+        $.validator.addMethod("valid_email2", function(value, element) {
+                return this.optional(element) || value == value.match(/^[.@a-zA-Z0-9\s]+$/);
+        }, "Please enter valid email address.");
+
+
+
         $("#payment-form").validate({
                 rules : {
                       name_on_card  : {
                         required : true,
                         alphanumeric: true,
-                        minlength:2,
+                        // minlength:2,
                         maxlength:50
+                      },
+                      email_address:{
+                        // email:true,
+                        // valid_email: true,
+                        // valid_email2: true, 
                       },
                       card_number : {
                         required : true,
@@ -221,8 +253,11 @@
                 messages : {
                       name_on_card :  {
                         required : "Please enter name on card.",
-                        minlength : "Name on card should be at least 2 alphanumeric long.",
+                        // minlength : "Name on card should be at least 2 alphanumeric long.",
                         maxlength : "Name on card should be less than or equal to 50 alphanumeric."
+                      },
+                      email:{
+                        email: 'Please enter valid email address.'
                       },
                       card_number : {
                         required : "Please enter card number.",
@@ -255,7 +290,7 @@
 
 
                  
-                  setTimeout(function(){
+                  // setTimeout(function(){
 
                     if(validate == "true"){
                       return false;
@@ -263,7 +298,7 @@
                       $('#payment').attr('disabled' , 'true')
                       form.submit();
                     }
-                  },1000);
+                  // },1000);
 
                   
                 }
@@ -352,5 +387,43 @@
     })
   })
 </script>
+
+<!-- 
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-control").on("keyup",function(){
+        var length = $.trim($(this).val()).length;
+        if(length == 0){
+           $(this).val("");
+        }
+      })
+    });
+</script> -->
+
+
+<script type="text/javascript">
+  $(document).ready(function(){
+    $('.block-start-space').keypress(function( e ) {    
+      if($(this).val() == ''){
+          if(!/[0-9a-zA-Z-]/.test(String.fromCharCode(e.which)))
+            return false;
+      }
+    })
+  })
+</script>
+
+
+<!-- trim space -->
+<script type="text/javascript">
+    $(document).ready(function(){
+      $(".form-control").on("keyup",function(){
+        var length = $.trim($(this).val()).length;
+        if(length == 0){
+           $(this).val("");
+        }
+      })
+    });
+</script>
+
 
 </html>

@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Table Order Details')
+@section('title','Entity Order Details')
 @section('content')
 <style type="text/css">
 		#basic-datatables_wrapper .col-sm-12 {
@@ -141,16 +141,16 @@
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb">
 								<li class="breadcrumb-item"><a href="{{route('restaurant.dashboard')}}"><i class="fas fa-home"></i></a></li>
-								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Table Management</a></li>
-								<li class="breadcrumb-item active"><a href="{{url('restaurant/table-details').'/'.$table_id}}">Table Details</a></li>
-								<li class="breadcrumb-item remove_hover">Table Order Details</li>
+								<li class="breadcrumb-item active"><a href="{{route('restaurant.tableManagement')}}">Entity Management</a></li>
+								<li class="breadcrumb-item active"><a href="{{url('restaurant/table-details').'/'.$table_id}}">Entity Details</a></li>
+								<li class="breadcrumb-item remove_hover">Entity Order Details</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
 						</nav>
 					</div>
 					<div style="display: flex;justify-content: space-between;padding: 22px 0px;">
-						<h1 style="margin: 0px;padding: 0px">Table Order Details</h1> 
+						<h1 style="margin: 0px;padding: 0px">Entity Order Details</h1> 
 					</div>
 					<div class="border-bottom"></div>
 
@@ -219,6 +219,14 @@
 							</div>
 						</div>
 					</div>
+
+
+
+
+
+					
+
+
 
 
 
@@ -342,6 +350,30 @@
 						</div>
 					</div>
 
+
+
+					<div style="display: flex;justify-content: space-between;padding: 22px 0px;">
+						<h2 style="margin: 0px;padding: 0px;text-align: center;">Special Instruction</h2> 
+					</div>
+					<div class="card order_details">
+						<div class="card-body add_imgae_box"> 
+							<div class="table-responsive">
+
+								<?php
+									$check_instruction_exist = $order_details->order_text_customization;
+									if($check_instruction_exist == ''){
+										$instruction = 'N/A';
+									}else{
+										$instruction = $order_details->order_text_customization;
+									}
+								?>
+
+								{{$instruction}}
+
+							</div>
+						</div>
+					</div>
+					
  
 
 				</div>

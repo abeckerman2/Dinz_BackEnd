@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>cart</title>
+      <title>Order Placed</title>
       <link rel="icon" href="{{url('public/website/images/favicon.png')}}" sizes="16x16" type="images/png">
       <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
       <link rel="stylesheet" type="text/css" href="{{url('public/website/css/bootstrap.css')}}">
@@ -19,7 +19,7 @@
 
          <div class="new-file-line">
            <div class="text-center">
-            <img src="{{url('public/website/images/chartwe.png')}}" alt="" style="width: 384px; margin:auto;">
+            <img src="{{url('public/website/images/chartwe.png')}}" alt="" style="width: 100%; margin:auto;">
               </div>
             <h3 class="placed">Your Order has been placed!</h3>
             <p><div class="text-center"><img src="{{url('public/website/images/appi.png')}}" alt="" style="margin: auto;"></div></p>
@@ -90,5 +90,44 @@
          }
          });
       </script>
+
+
+
+<!-- <script type="text/javascript">
+     jQuery(document).ready(function($) {
+
+      var restaurant_id = $('#restaurant_id').val();
+      var table_id = $('#table_id').val();
+
+      console.log(restaurant_id);
+      console.log(table_id);
+
+
+      if (window.history && window.history.pushState) {
+
+        $(window).on('popstate', function() {
+          var hashLocation = location.hash;
+          var hashSplit = hashLocation.split("#!/");
+          var hashName = hashSplit[1];
+
+          if (hashName !== '') {
+            var hash = window.location.hash;
+            if (hash === '') {
+              alert('Back button was pressed.');
+                window.location="url{{'website/menu-list'}}"+'/'+restaurant+'/'+table_id;
+                return false;
+            }
+          }
+        });
+
+        window.history.pushState('forward', null, './#forward');
+      }
+
+    });
+
+</script> -->
+
+
+
    </body>
 </html>

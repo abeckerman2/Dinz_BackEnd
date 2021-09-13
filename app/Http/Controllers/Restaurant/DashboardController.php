@@ -40,6 +40,23 @@ class DashboardController extends Controller
 
         $total_order = Order::where('restaurant_id' , $restaurant_id)->count();
 
-        return view('restaurant.dashboard' ,compact('total_table' , 'total_users' , 'total_order'));
+        $current_date = date('Y-m-d');
+        $first_date_of_current_month =  date('Y-m-01');
+
+        $first_date_of_current_year =  date('Y-01-01');
+
+
+        // $date = date_create($current_date);
+        // $date_of_last_year = date_sub($date, date_interval_create_from_date_string('365 days'));
+
+        // dd($date_of_last_year['']); die();
+
+
+        $today_earning = Order::where('restaurant_id' , $restaurant_id)->where('date' , $current_date)->sum('total_amount');
+        $this_month = Order::where('restaurant_id' , $restaurant_id)->where('date' , '>=' ,  $first_date_of_current_month)->sum('total_amount');
+        $this_year = Order::where('restaurant_id' , $restaurant_id)->where('date' , '>=' ,  $first_date_of_current_year)->sum('total_amount');
+
+
+        return view('restaurant.dashboard' ,compact('total_table' , 'total_users' , 'total_order' , 'today_earning' , 'this_month' , 'this_year'));
      }
 }

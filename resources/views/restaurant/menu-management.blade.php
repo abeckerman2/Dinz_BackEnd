@@ -1,5 +1,5 @@
 @extends('restaurant.layout.layout')
-@section('title','Sub Menu Management')
+@section('title','Menu Details')
 @section('content')
 <style type="text/css">
 	/*.alert-danger {
@@ -169,6 +169,7 @@
 		}
 		.dashboard_panel .card td.user_img img { 
 		    object-fit: cover;
+		    border-radius: 5px;
 		}
 				
 		.dashboard_panel .card .card-body .serch_icon i{
@@ -193,6 +194,14 @@
 		.btn-info:disabled, .btn-info:focus, .btn-info:hover {
 			color: #fff !important;
 		}
+
+
+		.menu_image {
+		    width: 100%;
+		    margin-right: auto;
+		    text-align: right;
+		}
+
 </style>
 		<div class="main-panel dashboard_panel">
 			<div class="content">
@@ -206,7 +215,7 @@
 									<a href="{{url('restaurant/parent-menu-management')}}">Menu Management</a>
 								</li>
 
-								<li class="breadcrumb-item remove_hover">Sub Menu Management</li>
+								<li class="breadcrumb-item remove_hover">Menu Details</li>
 								<!-- <li class="breadcrumb-item"><a href="#">Library</a></li>
 								<li class="breadcrumb-item active" aria-current="page">Data</li> -->
 							</ol>
@@ -220,18 +229,31 @@
 
 						
                 		<!-- <div class="d-flex"> -->
-							<input type="file" name="import_menu" class="form-control" style="width: 300px;     border: 0 !important;
-    background-color: transparent;
-    color: #fff !important; padding-left: 0;">
+						<input type="file" name="import_menu" class="form-control" title="Select File" style="width: 300px; border: 0 !important; background-color: transparent; color: #fff !important; padding-left: 0; cursor: pointer;">
                 			
                 		<!-- </div> -->
 						<div class="d-flex mt-3">
-		        			<button class="btn btn-success mr-3 common_btnn">Import Menu</button>
-							<a class="btn btn-info mr-3 common_btnn" href="{{ url('restaurant/export-menu') }}"> Export Menu </a>
+		        			<button class="btn btn-success mr-3 common_btnn" title="Import menu">Import Menu</button>
+							<a class="btn btn-info mr-3 common_btnn" href="{{ url('restaurant/export-menu') }}" title="Export menu"> Export Menu </a>
+
+							<a class="btn btn-info mr-3 common_btnn" href="{{ url('public/restaurant/assets/samplefile.xlsx') }}" title="Downlaod" download>Sample File </a>
+
 		                	<!-- <a href="{{url('restaurant/menu-images')}}">
 								<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Menu Images</button>
 							</a> -->
+							<div class="menu_image">
+								<a href="{{url('restaurant/menu-images')}}">
+			                    	<button type="button" class="btn btn-warning same_wd_btn" style="width: 146px;">Menu Images</button>
+			                  	</a>
+			                  </div>
 						</div>
+
+
+
+
+						
+
+
 
 					</form>
 
@@ -252,8 +274,13 @@
 		              @endif
 
 
-					<h1>Sub Menu Management</h1>
+					<h1>Menu Details</h1>
 
+					<?php
+						$menu_name = ucfirst($main_menu_details->menu_name);
+					?>
+					<h2>{{$menu_name}}</h2>
+					<br>
 					
 
 					<div class="card">
@@ -284,10 +311,10 @@
 										</tr>
 									</thead>
 									<tbody>
-										<?php $i=1; ?>
+										<?php $i= 0; ?>
 										@foreach($menus as $menu)
 										<tr>
-											<td>{{$i}}</td>
+											<td>{{++$i}}</td>
 											<td class="user_img">
 												<img src="{{$menu->image}}" alt="arashmil">
 											</td>
@@ -312,7 +339,7 @@
 												
 											</td>
 										</tr>
-										{{$i++}}
+										
 										@endforeach()
 										
 										
@@ -530,6 +557,7 @@ $(function(){
 
 		$(".yes").on("click",function(){
 			$("#deleteFORM").submit();
+			$("#deleteModel").modal("hide");
 		});
 
 		$(".no").on("click",function(){
