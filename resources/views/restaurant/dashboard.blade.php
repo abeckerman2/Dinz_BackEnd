@@ -46,6 +46,23 @@
 		              @endif -->
 
 
+		          @if(Session::has("error"))
+                  <div class="alert alert-danger">{{Session::get("error")}}</div>
+                  @endif
+                  @if(Session::has("success"))
+                  <div class="alert alert-success">{{Session::get("success")}}</div>
+                  @endif
+                  @if ($errors->any())
+                  <div class="alert alert-danger">
+                        @foreach ($errors->all() as $error)
+                        {{$error}}
+                        @endforeach
+                  </div>
+                  @endif
+
+
+
+
 					<div class="row mt-5">
 						<div class="col-md-6 mb_bottom ">
 							<!-- <a href="" class="hover_box">
@@ -59,18 +76,22 @@
 									</div>
 								</div>
 							</a> -->
+
+
+
+						
 						<a href="{{url('restaurant/table-management')}}" class="hover_box">
 								<div class="box">
 									<div class="icon_text">
 										<i class="fas fa-table"></i>
 										<h2>
-											Total Tables
+											Total Entity
 										</h2>
 										<h2 class="number">{{$total_table}}</h2>
 									</div>
 								</div>
 							</a>
-													</div>
+						</div>
 
 						<div class="col-md-6">
 							<a href="{{url('restaurant/order-management')}}" class="hover_box">

@@ -19,8 +19,7 @@ use App\Http\Controllers\StripeCustomClass;
 
 use Mail;
 use App\Mail\OrderDetail;
-
-
+ 
 class WebsiteController extends Controller
 {
     	
@@ -284,6 +283,47 @@ class WebsiteController extends Controller
 
 
 
+
+
+
+
+
+
+      //       $restaurant_stripe_customer = $this->stripeCall()->createCustomer($restaurant_details['email'],"");
+		    // if($restaurant_stripe_customer['status'] == 2){
+      //           return back()->with('error','Something went wrong. '.$restaurant_stripe_customer_id['error']);
+      //       }	
+      //       $restaurant_stripe_customer_id = $restaurant_stripe_customer['stripe_customer_id'];
+
+
+
+
+
+		    // $bank = $this->stripeCall()->createBankToken();
+		    // if($bank['status'] == 2){
+      //           return back()->with('error','Something went wrong. '.$bank['error']);
+      //       }
+		    // $destination =  $bank['data']['bank_account']['id'];
+
+
+
+
+		    // $amount_99_persent = $data['final_amount'] * 99 /100;
+		    // return $this->stripeCall()->payout($amount_99_persent,$destination);
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+
             $main_order =  Session::get('order');
             $main_order['date'] =  date('Y-m-d');
             $main_order['date_time'] =  date('Y-m-d H:i:s');
@@ -319,6 +359,17 @@ class WebsiteController extends Controller
 			];
 			
 			$payment = Payment::create($payment);
+
+
+
+
+
+			$amount_99_persent = $data['final_amount'] * 99 /100;
+
+            $this->stripeCall()->transferAmountToMerchant($stripe_customer_id = "",$amount_99_persent, $restaurant_details->stripe_merchant_id,$order_id,$card_id_null = "",$transacation_id);
+
+
+
 
 			Table::where('id' , $table_id)->update(['is_occupied' => 2]);
 
@@ -382,4 +433,10 @@ class WebsiteController extends Controller
 	// 	Mail::to('demo@yopmail.com')->send(new OrderDetail());
 	// 	return view('website/order-details-template');
 	// }
+
+
+ 
+
+
+
 }
