@@ -252,11 +252,11 @@ class StripeCustomClass extends Controller
 		return $data;
     }
 
-    public function transferAmountToMerchant($stripe_customer_id,$amount,$stripe_merchant_id,$orderId,$card_id = ''){
+    public function transferAmountToMerchant($stripe_customer_id,$amount_99_persent,$stripe_merchant_id,$orderId,$card_id = ''){
     	try {	
 
 				$transfer = \Stripe\Transfer::create(array(
-					  "amount" => $amount * 100, // cent,
+					  "amount" => $amount_99_persent * 100, // cent,
 					  "currency" => "usd",
 					  "destination" => $stripe_merchant_id,
 					  "transfer_group" => "{$orderId}"
@@ -288,7 +288,122 @@ class StripeCustomClass extends Controller
 				$data['error'] = $e->getMessage();
 			}
 		return $data;
-    }
+    }	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+ 
+
+
+
+  //   public function createBankToken()
+  //   {
+  //   	try {
+		// 	$bank_token = \Stripe\Token::create([
+  //                 'bank_account' => [
+		// 		    'country' => 'US',
+		// 		    'currency' => 'usd',
+		// 		    'account_holder_name' => 'Andrew',
+		// 		    'account_holder_type' => 'individual',
+		// 		    'routing_number' => '110000000',
+		// 		    'account_number' => '000123456789',
+		// 		  ],
+  //               ]);
+
+		// 	$data['status'] = 1;
+		// 	$data['data'] = $bank_token;
+
+		// } catch(\Stripe\Error\Card $e) {
+		// 	$body = $e->getJsonBody();
+		// 	$err  = $body['error'];
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $err['message'];
+		// } catch (\Stripe\Error\RateLimit $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\InvalidRequest $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\Authentication $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\ApiConnection $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\Base $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (Exception $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// }
+		// return $data;
+  //   }
+
+
+
+
+
+
+ 
+
+
+
+
+
+  //   public function payout($amount_99_persent, $destination )
+  //   {
+  //   	try {	
+			
+		// 	$payout = \Stripe\Payout::create(array(
+		// 	  "amount" => $amount_99_persent,
+		// 	  "currency" => "usd",  //currency
+		// 	  "destination" => $destination,
+		// 	  "method" => "standard",
+		// 	  "source_type" => "bank_account"
+		// 	));
+		// 	$data['status'] = 1;
+		// 	$data['data'] = $payout;
+		// } 
+		// catch(\Stripe\Error\Card $e) {
+		// 	$body = $e->getJsonBody();
+		// 	$err  = $body['error'];
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $err['message'];
+		// } catch (\Stripe\Error\RateLimit $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\InvalidRequest $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\Authentication $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\ApiConnection $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (\Stripe\Error\Base $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// } catch (Exception $e) {
+		// 	$data['status'] = 2;
+		// 	$data['error'] = $e->getMessage();
+		// }
+		// return $data;
+  //   }
+
+
 
 
 }

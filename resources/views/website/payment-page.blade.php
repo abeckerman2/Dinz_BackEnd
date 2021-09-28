@@ -123,8 +123,8 @@
   
                        <div class='form-row row'>
                             <div class='col-xs-12 form-group required'>
-                                <label class='control-label'>Email Address(Optional)</label>
-                                <input name="email_address"  placeholder="Enter Email Address" class='form-control block-start-space' maxlength="50" size='4' value="" type='text'>
+                                <label class='control-label'>Email Address For Receipt</label>
+                                <input name="email_address"  placeholder="Enter Email Address For Receipt" class='form-control block-start-space' maxlength="50" size='4' value="" type='text'>
                             </div>
                         </div>
 
@@ -145,8 +145,8 @@
 
                         <div class='form-row row'>
                             <div class="form-group col-md-8">
-                                 <label>Expiry Month/Expiry Year</label>
-                                <input type="text" name="expiry_month_year" maxlength="5" id="expiry_month_year" class="form-control" value="" placeholder="Enter Expiry Month/Expiry Year">
+                                 <label>Expiration Month/Expiration Year</label>
+                                <input type="text" name="expiry_month_year" maxlength="5" id="expiry_month_year" class="form-control" value="" placeholder="Enter Expiration Month/Expiration Year">
                                 <label id="expiry_time" style="display: none"></label>
                             </div>
                         </div>
@@ -273,7 +273,7 @@
 
                       },
                       expiry_month_year : {
-                        required : "Please enter expiry month/expiry year."
+                        required : "Please enter expiration month/expiration year."
                       },
                 },
 

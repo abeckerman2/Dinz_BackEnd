@@ -245,7 +245,7 @@
 
 
                <div class="text-area">
-                  <textarea placeholder="Any special request/ Allergy to restaurant?" name="order_text_customization" maxlength="200"></textarea>
+                  <textarea placeholder="Any special request" name="order_text_customization" maxlength="200"></textarea>
                   <div class="words_new">
                      <!-- <span class="words">50 words</span> -->
                      <br>

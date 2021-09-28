@@ -33,7 +33,7 @@ class TimeZone
         }
 
         /*Remove lines When Push On Live Server*/
-        // date_default_timezone_set("Asia/Kolkata");
+        date_default_timezone_set("Asia/Kolkata");
         /*Remove Lines End*/
         return $next($request);
     }

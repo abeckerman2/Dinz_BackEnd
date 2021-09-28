@@ -138,6 +138,19 @@ input#submit {
 }
 
 
+
+#basic-datatables .sorting_asc {
+    width: 27.2188px !important;
+}
+#basic-datatables .menu_name {
+    width: 104px !important;
+}
+#basic-datatables .items {
+    width: 23.2188px !important;
+}
+#basic-datatables .action {
+    width: 249.922px !important
+}
 </style>
 
 
@@ -210,9 +223,9 @@ input#submit {
                         <thead>
                           <tr>
                             <th>Sr. No.</th> 
-                            <th>Menu Name</th>
-                            <th>No. of items</th>
-                            <th class="text-center">Action</th>
+                            <th class="menu_name">Menu Name</th>
+                            <th class="items">No. of items</th>
+                            <th class="text-center action">Action</th>
                           </tr>
                         </thead>
                         <tbody> 
@@ -225,7 +238,7 @@ input#submit {
                           <?php
                           ?>
                             <td>{{++$i}}</td>
-                            <td>{{$rows->menu_name}}</td>
+                            <td style="word-break: break-all !important;">{{$rows->menu_name}}</td>
 
                             <?php
                               $no_of_items = count($rows->menu);

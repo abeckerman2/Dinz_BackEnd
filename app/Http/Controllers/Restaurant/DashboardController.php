@@ -24,7 +24,8 @@ use Mail;
 use App\User;
 use App\Table;
 use App\Order;
-	
+use App\Restaurant;
+
 class DashboardController extends Controller
 {
     public function dashboard(Request $request){
@@ -59,4 +60,71 @@ class DashboardController extends Controller
 
         return view('restaurant.dashboard' ,compact('total_table' , 'total_users' , 'total_order' , 'today_earning' , 'this_month' , 'this_year'));
      }
+
+
+
+
+     public function stripeRedirect(Request $request){
+
+        $client_id = env('STRIPE_CLIENT_ID');
+        $stripe_url = 'https://connect.stripe.com/oauth/authorize?response_type=code&client_id='.$client_id.'&scope=read_write';
+        return Redirect::to($stripe_url);
+    }
+
+
+
+
+    public function stripeCallback(Request $request){
+
+        $restaurant_id = Auth::guard('restaurant')->user()->id;
+
+        $user = Restaurant::where('id' , $restaurant_id)->first();
+
+        $request_data = $request;
+
+
+        $authorize_code = $request_data['code'];
+       // dd($authorize_code);
+
+        $client_secret = env('STRIPE_SECRET_KEY');
+
+        $curl = curl_init();
+        $ex =  curl_setopt_array($curl, [
+          CURLOPT_URL => 'https://connect.stripe.com/oauth/token',
+          CURLOPT_RETURNTRANSFER => true,
+        //  CURLOPT_HTTPHEADER => ['Authorization: Bearer'. ' '.$client_secret],
+          CURLOPT_POST => true,
+          CURLOPT_POSTFIELDS => http_build_query([
+            'client_secret' => $client_secret,
+            'code' => $authorize_code,
+            'grant_type' => 'authorization_code'
+          ])
+        ]);
+
+         $response = curl_exec($curl);
+
+        $res = (json_decode($response));
+
+        // if($res->error){
+
+        //     if($res->error == "invalid_grant"){
+        //           Session::flash('danger','Something went wrong please try again.');
+        //           return redirect(url('website/edit-profile'));
+        //     }
+        // }
+
+        if(array_key_exists('stripe_user_id', $res)){
+
+        $user->stripe_merchant_id = $res->stripe_user_id;
+        $user->update();
+        }else{
+            return redirect(url('restaurant/dashboard'))->with("error","Something went wrong please try again.");
+        }
+        //Session::flash('message','Account connected with gateway successfully.');
+        return redirect(url('restaurant/dashboard'))->with("success","Account connected with gateway successfully.");
+
+    }
+
+
+
 }

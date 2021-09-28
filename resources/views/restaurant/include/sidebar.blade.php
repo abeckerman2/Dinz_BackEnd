@@ -138,6 +138,20 @@
 										</a>
 									</li>
 
+
+
+
+
+									<li class="nav-item @if(Request::is('restaurant/stripe-redirect')) active @endif">
+										<a href="{{url('restaurant/stripe-redirect')}}">
+
+											<i class="fas fa-university"></i>
+											
+											<p>Add Account</p> 
+										</a>
+									</li>
+
+
 									<li class="nav-item @if(Request::is('restaurant/my-earnings')) active @endif">
 										<a href="{{route('restaurant.myEarnings')}}">
 											<i class="fas fa-dollar-sign"></i>

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: localhost:3306
--- Generation Time: Aug 19, 2021 at 12:26 PM
+-- Generation Time: Sep 24, 2021 at 11:49 AM
 -- Server version: 5.7.35-0ubuntu0.18.04.1
 -- PHP Version: 7.2.34-23+ubuntu18.04.1+deb.sury.org+1
 
@@ -17,7 +17,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `dinz_19_aug`
+-- Database: `aaaaaaaaaaaa`
 --
 
 -- --------------------------------------------------------
@@ -59,7 +59,7 @@ CREATE TABLE `admins` (
 --
 
 INSERT INTO `admins` (`id`, `name`, `email`, `password`, `remember_token`, `created_at`, `updated_at`) VALUES
-(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', 'ITr6eNsgbzXVBiCqH6IRcAL7YsfiSFnWS0CggmctmDMgoygWkhd6MZBudiMWjEEx', NULL, '2021-08-16 23:41:37');
+(1, 'admin', 'adminn@yopmail.com', '$2y$10$h4gzxOhj5d1Ylo9z/cZj0OsypDcPRWLWX.qWNUhUaGYly7.me76my', 'G0BYh8wIljSsNMwvNBQ9MKnCeTdiWOHAllFlz44qB4Ytb3ka4SMTHELzzt9occKt', NULL, '2021-09-06 05:52:20');
 
 -- --------------------------------------------------------
 
@@ -617,17 +617,11 @@ CREATE TABLE `restaurants` (
   `qr_code` varchar(191) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `description` longtext COLLATE utf8mb4_unicode_ci,
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `stripe_merchant_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `restaurants`
---
-
-INSERT INTO `restaurants` (`id`, `first_name`, `last_name`, `restaurant_name`, `owner_name`, `restaurant_logo`, `restaurant_address`, `city`, `lat`, `lon`, `email`, `country_code`, `phone_number`, `password`, `is_approved`, `is_block`, `qr_code`, `description`, `remember_token`, `deleted_at`, `created_at`, `updated_at`) VALUES
-(1, 'restaurant', 'restaurant', 'restaurant', NULL, '080920210553306110c2da7c7fa.jpeg', 'Restaurante El Campero, Avenida Constitución, Barbate, Spain', 'restaurant', '36.18844110000001', '-5.924819299999999', 'restaurant@yopmail.com', '297', '5555555555555', '$2y$10$fGvddt..cGAKtdeFfQUtxOs5gnC.tHy1l2dNQJzImZolxAcEYrOIO', 1, 0, '080920210553306110c2da7c866.png', 'restaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurantrestaurant', '38bRudBDjxxNTZy0GczVNjeTAg1iiZrl1G6vWbSfZm1MjwSFlFqAdcZcoEIYFDY5', NULL, '2021-08-09 00:23:30', '2021-08-18 08:02:02');
 
 -- --------------------------------------------------------
 
@@ -662,14 +656,6 @@ CREATE TABLE `restaurant_images` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `restaurant_images`
---
-
-INSERT INTO `restaurant_images` (`id`, `restaurant_id`, `restaurant_image`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, '080920210553306110c2da7c6ba.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(2, 1, '080920210553306110c2da7c789.jpeg', '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -688,19 +674,6 @@ CREATE TABLE `restaurant_timings` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `restaurant_timings`
---
-
-INSERT INTO `restaurant_timings` (`id`, `restaurant_id`, `day`, `open_time`, `close_time`, `open_status`, `close_status`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 1, 'Sunday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(2, 1, 'Monday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(3, 1, 'Tuesday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(4, 1, 'Wednesday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:30', '2021-08-09 00:23:30', NULL),
-(5, 1, 'Thursday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
-(6, 1, 'Friday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL),
-(7, 1, 'Saturday', '08:00:00', '20:00:00', 1, 0, '2021-08-09 00:23:31', '2021-08-09 00:23:31', NULL);
 
 -- --------------------------------------------------------
 
@@ -977,7 +950,7 @@ ALTER TABLE `payments`
 -- AUTO_INCREMENT for table `restaurants`
 --
 ALTER TABLE `restaurants`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `restaurant_docs`
 --
@@ -987,12 +960,12 @@ ALTER TABLE `restaurant_docs`
 -- AUTO_INCREMENT for table `restaurant_images`
 --
 ALTER TABLE `restaurant_images`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `restaurant_timings`
 --
 ALTER TABLE `restaurant_timings`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tables`
 --

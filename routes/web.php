@@ -94,6 +94,13 @@ Route::group(['namespace' => 'Restaurant','prefix'=>'/restaurant', 'as' => 'rest
 
     Route::group(['middleware' => ['check_user','CheckRestaurantBlockDelete']] , function(){
 
+
+        Route::get('stripe-redirect','DashboardController@stripeRedirect');
+
+        Route::any('stripe-callback','DashboardController@stripeCallback');
+
+
+
         Route::match(['GET' , 'POST'] , 'change-password' , 'SettingController@changePassword')->name('changePassword');
 
         Route::post('avail-unavail','MenuManagementController@availUnavail')->name('availUnavail');
@@ -264,7 +271,10 @@ Route::group(['namespace' => 'Website' , 'prefix' => "website"] , function(){
         Route::match(['GET' , 'POST'] , 'delete-table' , 'WebsiteController@deleteTable');
 
         // Route::match(['GET' , 'POST'] , 'payment-invoice' , 'WebsiteController@paymentInvoice');
+      
+        
 
+        
     });
     
 });
